@@ -52,6 +52,23 @@ def brier_score_multiclass(y_true: np.ndarray, y_proba: np.ndarray, classes: lis
     return float(np.mean(np.sum((y_proba - one_hot) ** 2, axis=1)))
 
 
+def ranked_probability_score(y_true: np.ndarray, y_proba: np.ndarray, classes: list[str] = RESULT_CLASSES) -> float:
+    """RPS (Epstein 1969): a métrica padrão da literatura de forecasting esportivo
+    para resultados com ORDEM natural — aqui, derrota < empate < vitória (a ordem de
+    `classes` é usada como a ordem ordinal; RPS é invariante à direção em que essa
+    ordem é lida). Ao contrário do log loss/Brier, penaliza menos um erro entre
+    classes "vizinhas" (achar que ia empatar quando o mandante venceu) do que um
+    erro entre extremos (achar que o mandante venceria quando o visitante venceu) —
+    o log loss e o Brier tratam as 3 classes como não-ordenadas e não fazem essa
+    distinção.
+    """
+    one_hot = np.array([[1.0 if cls == y else 0.0 for cls in classes] for y in y_true])
+    cum_proba = np.cumsum(y_proba, axis=1)
+    cum_true = np.cumsum(one_hot, axis=1)
+    n_classes = len(classes)
+    return float(np.mean(np.sum((cum_proba - cum_true) ** 2, axis=1) / (n_classes - 1)))
+
+
 def evaluate_probabilistic(
     y_true: np.ndarray, y_proba: np.ndarray, classes: list[str] = RESULT_CLASSES
 ) -> dict[str, float]:
@@ -69,5 +86,6 @@ def evaluate_probabilistic(
     return {
         "log_loss": loss,
         "brier_score": brier_score_multiclass(y_true, y_proba, classes),
+        "rps": ranked_probability_score(y_true, y_proba, classes),
         "accuracy": float(accuracy_score(y_true, y_pred)),
     }

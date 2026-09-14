@@ -28,7 +28,6 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-import numpy as np
 import pandas as pd
 import yaml
 
@@ -93,24 +92,29 @@ def main() -> None:
     match_predictions = []
     for row in remaining_fixtures.itertuples(index=False):
         p_home, p_draw, p_away = goals_model.outcome_probabilities(row.home_team_id, row.away_team_id)
-        score_matrix = goals_model.score_matrix(row.home_team_id, row.away_team_id)
-        most_likely_home_goals, most_likely_away_goals = np.unravel_index(
-            np.argmax(score_matrix), score_matrix.shape
-        )
-        match_predictions.append(
-            {
-                "round": row.round,
-                "date": row.date if pd.notna(row.date) else "A definir",
-                "home_team": team_names.get(row.home_team_id, row.home_team_id),
-                "away_team": team_names.get(row.away_team_id, row.away_team_id),
-                "home_win_probability": p_home,
-                "draw_probability": p_draw,
-                "away_win_probability": p_away,
-                "most_likely_home_goals": int(most_likely_home_goals),
-                "most_likely_away_goals": int(most_likely_away_goals),
-                "most_likely_score_probability": float(score_matrix.max()),
-            }
-        )
+        lambda_home, lambda_away = goals_model.lambdas(row.home_team_id, row.away_team_id)
+        top5 = goals_model.top_scores(row.home_team_id, row.away_team_id, k=5)
+
+        match_row = {
+            "round": row.round,
+            "date": row.date if pd.notna(row.date) else "A definir",
+            "home_team": team_names.get(row.home_team_id, row.home_team_id),
+            "away_team": team_names.get(row.away_team_id, row.away_team_id),
+            "home_win_probability": p_home,
+            "draw_probability": p_draw,
+            "away_win_probability": p_away,
+            "expected_goals_home": lambda_home,
+            "expected_goals_away": lambda_away,
+        }
+        # Placares mais prováveis, não "o placar previsto" — a coluna
+        # top5_coverage deixa explícito que raramente cobrem toda a massa de
+        # probabilidade (futebol tem muitos placares plausíveis).
+        for i, score in enumerate(top5, start=1):
+            match_row[f"top{i}_score"] = f"{score['home_goals']}-{score['away_goals']}"
+            match_row[f"top{i}_probability"] = score["probability"]
+        match_row["top5_coverage"] = goals_model.top_scores_coverage(top5)
+
+        match_predictions.append(match_row)
     match_predictions_df = pd.DataFrame(match_predictions).sort_values("round")
     match_predictions_df.to_csv(OUTPUTS_DIR / "match_predictions_2026.csv", index=False)
     print(f"Gravado outputs/match_predictions_2026.csv ({len(match_predictions_df)} jogos)")

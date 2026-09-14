@@ -1,7 +1,13 @@
 import numpy as np
 import pandas as pd
 
-from src.poisson_goals import PoissonGoalsModel, _dixon_coles_tau, fit_poisson_goals_model
+from src.poisson_goals import (
+    PoissonGoalsModel,
+    _dixon_coles_tau,
+    _dixon_coles_tau_vec,
+    fit_poisson_goals_model,
+    fit_poisson_goals_model_mle,
+)
 
 
 def _synthetic_matches() -> pd.DataFrame:
@@ -97,3 +103,103 @@ def test_zero_rho_reduces_to_independent_poisson():
     expected = np.outer(poisson.pmf(goals, lambda_home), poisson.pmf(goals, lambda_away))
     expected /= expected.sum()
     assert np.allclose(matrix, expected)
+
+
+def test_top_scores_returns_k_entries_sorted_descending():
+    model = fit_poisson_goals_model(_synthetic_matches(), current_season=2024)
+    top5 = model.top_scores("A", "C", k=5)
+    assert len(top5) == 5
+    probs = [s["probability"] for s in top5]
+    assert probs == sorted(probs, reverse=True)
+
+
+def test_top_scores_coverage_is_between_zero_and_one_and_less_than_full_mass():
+    model = fit_poisson_goals_model(_synthetic_matches(), current_season=2024)
+    top5 = model.top_scores("A", "C", k=5)
+    coverage = model.top_scores_coverage(top5)
+    assert 0.0 < coverage <= 1.0
+    # 5 de 121 células plausíveis não deveriam cobrir a massa inteira.
+    assert coverage < 1.0
+
+
+def test_top_scores_matches_score_matrix_values():
+    model = fit_poisson_goals_model(_synthetic_matches(), current_season=2024)
+    matrix = model.score_matrix("A", "C")
+    top1 = model.top_scores("A", "C", k=1)[0]
+    assert matrix[top1["home_goals"], top1["away_goals"]] == matrix.max()
+    assert abs(top1["probability"] - matrix.max()) < 1e-12
+
+
+def test_dixon_coles_tau_vec_matches_scalar_version():
+    home_goals = np.array([0, 0, 1, 1, 2])
+    away_goals = np.array([0, 1, 0, 1, 2])
+    lambda_home = np.array([1.2, 1.2, 1.2, 1.2, 1.2])
+    lambda_away = np.array([1.0, 1.0, 1.0, 1.0, 1.0])
+    vec = _dixon_coles_tau_vec(home_goals, away_goals, lambda_home, lambda_away, rho=-0.1)
+    scalar = [
+        _dixon_coles_tau(h, a, lh, la, -0.1)
+        for h, a, lh, la in zip(home_goals, away_goals, lambda_home, lambda_away)
+    ]
+    assert np.allclose(vec, scalar)
+
+
+def test_mle_joint_fit_converges_and_produces_valid_probabilities():
+    model = fit_poisson_goals_model_mle(_synthetic_matches(), current_season=2024)
+    assert model.converged is True
+    assert model.n_iterations is not None and model.n_iterations > 0
+    assert model.log_likelihood is not None
+    assert model.aic is not None and model.bic is not None
+
+    p_home, p_draw, p_away = model.outcome_probabilities("A", "C")
+    assert abs((p_home + p_draw + p_away) - 1.0) < 1e-9
+
+
+def test_mle_joint_fit_preserves_relative_team_strength_ordering():
+    """A ataca muito e defende bem, C é o oposto — a MLE conjunta deve concordar
+    com o método dos momentos na ORDEM relativa das forças, mesmo ajustando os
+    parâmetros de um jeito diferente.
+    """
+    model = fit_poisson_goals_model_mle(_synthetic_matches(), current_season=2024)
+    assert model.attack["A"] > model.attack["B"] > model.attack["C"]
+    assert model.defense["A"] < model.defense["B"] < model.defense["C"]
+
+
+def test_mle_joint_fit_does_not_diverge_on_a_team_that_never_scores():
+    """Caso degenerado: sem regularização, a restrição de identificabilidade
+    (soma dos log-efeitos de ataque = 0) faz o ataque de um time que nunca marca
+    empurrar os outros para o infinito. A penalização ridge em `_fit_dixon_coles_mle`
+    existe exatamente para evitar isso.
+    """
+    matches = pd.DataFrame(
+        [
+            {"season": 2024, "home_team_id": "A", "away_team_id": "C", "home_goals": 3, "away_goals": 0},
+            {"season": 2024, "home_team_id": "C", "away_team_id": "A", "home_goals": 0, "away_goals": 4},
+            {"season": 2024, "home_team_id": "B", "away_team_id": "C", "home_goals": 2, "away_goals": 0},
+            {"season": 2024, "home_team_id": "C", "away_team_id": "B", "home_goals": 0, "away_goals": 2},
+        ]
+    )
+    model = fit_poisson_goals_model_mle(matches, current_season=2024)
+    assert all(np.isfinite(v) and abs(v) < 50 for v in model.attack.values())
+    assert all(np.isfinite(v) and abs(v) < 50 for v in model.defense.values())
+
+
+def test_mle_and_method_of_moments_agree_on_rho_sign_and_magnitude_order():
+    """Não exigimos que os dois métodos deem o mesmo rho exato (são ajustes
+    diferentes), só que fiquem na mesma faixa geral — divergência grande indicaria
+    um bug em algum dos dois.
+    """
+    old = fit_poisson_goals_model(_synthetic_matches(), current_season=2024)
+    new = fit_poisson_goals_model_mle(_synthetic_matches(), current_season=2024)
+    assert abs(old.rho - new.rho) < 0.3
+
+
+def test_old_fit_function_still_has_no_diagnostic_fields():
+    """Trava a compatibilidade: quem já usava fit_poisson_goals_model (predict_current.py,
+    backtest_2026.py) não deve ver comportamento novo — os campos de diagnóstico só
+    existem na MLE conjunta.
+    """
+    model = fit_poisson_goals_model(_synthetic_matches(), current_season=2024)
+    assert model.log_likelihood is None
+    assert model.aic is None
+    assert model.bic is None
+    assert model.converged is None

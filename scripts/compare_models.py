@@ -6,11 +6,17 @@ Modelos:
       histórica de H/D/A observada no treino.
     - elo: baseline que converte a probabilidade binária de vitória do mandante
       (Elo) em 3 classes, com uma taxa de empate constante estimada no treino.
-    - poisson_dixon_coles: o modelo de produção (`src/poisson_goals.py`), refeito a
-      cada temporada de teste só com dados anteriores a ela.
+    - poisson_dixon_coles: o modelo de produção original (`fit_poisson_goals_model`)
+      — ataque/defesa por média ponderada, rho por perfil de máxima verossimilhança.
+    - poisson_dixon_coles_mle: mesma família de modelo, mas ataque, defesa, médias-
+      base e rho ajustados TODOS de uma vez por máxima verossimilhança conjunta
+      (`fit_poisson_goals_model_mle`) — ver comparação empírica dos dois no README.
     - logistic_regression / random_forest / gradient_boosting: treinados sobre as
       features de `build_pre_match_features` (Elo, forma, força do adversário,
       chutes/chutes a gol quando disponíveis).
+
+Ambos os modelos de gols são refeitos a cada temporada de teste só com dados
+anteriores a ela (walk-forward de verdade, sem vazamento).
 
 Uso:
     python scripts/compare_models.py
@@ -32,7 +38,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from src.evaluation import RESULT_CLASSES, evaluate_probabilistic, expanding_window_splits  # noqa: E402
-from src.poisson_goals import fit_poisson_goals_model  # noqa: E402
+from src.poisson_goals import fit_poisson_goals_model, fit_poisson_goals_model_mle  # noqa: E402
 from src.temporal import build_pre_match_features  # noqa: E402
 
 PROCESSED_DIR = ROOT / "data" / "processed"
@@ -85,11 +91,30 @@ def elo_baseline_probs(train: pd.DataFrame, test: pd.DataFrame) -> np.ndarray:
     return np.column_stack([home, draw, away])
 
 
-def poisson_probs(train: pd.DataFrame, test: pd.DataFrame, current_season: int) -> np.ndarray:
+def poisson_probs(
+    train: pd.DataFrame, test: pd.DataFrame, current_season: int, use_mle: bool, diagnostics: list[dict]
+) -> np.ndarray:
     train_matches = train.rename(
         columns={"target_home_goals": "home_goals", "target_away_goals": "away_goals"}
     )
-    model = fit_poisson_goals_model(train_matches, current_season=current_season)
+    fit_fn = fit_poisson_goals_model_mle if use_mle else fit_poisson_goals_model
+    model = fit_fn(train_matches, current_season=current_season)
+
+    if use_mle:
+        if not model.converged:
+            print(f"  [aviso] MLE conjunta não convergiu na temporada {current_season} ({model.n_iterations} iterações)")
+        diagnostics.append(
+            {
+                "season": current_season,
+                "rho": model.rho,
+                "log_likelihood": model.log_likelihood,
+                "aic": model.aic,
+                "bic": model.bic,
+                "converged": model.converged,
+                "n_iterations": model.n_iterations,
+            }
+        )
+
     return np.array(
         [
             model.outcome_probabilities(h, a)
@@ -124,13 +149,17 @@ def main() -> None:
     }
 
     rows = []
+    mle_diagnostics: list[dict] = []
     for train, test, season in expanding_window_splits(features, min_train_seasons=MIN_TRAIN_SEASONS):
         y_true = test["target_result"].to_numpy()
 
         predictions = {
             "home_advantage": home_advantage_probs(train, len(test)),
             "elo": elo_baseline_probs(train, test),
-            "poisson_dixon_coles": poisson_probs(train, test, current_season=season),
+            "poisson_dixon_coles": poisson_probs(train, test, current_season=season, use_mle=False, diagnostics=[]),
+            "poisson_dixon_coles_mle": poisson_probs(
+                train, test, current_season=season, use_mle=True, diagnostics=mle_diagnostics
+            ),
         }
         for name, fit_predict in models.items():
             predictions[name] = fit_predict(train, test)
@@ -145,13 +174,24 @@ def main() -> None:
     OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
     results.to_csv(OUTPUTS_DIR / "model_comparison.csv", index=False)
 
-    summary = (
-        results.groupby("model")[["log_loss", "brier_score", "accuracy"]]
-        .mean()
-        .sort_values("log_loss")
-    )
-    print("\nMédia por modelo (todas as temporadas de teste, menor log_loss é melhor):")
-    print(summary.to_string())
+    diagnostics_df = pd.DataFrame(mle_diagnostics)
+    diagnostics_df.to_csv(OUTPUTS_DIR / "dixon_coles_mle_diagnostics.csv", index=False)
+    print("\nDiagnóstico do ajuste MLE conjunta por temporada de treino:")
+    print(diagnostics_df.to_string(index=False))
+
+    metric_cols = ["log_loss", "brier_score", "rps", "accuracy"]
+    mean_summary = results.groupby("model")[metric_cols].mean().sort_values("log_loss")
+    std_summary = results.groupby("model")[metric_cols].std().loc[mean_summary.index]
+
+    print("\nMédia por modelo (todas as temporadas de teste, menor é melhor exceto acurácia):")
+    print(mean_summary.to_string())
+    print("\nDesvio-padrão entre temporadas (estabilidade — menor é mais consistente):")
+    print(std_summary.to_string())
+
+    print("\nComparação direta: modelo de produção vs. MLE conjunta (mesmo backtest, mesmas partidas):")
+    pivot = results[results["model"].isin(["poisson_dixon_coles", "poisson_dixon_coles_mle"])]
+    comparison = pivot.pivot(index="season", columns="model", values=metric_cols)
+    print(comparison.to_string())
 
 
 if __name__ == "__main__":

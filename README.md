@@ -125,6 +125,11 @@ strings livres.
 - **`current_standings_2026.csv` / `remaining_fixtures_2026.csv`** — classificação
   atual (calculada, não copiada) e jogos ainda não disputados de 2026, entrada direta
   de `scripts/predict_current.py`.
+- **`outputs/match_predictions_2026.csv`** — por jogo restante: `home_win_probability`/
+  `draw_probability`/`away_win_probability`, `expected_goals_home`/`expected_goals_away`
+  (os `lambda` do Poisson) e `top1_score`..`top5_score` com suas probabilidades +
+  `top5_coverage` (soma dessas 5 probabilidades — normalmente ~50%, nunca 100%:
+  futebol tem muitos placares plausíveis, o "mais provável" não é "o esperado").
 - **`teams.csv`** — cópia de `data/external/team_mapping.csv`: `team_id`, `team_name`
   (grafia da fonte), `canonical_name`, `state`, `aliases`, `first_season`,
   `last_season`.
@@ -183,17 +188,47 @@ não permitia isso). Resultado em `outputs/backtest_2026.csv`.
 **Modelo de gols (Poisson + Dixon-Coles) e simulação (Monte Carlo).**
 `src/poisson_goals.py`: força de ataque/defesa de cada time relativa à média da liga
 — `lambda_home = média de gols do mandante na liga × ataque do mandante × defesa do
-visitante` (e simetricamente para o visitante). Ajustado com todas as partidas
-disponíveis (2003–2024 + 2025/2026 disputadas), com peso maior para temporadas
-recentes (decaimento exponencial, meia-vida configurável). Poisson independente
-sozinha subestima placares baixos e correlacionados (0x0, 1x0, 0x1, 1x1) — Dixon &
-Coles (1997) corrigem isso com um fator `tau`, controlado por um parâmetro `rho`
-ajustado por máxima verossimilhança nos dados de treino (nunca escolhido a dedo).
-Achado real, honesto: nos dados do Brasileirão o `rho` ajustado fica perto de zero
-(~-0.005) — o efeito de correlação de placares baixos é bem mais fraco aqui do que
-no dataset original de Dixon-Coles (futebol inglês dos anos 90). A correção continua
-correta (some a zero quando os dados não sustentam correlação), só que o ganho
-prático é pequeno neste caso — reportado, não inflado.
+visitante` (e simetricamente para o visitante). Poisson independente sozinha
+subestima placares baixos e correlacionados (0x0, 1x0, 0x1, 1x1) — Dixon & Coles
+(1997) corrigem isso com um fator `tau`, controlado por um parâmetro `rho`.
+
+Duas formas de ajustar os parâmetros, as duas no código:
+
+- **`fit_poisson_goals_model`** (produção): ataque/defesa por média ponderada
+  (método dos momentos, peso maior pra temporadas recentes), `rho` depois, sozinho,
+  por perfil de máxima verossimilhança.
+- **`fit_poisson_goals_model_mle`**: ataque, defesa, mando de campo e `rho` TODOS
+  ajustados de uma vez, maximizando uma única log-verossimilhança (otimização
+  L-BFGS-B, ~95 parâmetros para 47 times, com uma penalização ridge leve pra evitar
+  divergência numérica em casos degenerados — ex.: time que nunca marcou na
+  amostra). Metodologicamente mais correto: os parâmetros não são estimados em dois
+  passos desacoplados.
+
+**Comparei os dois no mesmo walk-forward (2018–2026, mesmas partidas) antes de
+decidir qual usar em produção** — não assumi que o método mais sofisticado seria
+melhor:
+
+| | log loss | RPS | acurácia |
+|---|---|---|---|
+| `fit_poisson_goals_model` (produção) | 1.0281 | 0.2090 | 0.4892 |
+| `fit_poisson_goals_model_mle` | 1.0284 | 0.2091 | 0.4903 |
+
+**Resultado: estatisticamente empatados** (diferença de 0.0002 em log loss, contra
+um desvio-padrão de ~0.02 entre temporadas — ruído, não sinal). A MLE conjunta
+convergiu nas 9 temporadas testadas (`outputs/dixon_coles_mle_diagnostics.csv` tem
+log-verossimilhança/AIC/BIC/convergência por temporada; `rho` variou entre -0.007 e
++0.035 dependendo da janela de treino), mas não trouxe ganho preditivo mensurável, e
+custa ~20s por ajuste contra <1s do método antigo. **Por isso a produção continua
+usando `fit_poisson_goals_model`** — a versão mais simples e mais rápida, já que a
+mais complexa não entregou vantagem real. `fit_poisson_goals_model_mle` fica
+disponível para quem quiser validar/pesquisar, e é comparada de novo a cada rodada
+de `scripts/compare_models.py`.
+
+Essa comparação também responde a uma pergunta maior: com o `rho` do Dixon-Coles
+perto de zero nos dois métodos e a MLE conjunta não melhorando nada, o gargalo
+atual não é o método de ajuste — é a informação disponível (features). Empilhar
+mais modelos num ensemble agora, antes de resolver isso, criaria complexidade sem
+saber se ela ajuda; ver "Próximos passos" abaixo.
 
 `src/monte_carlo.py` simula o restante da temporada a partir da tabela real atual:
 em cada uma das N temporadas simuladas, sorteia um placar direto da matriz de
@@ -221,26 +256,35 @@ aleatório: partidas do mesmo campeonato são correlacionadas no tempo.
 `expanding_window_splits` treina com temporadas passadas e testa na próxima,
 avançando uma de cada vez (15 temporadas mínimas de treino, testado em 2018–2026).
 Comparados dois baselines (frequência histórica de mando; Elo com taxa de empate
-constante), o modelo de produção (`poisson_dixon_coles`, refeito a cada temporada de
-teste só com dados anteriores a ela) e Logistic Regression, Random Forest e Gradient
-Boosting treinados sobre as features de `build_pre_match_features` (Elo, forma,
-força do adversário, chutes/chutes a gol). Média de log loss por temporada
-(2018–2026, menor é melhor; `log(3) ≈ 1.099` é o "chute" uniforme entre H/D/A):
+constante), os dois ajustes do modelo de gols (produção e MLE conjunta, ver acima) e
+Logistic Regression, Random Forest e Gradient Boosting treinados sobre as features
+de `build_pre_match_features` (Elo, forma, força do adversário, chutes/chutes a
+gol). Métricas: log loss e Brier tratam H/D/A como categorias sem ordem; **RPS**
+(Ranked Probability Score) usa a ordem natural derrota→empate→vitória e penaliza
+menos um erro "vizinho" (achar que ia empatar) do que um erro entre extremos (achar
+que o time perdedor venceria) — é a métrica padrão da literatura de forecasting
+esportivo por causa disso. Média por temporada (2018–2026, menor é melhor exceto
+acurácia; `log(3) ≈ 1.099` é o "chute" uniforme entre H/D/A):
 
-| modelo | log loss | brier score | acurácia |
-|---|---|---|---|
-| logistic_regression | 1.022 | 0.613 | 0.496 |
-| random_forest | 1.025 | 0.615 | 0.487 |
-| **poisson_dixon_coles (produção)** | **1.028** | **0.617** | **0.489** |
-| elo (baseline) | 1.031 | 0.619 | 0.478 |
-| gradient_boosting | 1.044 | 0.627 | 0.474 |
-| home_advantage (baseline) | 1.057 | 0.637 | 0.475 |
+| modelo | log loss | brier score | RPS | acurácia |
+|---|---|---|---|---|
+| logistic_regression | 1.0220 | 0.6135 | 0.2070 | 0.4957 |
+| random_forest | 1.0247 | 0.6148 | 0.2077 | 0.4868 |
+| **poisson_dixon_coles (produção)** | **1.0281** | **0.6172** | **0.2090** | **0.4892** |
+| poisson_dixon_coles_mle | 1.0284 | 0.6174 | 0.2091 | 0.4903 |
+| elo (baseline) | 1.0310 | 0.6195 | 0.2098 | 0.4782 |
+| gradient_boosting | 1.0438 | 0.6271 | 0.2117 | 0.4738 |
+| home_advantage (baseline) | 1.0567 | 0.6373 | 0.2187 | 0.4750 |
 
-Todos os modelos batem o "chute" uniforme por margem clara. Logistic Regression e
-Random Forest ficam um pouco à frente do modelo de produção, mas por margem pequena
-— o Poisson+Dixon-Coles é competitivo (3º de 6) e tem a vantagem de gerar um placar
-completo (não só H/D/A), o que o Monte Carlo precisa. Números completos por
-temporada em `outputs/model_comparison.csv`.
+Todos os modelos batem o "chute" uniforme por margem clara, e os dois ajustes do
+Poisson+Dixon-Coles ficam essencialmente empatados entre si (ver seção acima).
+Logistic Regression e Random Forest ficam um pouco à frente em log loss/RPS, mas por
+margem pequena (desvio-padrão entre temporadas é ~0.02-0.03 — a diferença está no
+limiar do ruído). O Poisson+Dixon-Coles continua em produção apesar disso porque
+gera um placar completo (não só H/D/A), o que o Monte Carlo precisa para simular
+saldo de gols — trocar por um classificador V/E/D exigiria um modelo de gols
+separado de qualquer forma. Números completos por temporada em
+`outputs/model_comparison.csv`.
 
 ## O que existe
 
@@ -260,24 +304,29 @@ temporada em `outputs/model_comparison.csv`.
    [`src/cbf_calendario.py`](src/cbf_calendario.py),
    [`scripts/fetch_cbf_calendar.py`](scripts/fetch_cbf_calendar.py),
    [`scripts/build_recent_seasons.py`](scripts/build_recent_seasons.py)
-9. Modelo de gols de Poisson com ajuste Dixon-Coles para correlação de placares
-   baixos, `rho` ajustado por máxima verossimilhança (não escolhido a dedo) —
-   [`src/poisson_goals.py`](src/poisson_goals.py)
-10. Simulação de Monte Carlo amostrando direto da distribuição conjunta do modelo
+9. Modelo de gols de Poisson com ajuste Dixon-Coles, com DOIS métodos de ajuste
+   comparados empiricamente (método dos momentos + perfil de MLE vs. MLE conjunta)
+   — [`src/poisson_goals.py`](src/poisson_goals.py)
+10. Top-5 placares mais prováveis + gols esperados por jogo, expostos no output
+    (não só V/E/D) — [`scripts/predict_current.py`](scripts/predict_current.py) →
+    [`outputs/match_predictions_2026.csv`](outputs/match_predictions_2026.csv)
+11. Simulação de Monte Carlo amostrando direto da distribuição conjunta do modelo
     (preserva a correlação Dixon-Coles; 100.000 temporadas em <1s, vetorizada) —
     [`src/monte_carlo.py`](src/monte_carlo.py)
-11. Regras de competição como configuração e classificação, com todos os critérios
+12. Regras de competição como configuração e classificação, com todos os critérios
     de desempate oficiais (pontos, vitórias, saldo, gols pró, confronto direto,
     cartões) — [`src/standings.py`](src/standings.py) (`CompetitionRules` + `build_standings`)
-12. Validação temporal (walk-forward) e comparação de 6 modelos (2 baselines +
-    Poisson-Dixon-Coles de produção + 3 de ML) —
+13. Validação temporal (walk-forward) e comparação de 7 modelos (2 baselines + 2
+    ajustes do Poisson-Dixon-Coles + 3 de ML), com log loss/Brier/**RPS**/acurácia —
     [`src/evaluation.py`](src/evaluation.py), [`scripts/compare_models.py`](scripts/compare_models.py) →
-    [`outputs/model_comparison.csv`](outputs/model_comparison.csv)
-13. Backtest rodada-a-rodada de 2026 —
+    [`outputs/model_comparison.csv`](outputs/model_comparison.csv),
+    [`outputs/dixon_coles_mle_diagnostics.csv`](outputs/dixon_coles_mle_diagnostics.csv)
+14. Backtest rodada-a-rodada de 2026 —
     [`scripts/backtest_2026.py`](scripts/backtest_2026.py) →
     [`outputs/backtest_2026.csv`](outputs/backtest_2026.csv)
-14. 49 testes `pytest`, incluindo testes que travam a garantia de não haver data
-    leakage e testes específicos do ajuste Dixon-Coles
+15. 62 testes `pytest`, incluindo testes que travam a garantia de não haver data
+    leakage, testes do ajuste Dixon-Coles (escalar e vetorizado), da MLE conjunta
+    (convergência, não-divergência em casos degenerados) e do RPS
 
 ## Limitações conhecidas (honestas, não escondidas)
 
@@ -287,8 +336,12 @@ temporada em `outputs/model_comparison.csv`.
 - O mesmo vale para chutes/chutes a gol/escanteios: só existem no histórico
   2003–2024, então essas features ficam `None` (imputadas pela mediana do treino) em
   2025/2026.
-- O `rho` do Dixon-Coles sai perto de zero nos dados do Brasileirão — a correção é
-  metodologicamente correta, mas o ganho prático medido é pequeno (ver tabela acima).
+- O `rho` do Dixon-Coles sai perto de zero nos dados do Brasileirão nos dois métodos
+  de ajuste — a correção é metodologicamente correta, mas o ganho prático medido é
+  pequeno (ver comparação acima).
+- A MLE conjunta não superou o método dos momentos + perfil de MLE (diferença dentro
+  do ruído entre temporadas) — ver seção "Modelo de gols" acima para os números e a
+  decisão de manter o método mais simples/rápido em produção.
 - Nenhum hiperparâmetro dos modelos de ML foi ajustado (usei os defaults do
   scikit-learn) — há espaço para tuning se algum desses modelos for promovido a
   produção no lugar do Poisson.
@@ -296,3 +349,25 @@ temporada em `outputs/model_comparison.csv`.
   (já implementados em `src/standings.py` para a tabela real) não entram na
   simulação porque rodar isso 100.000 vezes ficaria caro; é uma simplificação
   documentada, não um bug.
+- Sem dado de xG (nenhuma das fontes disponíveis — histórico ou CBF — expõe isso),
+  então um "Elo aumentado por xG" não é possível sem inventar o dado.
+
+## Próximos passos — por que não ensemble ainda
+
+A pergunta natural depois de comparar 7 modelos é "por que não combinar todos num
+ensemble?". Decidi não fazer isso agora porque a comparação acima já respondeu uma
+pergunta mais importante primeiro: **o gargalo não é o método de estimação** (MLE
+conjunta ≈ método dos momentos) **nem falta de modelos mais sofisticados** (Random
+Forest/Gradient Boosting não superam o Poisson por margem relevante) — os 7 modelos
+convergem para a mesma faixa de log loss (~1.02–1.06). Isso sugere que o limite
+atual é a **informação disponível** (Elo, forma, chutes históricos), não a técnica
+de modelagem. Empilhar os mesmos 7 modelos num ensemble tende a herdar esse teto
+compartilhado, não superá-lo. Os candidatos mais prováveis para romper esse teto,
+na ordem em que eu tentaria:
+
+1. xG real (não temos a fonte ainda).
+2. Estatísticas de jogo (posse, passes) além de chutes/escanteios — já
+   parcialmente disponíveis, mas com muito missing (60-75%) no histórico.
+3. Só então, ensemble e/ou modelo hierárquico Bayesiano com shrinkage entre times
+   com poucos jogos — ambos ficam mais fáceis de justificar depois de esgotar as
+   features disponíveis.

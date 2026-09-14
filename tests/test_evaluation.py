@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from src.evaluation import evaluate_probabilistic, expanding_window_splits
+from src.evaluation import evaluate_probabilistic, expanding_window_splits, ranked_probability_score
 
 
 def _toy_features(seasons: list[int]) -> pd.DataFrame:
@@ -47,3 +47,47 @@ def test_evaluate_probabilistic_uniform_guess_has_positive_loss():
     metrics = evaluate_probabilistic(y_true, y_proba)
     assert metrics["log_loss"] > 1.0
     assert metrics["brier_score"] > 0.0
+
+
+def test_evaluate_probabilistic_includes_rps():
+    y_true = np.array(["H", "D", "A"])
+    y_proba = np.full((3, 3), 1 / 3)
+    metrics = evaluate_probabilistic(y_true, y_proba)
+    assert "rps" in metrics
+    assert metrics["rps"] > 0.0
+
+
+def test_rps_is_zero_for_perfect_predictions():
+    y_true = np.array(["H", "D", "A"])
+    y_proba = np.array([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]])
+    assert ranked_probability_score(y_true, y_proba) == pytest.approx(0.0, abs=1e-9)
+
+
+def test_rps_penalizes_extreme_miss_more_than_adjacent_miss():
+    """H/D/A tem ordem (derrota < empate < vitória). Errar por um passo (achar que
+    ia empatar quando o mandante venceu) deveria custar menos no RPS do que errar
+    pelos dois extremos (achar que o visitante venceria quando o mandante venceu) —
+    é exatamente essa sensibilidade à ordem que separa o RPS do log loss/Brier.
+    """
+    y_true = np.array(["H"])
+    proba_adjacent_miss = np.array([[0.0, 1.0, 0.0]])  # previu empate, foi vitória do mandante
+    proba_extreme_miss = np.array([[0.0, 0.0, 1.0]])  # previu vitória visitante, foi vitória do mandante
+
+    rps_adjacent = ranked_probability_score(y_true, proba_adjacent_miss)
+    rps_extreme = ranked_probability_score(y_true, proba_extreme_miss)
+    assert rps_adjacent < rps_extreme
+
+
+def test_rps_stays_within_zero_and_one():
+    y_true = np.array(["H", "D", "A", "H", "A"])
+    y_proba = np.array(
+        [
+            [0.7, 0.2, 0.1],
+            [0.3, 0.4, 0.3],
+            [0.1, 0.2, 0.7],
+            [0.9, 0.05, 0.05],
+            [0.2, 0.3, 0.5],
+        ]
+    )
+    rps = ranked_probability_score(y_true, y_proba)
+    assert 0.0 <= rps <= 1.0
