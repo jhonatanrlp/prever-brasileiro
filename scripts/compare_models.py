@@ -6,8 +6,11 @@ Modelos:
       histórica de H/D/A observada no treino.
     - elo: baseline que converte a probabilidade binária de vitória do mandante
       (Elo) em 3 classes, com uma taxa de empate constante estimada no treino.
+    - poisson_dixon_coles: o modelo de produção (`src/poisson_goals.py`), refeito a
+      cada temporada de teste só com dados anteriores a ela.
     - logistic_regression / random_forest / gradient_boosting: treinados sobre as
-      features de `build_pre_match_features` (Elo, forma, força do adversário).
+      features de `build_pre_match_features` (Elo, forma, força do adversário,
+      chutes/chutes a gol quando disponíveis).
 
 Uso:
     python scripts/compare_models.py
@@ -29,6 +32,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from src.evaluation import RESULT_CLASSES, evaluate_probabilistic, expanding_window_splits  # noqa: E402
+from src.poisson_goals import fit_poisson_goals_model  # noqa: E402
 from src.temporal import build_pre_match_features  # noqa: E402
 
 PROCESSED_DIR = ROOT / "data" / "processed"
@@ -49,6 +53,8 @@ FEATURE_COLS = [
     "form_diff_last_5",
     "home_form_points_last_5",
     "away_form_points_last_5",
+    "shots_diff",
+    "shots_on_target_diff",
 ]
 
 
@@ -56,10 +62,11 @@ def load_features() -> pd.DataFrame:
     historical = pd.read_csv(PROCESSED_DIR / "matches.csv", parse_dates=["date"])
     recent = pd.read_csv(PROCESSED_DIR / "matches_2025_2026.csv", parse_dates=["date"])
     recent = recent[recent["played"]].rename(columns={"cbf_id": "match_id"})
+    team_stats = pd.read_csv(PROCESSED_DIR / "team_match_stats.csv")
 
     cols = ["match_id", "season", "date", "home_team_id", "away_team_id", "home_goals", "away_goals"]
     matches = pd.concat([historical[cols], recent[cols]], ignore_index=True)
-    return build_pre_match_features(matches)
+    return build_pre_match_features(matches, team_stats=team_stats)
 
 
 def home_advantage_probs(train: pd.DataFrame, n_test: int) -> np.ndarray:
@@ -76,6 +83,19 @@ def elo_baseline_probs(train: pd.DataFrame, test: pd.DataFrame) -> np.ndarray:
     away = remaining * (1.0 - home_win_elo)
     draw = np.full_like(home, draw_rate)
     return np.column_stack([home, draw, away])
+
+
+def poisson_probs(train: pd.DataFrame, test: pd.DataFrame, current_season: int) -> np.ndarray:
+    train_matches = train.rename(
+        columns={"target_home_goals": "home_goals", "target_away_goals": "away_goals"}
+    )
+    model = fit_poisson_goals_model(train_matches, current_season=current_season)
+    return np.array(
+        [
+            model.outcome_probabilities(h, a)
+            for h, a in zip(test["home_team_id"], test["away_team_id"])
+        ]
+    )
 
 
 def sklearn_probs(model, train: pd.DataFrame, test: pd.DataFrame) -> np.ndarray:
@@ -110,6 +130,7 @@ def main() -> None:
         predictions = {
             "home_advantage": home_advantage_probs(train, len(test)),
             "elo": elo_baseline_probs(train, test),
+            "poisson_dixon_coles": poisson_probs(train, test, current_season=season),
         }
         for name, fit_predict in models.items():
             predictions[name] = fit_predict(train, test)

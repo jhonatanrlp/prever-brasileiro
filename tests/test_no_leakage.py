@@ -47,6 +47,43 @@ def test_feature_row_never_encodes_its_own_result_in_pre_match_fields():
     assert third["home_points_per_game"] == 2.0
 
 
+def _toy_team_stats() -> pd.DataFrame:
+    return pd.DataFrame(
+        [
+            {"match_id": 1, "team_id": "A", "chutes": 10, "chutes_no_alvo": 5, "escanteios": 4},
+            {"match_id": 1, "team_id": "B", "chutes": 3, "chutes_no_alvo": 1, "escanteios": 2},
+            {"match_id": 2, "team_id": "B", "chutes": 8, "chutes_no_alvo": 4, "escanteios": 3},
+            {"match_id": 2, "team_id": "A", "chutes": 6, "chutes_no_alvo": 2, "escanteios": 1},
+        ]
+    )
+
+
+def test_match_stats_features_have_no_history_before_first_match():
+    features = build_pre_match_features(_toy_matches(), team_stats=_toy_team_stats())
+    first = features.iloc[0]
+    assert pd.isna(first["home_chutes_per_game"])
+    assert pd.isna(first["shots_diff"])
+
+
+def test_match_stats_features_only_reflect_past_matches():
+    features = build_pre_match_features(_toy_matches(), team_stats=_toy_team_stats())
+    second = features.iloc[1]  # mandante é B; B teve 3 chutes na partida 1
+    assert second["home_chutes_per_game"] == 3.0
+    assert second["home_chutes_no_alvo_per_game"] == 1.0
+
+    third = features.iloc[2]  # mandante é A; A teve 10 chutes na partida 1 e 6 na 2
+    assert third["home_chutes_per_game"] == 8.0
+
+
+def test_match_stats_features_are_none_without_team_stats_argument():
+    """Sem `team_stats`, as features de chutes ficam ausentes (None), nunca zero —
+    ausência explícita, não um valor inventado. Cobre o caso real de 2025/2026, cuja
+    fonte (API da CBF) não expõe essas estatísticas.
+    """
+    features = build_pre_match_features(_toy_matches())
+    assert features["home_chutes_per_game"].isna().all()
+
+
 def test_walk_forward_is_deterministic_and_chronological():
     shuffled = _toy_matches().sample(frac=1, random_state=0)
     features_from_shuffled = build_pre_match_features(shuffled)

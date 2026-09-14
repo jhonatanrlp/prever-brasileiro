@@ -1,10 +1,13 @@
 """Simulação de Monte Carlo do restante da temporada (Fase 13).
 
 Recebe a tabela atual (pontos/GP/GC reais até agora), os jogos restantes e um
-modelo de gols (Poisson). Para cada temporada simulada, sorteia um placar por
-partida restante a partir de Poisson(lambda_home)/Poisson(lambda_away), atualiza
-pontos e saldo, e classifica ao final com os mesmos critérios de desempate usados
-para tabelas reais (`src/standings.py`).
+modelo de gols (Poisson + Dixon-Coles). Para cada temporada simulada, sorteia um
+placar por partida restante diretamente da matriz de probabilidades conjunta do
+modelo (`PoissonGoalsModel.score_matrix`, já com o ajuste de correlação
+Dixon-Coles) — não de duas Poisson independentes, o que jogaria fora exatamente a
+correlação que o Dixon-Coles corrige. Atualiza pontos e saldo, e classifica ao
+final com os mesmos critérios de desempate usados para tabelas reais
+(`src/standings.py`).
 
 Desacoplado do modelo de classificação (V/E/D): usa o modelo de gols para gerar o
 placar completo, o que automaticamente resolve V/E/D e saldo de gols de forma
@@ -18,6 +21,24 @@ import pandas as pd
 
 from src.poisson_goals import PoissonGoalsModel
 from src.standings import CompetitionRules
+
+
+def _sample_scoreline(
+    goals_model: PoissonGoalsModel, home_id: str, away_id: str, n_simulations: int, rng: np.random.Generator
+) -> tuple[np.ndarray, np.ndarray]:
+    """Sorteia `n_simulations` placares (gols mandante, gols visitante) da matriz
+    de probabilidade conjunta do modelo (transformada inversa sobre a distribuição
+    achatada) — preserva a correlação Dixon-Coles, que amostrar Poisson(home) e
+    Poisson(away) de forma independente destruiria.
+    """
+    joint = goals_model.score_matrix(home_id, away_id)
+    n_goal_values = joint.shape[0]
+    flat_cumulative = np.cumsum(joint.ravel())
+    flat_cumulative[-1] = 1.0  # evita erro de arredondamento deixar a soma < 1
+
+    draws = rng.random(n_simulations)
+    flat_index = np.searchsorted(flat_cumulative, draws)
+    return flat_index // n_goal_values, flat_index % n_goal_values
 
 
 def simulate_remaining_season(
@@ -49,12 +70,10 @@ def simulate_remaining_season(
 
     home_ids = remaining_fixtures["home_team_id"].to_numpy()
     away_ids = remaining_fixtures["away_team_id"].to_numpy()
-    lambdas = [goals_model.lambdas(h, a) for h, a in zip(home_ids, away_ids)]
 
-    for (lambda_home, lambda_away), home_id, away_id in zip(lambdas, home_ids, away_ids):
+    for home_id, away_id in zip(home_ids, away_ids):
         home_idx, away_idx = team_index[home_id], team_index[away_id]
-        hg = rng.poisson(lambda_home, size=n_simulations)
-        ag = rng.poisson(lambda_away, size=n_simulations)
+        hg, ag = _sample_scoreline(goals_model, home_id, away_id, n_simulations, rng)
 
         goals_for[home_idx] += hg
         goals_against[home_idx] += ag

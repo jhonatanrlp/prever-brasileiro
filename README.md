@@ -17,6 +17,16 @@ python -m venv .venv
 .venv\Scripts\activate          # Linux/Mac: source .venv/bin/activate
 pip install -r requirements.txt
 
+python scripts/run_pipeline.py          # roda o pipeline inteiro, na ordem certa
+pytest                                  # 49 testes
+```
+
+`run_pipeline.py` chama, em sequência, todos os scripts abaixo e para no primeiro
+erro real (sem mascarar falha). `--fast` pula `compare_models.py` e
+`backtest_2026.py` (~5 min cada); `--force` força redownload do histórico mesmo sem
+mudança. Cada etapa também roda sozinha, se preferir:
+
+```bash
 python scripts/download_data.py         # histórico 2003-2024
 python scripts/audit.py                 # outputs/data_audit.md
 python scripts/build_team_mapping.py    # dicionário de times
@@ -24,15 +34,9 @@ python scripts/build_dataset.py         # modelo dimensional em data/processed/
 python scripts/fetch_cbf_calendar.py    # 2025/2026 (API da CBF, data/rodada reais)
 python scripts/build_recent_seasons.py  # matches_2025_2026 + estado atual + jogos restantes
 python scripts/predict_current.py       # outputs/current_prediction.csv + match_predictions_2026.csv
-
 python scripts/compare_models.py        # outputs/model_comparison.csv (baselines vs. ML, walk-forward)
 python scripts/backtest_2026.py         # outputs/backtest_2026.csv (log loss rodada a rodada de 2026)
-
-pytest                                  # 41 testes
 ```
-
-`download_data.py` e `fetch_cbf_calendar.py` são idempotentes: não rebaixam se o
-conteúdo não mudou (hash sha256). Use `--force` em `download_data.py` para forçar.
 
 ## Estrutura
 
@@ -42,7 +46,7 @@ data/
   raw/                 exatamente como baixado (adaoduque/ = histórico, cbf/ = 2025-2026)
   processed/           modelo dimensional, pronto para features
   external/            team_mapping.csv — dicionário mestre de times
-scripts/               pontos de entrada do pipeline (um arquivo por etapa)
+scripts/               pontos de entrada do pipeline (run_pipeline.py roda tudo em ordem)
 src/                   lógica (times, temporal/Elo, modelo de gols, simulação, avaliação) — módulos soltos
 tests/                 pytest, incluindo os testes de não-vazamento
 outputs/               data_audit.md, current_prediction.csv, match_predictions_2026.csv,
@@ -103,8 +107,10 @@ strings livres.
   bruta tem inconsistências, ver `outputs/data_audit.md`).
 - **`team_match_stats.csv` / `goals.csv` / `cards.csv`** — estatísticas por (partida,
   time), gols e cartões individuais, grão fino, ligados por `match_id`.
-  `posse_de_bola` e `precisao_passes` têm ~60–75% de missing — não usar sem decidir
-  uma estratégia de ausência explícita.
+  `posse_de_bola` e `precisao_passes` têm ~60–75% de missing — não usadas por isso;
+  `chutes`, `chutes_no_alvo` e `escanteios` têm 0% de missing e alimentam
+  `build_pre_match_features` como médias móveis por time (só para o histórico
+  2003–2024 — a API da CBF usada em 2025/2026 não expõe essas estatísticas).
 - **`matches_2025_2026.csv`** — CBF, com data e rodada reais. Mesmas colunas centrais
   de `matches.csv` mais `played` (bool) e `venue`. Pode ser concatenado a
   `matches.csv` para `build_pre_match_features`.
@@ -144,9 +150,12 @@ momento em que a partida é processada.
 
 **Features temporais.** Para cada time, antes de cada partida (quando há histórico):
 pontos por jogo, saldo por jogo, gols marcados/sofridos por jogo, aproveitamento em
-casa/fora, forma nas últimas 3/5/10 partidas, e força média dos adversários já
-enfrentados (Elo pré-jogo médio dos adversários). Estreias recebem features nulas —
-tratamento explícito de cold start, não um valor arbitrário.
+casa/fora, forma nas últimas 3/5/10 partidas, força média dos adversários já
+enfrentados (Elo pré-jogo médio dos adversários), e média móvel de chutes/chutes a
+gol/escanteios por jogo (`StatsState` em `src/temporal.py`, opcional — só populada
+quando `team_stats` é passado, hoje só para o histórico 2003–2024). Estreias e
+partidas sem estatística disponível recebem features nulas — tratamento explícito
+de ausência, nunca um valor inventado (zero incluído).
 
 **2025/2026: dados oficiais da CBF.** `data/processed/matches_2025_2026.csv` tem o
 mesmo schema de `matches.csv`, com data e rodada reais de cada partida. Isso permite
@@ -163,18 +172,29 @@ na rodada X, sabendo só o que sabíamos até então". Só é possível porque
 `matches_2025_2026.csv` tem data e rodada reais (a tentativa anterior via Wikipédia
 não permitia isso). Resultado em `outputs/backtest_2026.csv`.
 
-**Modelo de gols (Poisson) e simulação (Monte Carlo).** `src/poisson_goals.py`: força
-de ataque/defesa de cada time relativa à média da liga —
-`lambda_home = média de gols do mandante na liga × ataque do mandante × defesa do
+**Modelo de gols (Poisson + Dixon-Coles) e simulação (Monte Carlo).**
+`src/poisson_goals.py`: força de ataque/defesa de cada time relativa à média da liga
+— `lambda_home = média de gols do mandante na liga × ataque do mandante × defesa do
 visitante` (e simetricamente para o visitante). Ajustado com todas as partidas
 disponíveis (2003–2024 + 2025/2026 disputadas), com peso maior para temporadas
-recentes (decaimento exponencial, meia-vida configurável).
-`src/monte_carlo.py` simula o restante da temporada a partir da tabela real atual: em
-cada uma das N temporadas simuladas, sorteia um placar Poisson por jogo restante,
-acumula pontos/saldo, e classifica com os mesmos critérios de `src/standings.py`.
-Vetorizado em NumPy sobre o eixo das simulações — 100.000 temporadas em <1s.
-`scripts/predict_current.py` amarra as duas peças e gera
-`outputs/current_prediction.csv` e `outputs/match_predictions_2026.csv`.
+recentes (decaimento exponencial, meia-vida configurável). Poisson independente
+sozinha subestima placares baixos e correlacionados (0x0, 1x0, 0x1, 1x1) — Dixon &
+Coles (1997) corrigem isso com um fator `tau`, controlado por um parâmetro `rho`
+ajustado por máxima verossimilhança nos dados de treino (nunca escolhido a dedo).
+Achado real, honesto: nos dados do Brasileirão o `rho` ajustado fica perto de zero
+(~-0.005) — o efeito de correlação de placares baixos é bem mais fraco aqui do que
+no dataset original de Dixon-Coles (futebol inglês dos anos 90). A correção continua
+correta (some a zero quando os dados não sustentam correlação), só que o ganho
+prático é pequeno neste caso — reportado, não inflado.
+
+`src/monte_carlo.py` simula o restante da temporada a partir da tabela real atual:
+em cada uma das N temporadas simuladas, sorteia um placar direto da matriz de
+probabilidade conjunta do modelo (`score_matrix`, já com o ajuste Dixon-Coles — não
+duas Poisson independentes, que jogariam fora a correlação), acumula pontos/saldo, e
+classifica com os mesmos critérios de `src/standings.py`. Vetorizado em NumPy sobre
+o eixo das simulações (amostragem por transformada inversa da distribuição
+achatada) — 100.000 temporadas em <1s. `scripts/predict_current.py` amarra as duas
+peças e gera `outputs/current_prediction.csv` e `outputs/match_predictions_2026.csv`.
 
 **Regras de competição como configuração.** Pontuação, número de rebaixados e vagas
 continentais vêm de `configs/config.yaml`, lidos por `src/standings.py`
@@ -193,58 +213,78 @@ aleatório: partidas do mesmo campeonato são correlacionadas no tempo.
 `expanding_window_splits` treina com temporadas passadas e testa na próxima,
 avançando uma de cada vez (15 temporadas mínimas de treino, testado em 2018–2026).
 Comparados dois baselines (frequência histórica de mando; Elo com taxa de empate
-constante) contra Logistic Regression, Random Forest e Gradient Boosting treinados
-sobre as features de `build_pre_match_features`. Média de log loss por temporada
+constante), o modelo de produção (`poisson_dixon_coles`, refeito a cada temporada de
+teste só com dados anteriores a ela) e Logistic Regression, Random Forest e Gradient
+Boosting treinados sobre as features de `build_pre_match_features` (Elo, forma,
+força do adversário, chutes/chutes a gol). Média de log loss por temporada
 (2018–2026, menor é melhor; `log(3) ≈ 1.099` é o "chute" uniforme entre H/D/A):
 
 | modelo | log loss | brier score | acurácia |
 |---|---|---|---|
-| logistic_regression | 1.020 | 0.612 | 0.496 |
-| random_forest | 1.024 | 0.614 | 0.493 |
+| logistic_regression | 1.022 | 0.613 | 0.496 |
+| random_forest | 1.025 | 0.615 | 0.487 |
+| **poisson_dixon_coles (produção)** | **1.028** | **0.617** | **0.489** |
 | elo (baseline) | 1.031 | 0.619 | 0.478 |
-| gradient_boosting | 1.038 | 0.623 | 0.487 |
+| gradient_boosting | 1.044 | 0.627 | 0.474 |
 | home_advantage (baseline) | 1.057 | 0.637 | 0.475 |
 
-Logistic Regression fica na frente, mas por margem pequena sobre os baselines — as
-features atuais (Elo, forma, força do adversário) dão alguma vantagem preditiva, só
-que modesta. Números completos por temporada em `outputs/model_comparison.csv`.
+Todos os modelos batem o "chute" uniforme por margem clara. Logistic Regression e
+Random Forest ficam um pouco à frente do modelo de produção, mas por margem pequena
+— o Poisson+Dixon-Coles é competitivo (3º de 6) e tem a vantagem de gerar um placar
+completo (não só H/D/A), o que o Monte Carlo precisa. Números completos por
+temporada em `outputs/model_comparison.csv`.
 
 ## O que existe
 
-1. Download automatizado e idempotente do histórico 2003–2024 —
+1. Pipeline único que roda tudo em ordem, parando no primeiro erro real —
+   [`scripts/run_pipeline.py`](scripts/run_pipeline.py)
+2. Download automatizado e idempotente do histórico 2003–2024 —
    [`scripts/download_data.py`](scripts/download_data.py)
-2. Auditoria automática de qualidade — [`scripts/audit.py`](scripts/audit.py) →
+3. Auditoria automática de qualidade — [`scripts/audit.py`](scripts/audit.py) →
    [`outputs/data_audit.md`](outputs/data_audit.md)
-3. Dicionário de times com `team_id` estável — [`data/external/team_mapping.csv`](data/external/team_mapping.csv)
-4. Modelo dimensional (partidas, estatísticas, gols, cartões) —
+4. Dicionário de times com `team_id` estável — [`data/external/team_mapping.csv`](data/external/team_mapping.csv)
+5. Modelo dimensional (partidas, estatísticas, gols, cartões) —
    [`scripts/build_dataset.py`](scripts/build_dataset.py)
-5. Reconstrução correta de `season` — [`src/seasons.py`](src/seasons.py)
-6. Feature engineering temporal sem vazamento: Elo, forma, força do adversário —
-   [`src/temporal.py`](src/temporal.py)
-7. 2025/2026 com data e rodada reais via API da CBF —
+6. Reconstrução correta de `season` — [`src/seasons.py`](src/seasons.py)
+7. Feature engineering temporal sem vazamento: Elo, forma, força do adversário,
+   chutes/chutes a gol — [`src/temporal.py`](src/temporal.py)
+8. 2025/2026 com data e rodada reais via API da CBF —
    [`src/cbf_calendario.py`](src/cbf_calendario.py),
    [`scripts/fetch_cbf_calendar.py`](scripts/fetch_cbf_calendar.py),
    [`scripts/build_recent_seasons.py`](scripts/build_recent_seasons.py)
-8. Modelo de gols de Poisson — [`src/poisson_goals.py`](src/poisson_goals.py)
-9. Simulação de Monte Carlo (100.000 temporadas em <1s, vetorizada) —
-   [`src/monte_carlo.py`](src/monte_carlo.py)
-10. Regras de competição como configuração e classificação, com todos os critérios
+9. Modelo de gols de Poisson com ajuste Dixon-Coles para correlação de placares
+   baixos, `rho` ajustado por máxima verossimilhança (não escolhido a dedo) —
+   [`src/poisson_goals.py`](src/poisson_goals.py)
+10. Simulação de Monte Carlo amostrando direto da distribuição conjunta do modelo
+    (preserva a correlação Dixon-Coles; 100.000 temporadas em <1s, vetorizada) —
+    [`src/monte_carlo.py`](src/monte_carlo.py)
+11. Regras de competição como configuração e classificação, com todos os critérios
     de desempate oficiais (pontos, vitórias, saldo, gols pró, confronto direto,
     cartões) — [`src/standings.py`](src/standings.py) (`CompetitionRules` + `build_standings`)
-11. Validação temporal (walk-forward) e comparação de baselines contra modelos de
-    ML — [`src/evaluation.py`](src/evaluation.py), [`scripts/compare_models.py`](scripts/compare_models.py) →
+12. Validação temporal (walk-forward) e comparação de 6 modelos (2 baselines +
+    Poisson-Dixon-Coles de produção + 3 de ML) —
+    [`src/evaluation.py`](src/evaluation.py), [`scripts/compare_models.py`](scripts/compare_models.py) →
     [`outputs/model_comparison.csv`](outputs/model_comparison.csv)
-12. Backtest rodada-a-rodada de 2026 —
+13. Backtest rodada-a-rodada de 2026 —
     [`scripts/backtest_2026.py`](scripts/backtest_2026.py) →
     [`outputs/backtest_2026.csv`](outputs/backtest_2026.csv)
-13. 41 testes `pytest`, incluindo testes que travam a garantia de não haver data leakage
+14. 49 testes `pytest`, incluindo testes que travam a garantia de não haver data
+    leakage e testes específicos do ajuste Dixon-Coles
 
-## Próximos passos possíveis
+## Limitações conhecidas (honestas, não escondidas)
 
-- As features atuais (Elo, forma, força do adversário) parecem esgotadas: os
-  baselines simples competem com os modelos de ML — ver "Validação temporal" acima.
-  Estatísticas por partida (`team_match_stats.csv`: chutes, posse, escanteios) e um
-  ajuste tipo Dixon-Coles para a correlação entre gols mandante/visitante são os
-  candidatos óbvios para ganhar poder preditivo.
-- Cartões de 2025/2026 não são coletados ainda (só o histórico 2003–2024 tem), então
-  esse critério de desempate fica inativo para a temporada atual.
+- Cartões de 2025/2026 não são coletados (a API da CBF usada não expõe isso), então
+  esse critério de desempate fica sempre inativo para a temporada atual — cai para
+  sorteio (não simulado) se um empate chegar até ali.
+- O mesmo vale para chutes/chutes a gol/escanteios: só existem no histórico
+  2003–2024, então essas features ficam `None` (imputadas pela mediana do treino) em
+  2025/2026.
+- O `rho` do Dixon-Coles sai perto de zero nos dados do Brasileirão — a correção é
+  metodologicamente correta, mas o ganho prático medido é pequeno (ver tabela acima).
+- Nenhum hiperparâmetro dos modelos de ML foi ajustado (usei os defaults do
+  scikit-learn) — há espaço para tuning se algum desses modelos for promovido a
+  produção no lugar do Poisson.
+- O Monte Carlo desempata só por pontos/saldo/gols pró — confronto direto e cartões
+  (já implementados em `src/standings.py` para a tabela real) não entram na
+  simulação porque rodar isso 100.000 vezes ficaria caro; é uma simplificação
+  documentada, não um bug.

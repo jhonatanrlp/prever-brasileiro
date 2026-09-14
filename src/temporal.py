@@ -161,6 +161,33 @@ class FormState:
         away.recent_results.append(away_result)
 
 
+STATS_COLUMNS = ("chutes", "chutes_no_alvo", "escanteios")
+
+
+@dataclass
+class StatsState:
+    """Média corrente de estatísticas de jogo (chutes, chutes a gol, escanteios)
+    por time, atualizada partida a partida. Opcional: só existe informação para
+    partidas presentes em `team_stats` (hoje, só o histórico 2003-2024 — a API da
+    CBF usada para 2025/2026 não expõe essas estatísticas). Times/partidas sem dado
+    disponível recebem `None`, tratado como ausência explícita, não zero.
+    """
+
+    sums: dict[str, dict[str, float]] = field(default_factory=lambda: defaultdict(lambda: defaultdict(float)))
+    counts: dict[str, int] = field(default_factory=lambda: defaultdict(int))
+
+    def snapshot(self, team_id: str) -> dict:
+        n = self.counts.get(team_id, 0)
+        if n == 0:
+            return {f"{col}_per_game": None for col in STATS_COLUMNS}
+        return {f"{col}_per_game": self.sums[team_id][col] / n for col in STATS_COLUMNS}
+
+    def update(self, team_id: str, stats: dict[str, float]) -> None:
+        for col in STATS_COLUMNS:
+            self.sums[team_id][col] += stats[col]
+        self.counts[team_id] += 1
+
+
 def _empty_snapshot(form_windows: tuple[int, ...]) -> dict:
     base = {
         "matches_played": 0,
@@ -183,22 +210,36 @@ def _empty_snapshot(form_windows: tuple[int, ...]) -> dict:
 def build_pre_match_features(
     matches: pd.DataFrame,
     elo_config: EloConfig | None = None,
+    team_stats: pd.DataFrame | None = None,
 ) -> pd.DataFrame:
     """Recebe o DataFrame de `matches` (colunas: match_id, date, home_team_id,
     away_team_id, home_goals, away_goals) e retorna um DataFrame com uma linha por
     partida, na mesma ordem cronológica, contendo as features conhecidas
     imediatamente ANTES daquela partida acontecer.
+
+    `team_stats` é opcional: DataFrame com `match_id`, `team_id` e as colunas de
+    `STATS_COLUMNS` (chutes, chutes_no_alvo, escanteios — ver
+    `data/processed/team_match_stats.csv`). Partidas sem estatística disponível
+    (hoje, tudo que não é histórico 2003-2024) simplesmente não atualizam o estado
+    de forma de chutes, e a feature correspondente fica `None` até o time ter pelo
+    menos uma partida com dado.
     """
     required = {"match_id", "date", "home_team_id", "away_team_id", "home_goals", "away_goals"}
     missing = required - set(matches.columns)
     if missing:
         raise ValueError(f"Colunas obrigatórias ausentes em matches: {missing}")
 
+    stats_by_match: dict[tuple, dict] = {}
+    if team_stats is not None:
+        for row in team_stats.itertuples(index=False):
+            stats_by_match[(row.match_id, row.team_id)] = {col: getattr(row, col) for col in STATS_COLUMNS}
+
     passthrough_cols = [c for c in ("season", "round") if c in matches.columns]
     ordered = matches.sort_values(["date", "match_id"]).reset_index(drop=True)
 
     elo = EloState(config=elo_config or EloConfig())
     form = FormState()
+    stats_state = StatsState()
     opponent_elo_sum: dict[str, float] = {}
     opponent_elo_count: dict[str, int] = {}
     rows: list[dict] = []
@@ -211,6 +252,8 @@ def build_pre_match_features(
         away_elo_pre = elo.get(away_id)
         home_form = form.snapshot(home_id)
         away_form = form.snapshot(away_id)
+        home_stats = stats_state.snapshot(home_id)
+        away_stats = stats_state.snapshot(away_id)
 
         opponent_strength_home = _average_opponent_elo(opponent_elo_sum, opponent_elo_count, home_id)
         opponent_strength_away = _average_opponent_elo(opponent_elo_sum, opponent_elo_count, away_id)
@@ -232,6 +275,10 @@ def build_pre_match_features(
             feature_row[f"home_{key}"] = value
         for key, value in away_form.items():
             feature_row[f"away_{key}"] = value
+        for key, value in home_stats.items():
+            feature_row[f"home_{key}"] = value
+        for key, value in away_stats.items():
+            feature_row[f"away_{key}"] = value
 
         feature_row["attack_vs_defense_home"] = _safe_diff(
             home_form["goals_for_per_game"], away_form["goals_against_per_game"]
@@ -241,6 +288,12 @@ def build_pre_match_features(
         )
         feature_row["form_diff_last_5"] = _safe_diff(
             home_form["form_points_last_5"], away_form["form_points_last_5"]
+        )
+        feature_row["shots_diff"] = _safe_diff(
+            home_stats["chutes_per_game"], away_stats["chutes_per_game"]
+        )
+        feature_row["shots_on_target_diff"] = _safe_diff(
+            home_stats["chutes_no_alvo_per_game"], away_stats["chutes_no_alvo_per_game"]
         )
 
         # Alvos de treino (só usar em treino; nunca como feature de inferência).
@@ -262,6 +315,13 @@ def build_pre_match_features(
 
         elo.update(home_id, away_id, row.home_goals, row.away_goals)
         form.update(home_id, away_id, row.home_goals, row.away_goals)
+
+        home_match_stats = stats_by_match.get((row.match_id, home_id))
+        if home_match_stats is not None:
+            stats_state.update(home_id, home_match_stats)
+        away_match_stats = stats_by_match.get((row.match_id, away_id))
+        if away_match_stats is not None:
+            stats_state.update(away_id, away_match_stats)
 
     return pd.DataFrame(rows)
 
