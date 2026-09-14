@@ -28,6 +28,7 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 import yaml
 
@@ -92,6 +93,10 @@ def main() -> None:
     match_predictions = []
     for row in remaining_fixtures.itertuples(index=False):
         p_home, p_draw, p_away = goals_model.outcome_probabilities(row.home_team_id, row.away_team_id)
+        score_matrix = goals_model.score_matrix(row.home_team_id, row.away_team_id)
+        most_likely_home_goals, most_likely_away_goals = np.unravel_index(
+            np.argmax(score_matrix), score_matrix.shape
+        )
         match_predictions.append(
             {
                 "round": row.round,
@@ -101,6 +106,9 @@ def main() -> None:
                 "home_win_probability": p_home,
                 "draw_probability": p_draw,
                 "away_win_probability": p_away,
+                "most_likely_home_goals": int(most_likely_home_goals),
+                "most_likely_away_goals": int(most_likely_away_goals),
+                "most_likely_score_probability": float(score_matrix.max()),
             }
         )
     match_predictions_df = pd.DataFrame(match_predictions).sort_values("round")

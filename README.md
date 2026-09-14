@@ -8,7 +8,15 @@ O campeonato é tratado como um processo temporal (Elo dinâmico + forma recente
 atualizados partida a partida), com uma prioridade explícita: qualidade dos dados e
 ausência de data leakage antes de qualquer treinamento de modelo.
 
-**Resultado publicado:** [Brasileirão 2026 — tabela e projeção](https://claude.ai/code/artifact/4a39de7c-56be-45c6-a933-2b44773376f5)
+## Resultado publicado
+
+**[Brasileirão 2026 — tabela e projeção](https://claude.ai/artifact/AAcafYXLJPdhxxyo465CEg)**
+
+Classificação atual + projeção final (título, Libertadores, Sul-Americana,
+rebaixamento) + **todos os 115 jogos restantes** até a rodada 38, com o placar mais
+provável de cada um — não só a próxima rodada. Jogos sem data confirmada pela CBF
+aparecem agrupados por rodada no fim da página. Atualizado rodando
+`scripts/predict_current.py` de novo e republicando este mesmo link.
 
 ## Como rodar
 
