@@ -1,0 +1,9 @@
+[project]
+name = "prever-brasileiro"
+version = "0.1.0"
+description = "Previsão probabilística do Campeonato Brasileiro Série A"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

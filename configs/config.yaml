@@ -1,0 +1,31 @@
+# Configuração central do projeto. Nada de regras "hardcoded" no código:
+# qualquer parâmetro de competição, modelo ou simulação deve vir daqui.
+
+competition:
+  name: "Campeonato Brasileiro Série A"
+  points:
+    win: 3
+    draw: 1
+    loss: 0
+  n_teams: 20
+  n_relegated: 4
+  continental_slots:
+    libertadores:
+      direct: 4       # G4 -> fase de grupos
+      qualifiers: 2    # 5º e 6º -> pré-libertadores (tratado à parte na simulação)
+    sulamericana:
+      slots: 6         # posições 7 a 12, sujeito a ajuste anual via config
+  tiebreakers:
+    # ordem oficial CBF: pontos, vitórias, saldo de gols, gols pró, confronto direto, cartões, sorteio
+    - points
+    - wins
+    - goal_difference
+    - goals_for
+    - head_to_head
+    - fewer_red_cards
+    - fewer_yellow_cards
+
+random_seed: 42
+
+simulation:
+  n_seasons: 100000

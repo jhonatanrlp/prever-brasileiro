@@ -1,0 +1,271 @@
+<title>Brasileirão 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&display=swap');
+
+:root{
+  --bg: #f4f1e9;
+  --surface: #ffffff;
+  --surface-2: #ece7d9;
+  --line: #ddd6c2;
+  --ink: #1c1b16;
+  --ink-dim: #6b6555;
+  --gold: #b8860f;
+  --gold-strong: #8a6208;
+  --lib: #1f7a52;
+  --lib-bg: #e3f1e9;
+  --sula: #285fa3;
+  --sula-bg: #e5edf7;
+  --mid: #b9b3a0;
+  --releg: #b23a3a;
+  --releg-bg: #f7e6e5;
+  --home-bar: #b8860f;
+  --draw-bar: #c9c2ab;
+  --away-bar: #6b6555;
+  --shadow: 0 1px 2px rgba(28,27,22,.06), 0 8px 24px -12px rgba(28,27,22,.18);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg: #14140f;
+    --surface: #1c1c15;
+    --surface-2: #23231a;
+    --line: #34331f;
+    --ink: #f1eee2;
+    --ink-dim: #9e987f;
+    --gold: #e0b23b;
+    --gold-strong: #f0c559;
+    --lib: #3fae7c;
+    --lib-bg: #17281f;
+    --sula: #6ea3e0;
+    --sula-bg: #182534;
+    --mid: #55503e;
+    --releg: #e0716a;
+    --releg-bg: #2c1c1a;
+    --home-bar: #e0b23b;
+    --draw-bar: #4a4735;
+    --away-bar: #8a8468;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 28px -12px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  --bg: #14140f;
+  --surface: #1c1c15;
+  --surface-2: #23231a;
+  --line: #34331f;
+  --ink: #f1eee2;
+  --ink-dim: #9e987f;
+  --gold: #e0b23b;
+  --gold-strong: #f0c559;
+  --lib: #3fae7c;
+  --lib-bg: #17281f;
+  --sula: #6ea3e0;
+  --sula-bg: #182534;
+  --mid: #55503e;
+  --releg: #e0716a;
+  --releg-bg: #2c1c1a;
+  --home-bar: #e0b23b;
+  --draw-bar: #4a4735;
+  --away-bar: #8a8468;
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 28px -12px rgba(0,0,0,.6);
+}
+
+*{ box-sizing: border-box; }
+body{ background: var(--bg); color: var(--ink); font-family: 'Work Sans', system-ui, sans-serif; }
+
+.page{ max-width: 1180px; margin: 0 auto; padding: 40px 24px 64px; }
+
+.masthead{ display:flex; justify-content:space-between; align-items:flex-end; gap:20px; flex-wrap:wrap; border-bottom: 3px solid var(--ink); padding-bottom: 18px; margin-bottom: 28px; }
+.masthead h1{
+  font-family: 'Anton', 'Oswald', sans-serif; font-weight:400; letter-spacing:.5px;
+  font-size: clamp(2.2rem, 5vw, 3.4rem); line-height:.95; margin:0; text-transform:uppercase;
+  text-wrap: balance;
+}
+.masthead h1 em{ font-style:normal; color: var(--gold); }
+.masthead .meta{ font-family:'Oswald',sans-serif; font-size:.95rem; color:var(--ink-dim); text-align:right; }
+.masthead .meta strong{ color:var(--ink); font-weight:600; }
+
+.legend{ display:flex; gap:18px; flex-wrap:wrap; margin-bottom:22px; font-size:.82rem; color:var(--ink-dim); font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:.04em; }
+.legend span{ display:inline-flex; align-items:center; gap:7px; }
+.legend i{ width:10px; height:10px; border-radius:2px; display:inline-block; }
+
+.table-wrap{ overflow-x:auto; background:var(--surface); border:1px solid var(--line); border-radius:10px; box-shadow:var(--shadow); }
+table{ border-collapse:collapse; width:100%; min-width:920px; font-variant-numeric: tabular-nums; }
+thead th{
+  text-align:left; font-family:'Oswald',sans-serif; font-weight:500; font-size:.72rem; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--ink-dim); padding:14px 12px; border-bottom:1px solid var(--line); white-space:nowrap; background:var(--surface-2);
+}
+thead th.num, td.num{ text-align:center; }
+tbody td{ padding:10px 12px; border-bottom:1px solid var(--line); font-size:.92rem; white-space:nowrap; }
+tbody tr:last-child td{ border-bottom:none; }
+tbody tr:hover{ background: var(--surface-2); }
+
+.pos{ font-family:'Oswald',sans-serif; font-weight:600; font-size:1rem; display:flex; align-items:center; gap:8px; }
+.pos .stripe{ width:4px; height:20px; border-radius:2px; flex:none; }
+.team-cell{ display:flex; flex-direction:column; }
+.team-cell .name{ font-family:'Oswald',sans-serif; font-weight:500; font-size:.98rem; }
+.team-cell .uf{ font-size:.72rem; color:var(--ink-dim); letter-spacing:.04em; }
+
+.pts-now{ font-family:'Oswald',sans-serif; font-weight:700; font-size:1.05rem; }
+.pts-exp{ font-family:'Oswald',sans-serif; font-weight:600; }
+.pts-range{ font-size:.72rem; color:var(--ink-dim); }
+
+.outlook{ width:180px; }
+.outlook-bar{ display:flex; height:14px; width:170px; border-radius:4px; overflow:hidden; background:var(--mid); }
+.outlook-bar > i{ display:block; height:100%; }
+.outlook-labels{ font-size:.68rem; color:var(--ink-dim); margin-top:4px; display:flex; justify-content:space-between; font-family:'Oswald',sans-serif; }
+
+.section-head{ display:flex; align-items:baseline; justify-content:space-between; margin:44px 0 14px; }
+.section-head h2{ font-family:'Oswald',sans-serif; font-weight:600; font-size:1.3rem; text-transform:uppercase; letter-spacing:.03em; margin:0; }
+.section-head p{ margin:0; color:var(--ink-dim); font-size:.85rem; }
+
+.fixtures{ display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:12px; }
+.fixture{ background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:14px 16px; box-shadow:var(--shadow); }
+.fixture .when{ font-family:'Oswald',sans-serif; font-size:.7rem; color:var(--ink-dim); text-transform:uppercase; letter-spacing:.05em; margin-bottom:8px; }
+.fixture .match{ display:flex; justify-content:space-between; align-items:center; font-family:'Oswald',sans-serif; font-weight:500; font-size:.96rem; margin-bottom:10px; gap:8px;}
+.fixture .match span:last-child{ text-align:right; }
+.probbar{ display:flex; height:10px; border-radius:5px; overflow:hidden; margin-bottom:6px; }
+.probbar > i{ display:block; height:100%; }
+.problabels{ display:flex; justify-content:space-between; font-size:.68rem; color:var(--ink-dim); font-family:'Oswald',sans-serif; font-variant-numeric: tabular-nums; }
+
+footer{ margin-top:48px; padding-top:18px; border-top:1px solid var(--line); font-size:.78rem; color:var(--ink-dim); line-height:1.6; }
+footer a{ color: var(--gold-strong); }
+
+@media (max-width: 640px){
+  .masthead{ flex-direction:column; align-items:flex-start; }
+  .masthead .meta{ text-align:left; }
+}
+</style>
+
+<div class="page">
+  <div class="masthead">
+    <h1>Brasileir<em>ão</em> 2026</h1>
+    <div class="meta">Projeção pós-rodada <strong>27</strong><br>100.000 simulações · gerado em <strong>14/09/2026</strong></div>
+  </div>
+
+  <div class="legend">
+    <span><i style="background:var(--gold)"></i>Título</span>
+    <span><i style="background:var(--lib)"></i>Libertadores</span>
+    <span><i style="background:var(--sula)"></i>Sul-Americana</span>
+    <span><i style="background:var(--mid)"></i>Meio de tabela</span>
+    <span><i style="background:var(--releg)"></i>Rebaixamento</span>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Pos</th>
+          <th>Time</th>
+          <th class="num">PJ</th>
+          <th class="num">V</th>
+          <th class="num">E</th>
+          <th class="num">D</th>
+          <th class="num">SG</th>
+          <th class="num">Pts</th>
+          <th class="num">Pts&nbsp;proj.</th>
+          <th>Cenário final (100k simulações)</th>
+        </tr>
+      </thead>
+      <tbody id="table-body"></tbody>
+    </table>
+  </div>
+
+  <div class="section-head">
+    <h2>Próxima rodada · 28</h2>
+    <p>Probabilidade de vitória do mandante / empate / vitória do visitante</p>
+  </div>
+  <div class="fixtures" id="fixtures"></div>
+
+  <footer>
+    Fonte dos resultados e da classificação: API de calendário da CBF (data e rodada
+    reais de cada partida). Projeção: modelo de gols de Poisson (ataque/defesa
+    relativos à média da liga, ponderado por recência) + simulação de Monte Carlo do
+    restante da temporada. Critérios de desempate aplicados: pontos, saldo de gols,
+    gols pró — confronto direto e cartões ainda não implementados. Detalhes completos
+    em <code>docs/METHODOLOGY.md</code> do projeto <em>prever-brasileiro</em>.
+  </footer>
+</div>
+
+<script>
+const STANDINGS = [{"team_id": "BRA021", "team": "Flamengo", "position": 1, "played": 27, "wins": 17, "draws": 6, "losses": 4, "goals_for": 53.0, "goals_against": 22.0, "goal_difference": 31.0, "points": 57}, {"team_id": "BRA033", "team": "Palmeiras", "position": 2, "played": 27, "wins": 16, "draws": 8, "losses": 3, "goals_for": 47.0, "goals_against": 21.0, "goal_difference": 26.0, "points": 56}, {"team_id": "BRA003", "team": "Athletico Paranaense", "position": 3, "played": 27, "wins": 13, "draws": 7, "losses": 7, "goals_for": 41.0, "goals_against": 31.0, "goal_difference": 10.0, "points": 46}, {"team_id": "BRA022", "team": "Fluminense", "position": 4, "played": 27, "wins": 12, "draws": 9, "losses": 6, "goals_for": 41.0, "goals_against": 35.0, "goal_difference": 6.0, "points": 45}, {"team_id": "BRA007", "team": "Bahia", "position": 5, "played": 26, "wins": 11, "draws": 10, "losses": 5, "goals_for": 40.0, "goals_against": 32.0, "goal_difference": 8.0, "points": 43}, {"team_id": "BRA018", "team": "Cruzeiro", "position": 6, "played": 27, "wins": 12, "draws": 6, "losses": 9, "goals_for": 39.0, "goals_against": 39.0, "goal_difference": 0.0, "points": 42}, {"team_id": "BRA005", "team": "Atlético Mineiro", "position": 7, "played": 26, "wins": 11, "draws": 6, "losses": 9, "goals_for": 35.0, "goals_against": 31.0, "goal_difference": 4.0, "points": 39}, {"team_id": "BRA016", "team": "Coritiba", "position": 8, "played": 27, "wins": 10, "draws": 8, "losses": 9, "goals_for": 37.0, "goals_against": 38.0, "goal_difference": -1.0, "points": 38}, {"team_id": "BRA010", "team": "Red Bull Bragantino", "position": 9, "played": 26, "wins": 10, "draws": 6, "losses": 10, "goals_for": 32.0, "goals_against": 29.0, "goal_difference": 3.0, "points": 36}, {"team_id": "BRA040", "team": "Santos", "position": 10, "played": 26, "wins": 9, "draws": 8, "losses": 9, "goals_for": 39.0, "goals_against": 39.0, "goal_difference": 0.0, "points": 35}, {"team_id": "BRA042", "team": "São Paulo", "position": 11, "played": 26, "wins": 9, "draws": 6, "losses": 11, "goals_for": 31.0, "goals_against": 30.0, "goal_difference": 1.0, "points": 33}, {"team_id": "BRA045", "team": "Vitória", "position": 12, "played": 27, "wins": 9, "draws": 6, "losses": 12, "goals_for": 27.0, "goals_against": 39.0, "goal_difference": -12.0, "points": 33}, {"team_id": "BRA015", "team": "Corinthians", "position": 13, "played": 27, "wins": 8, "draws": 8, "losses": 11, "goals_for": 28.0, "goals_against": 29.0, "goal_difference": -1.0, "points": 32}, {"team_id": "BRA009", "team": "Botafogo", "position": 14, "played": 26, "wins": 8, "draws": 8, "losses": 10, "goals_for": 38.0, "goals_against": 41.0, "goal_difference": -3.0, "points": 32}, {"team_id": "BRA046", "team": "Mirassol", "position": 15, "played": 27, "wins": 7, "draws": 8, "losses": 12, "goals_for": 31.0, "goals_against": 42.0, "goal_difference": -11.0, "points": 29}, {"team_id": "BRA025", "team": "Grêmio", "position": 16, "played": 26, "wins": 7, "draws": 7, "losses": 12, "goals_for": 28.0, "goals_against": 35.0, "goal_difference": -7.0, "points": 28}, {"team_id": "BRA044", "team": "Vasco da Gama", "position": 17, "played": 26, "wins": 7, "draws": 7, "losses": 12, "goals_for": 29.0, "goals_against": 41.0, "goal_difference": -12.0, "points": 28}, {"team_id": "BRA028", "team": "Internacional", "position": 18, "played": 27, "wins": 6, "draws": 10, "losses": 11, "goals_for": 30.0, "goals_against": 35.0, "goal_difference": -5.0, "points": 28}, {"team_id": "BRA047", "team": "Remo", "position": 19, "played": 26, "wins": 5, "draws": 8, "losses": 13, "goals_for": 30.0, "goals_against": 43.0, "goal_difference": -13.0, "points": 23}, {"team_id": "BRA014", "team": "Chapecoense", "position": 20, "played": 26, "wins": 3, "draws": 8, "losses": 15, "goals_for": 28.0, "goals_against": 52.0, "goal_difference": -24.0, "points": 17}];
+const PREDICTION = [{"team_id": "BRA021", "team": "Flamengo", "state": "RJ", "current_points": 57, "expected_points": 78.00132, "median_points": 78.0, "p10_points": 73.0, "p90_points": 83.0, "expected_position": 1.42726, "title_probability": 0.57961, "libertadores_probability": 1.0, "sulamericana_probability": 0.0, "relegation_probability": 0.0}, {"team_id": "BRA033", "team": "Palmeiras", "state": "SP", "current_points": 56, "expected_points": 77.07718, "median_points": 77.0, "p10_points": 72.0, "p90_points": 82.0, "expected_position": 1.59012, "title_probability": 0.41971, "libertadores_probability": 1.0000000000000002, "sulamericana_probability": 0.0, "relegation_probability": 0.0}, {"team_id": "BRA003", "team": "Athletico Paranaense", "state": "PR", "current_points": 46, "expected_points": 62.17515, "median_points": 62.0, "p10_points": 57.0, "p90_points": 68.0, "expected_position": 4.30124, "title_probability": 0.00043, "libertadores_probability": 0.90294, "sulamericana_probability": 0.09682, "relegation_probability": 0.0}, {"team_id": "BRA022", "team": "Fluminense", "state": "RJ", "current_points": 45, "expected_points": 60.85426, "median_points": 61.0, "p10_points": 55.0, "p90_points": 66.0, "expected_position": 4.92017, "title_probability": 0.0002, "libertadores_probability": 0.8219, "sulamericana_probability": 0.17685, "relegation_probability": 0.0}, {"team_id": "BRA007", "team": "Bahia", "state": "BA", "current_points": 43, "expected_points": 58.60673, "median_points": 59.0, "p10_points": 53.0, "p90_points": 64.0, "expected_position": 5.87578, "title_probability": 3e-05, "libertadores_probability": 0.6548, "sulamericana_probability": 0.3386399999999999, "relegation_probability": 3.0000000000000004e-05}, {"team_id": "BRA018", "team": "Cruzeiro", "state": "MG", "current_points": 42, "expected_points": 58.20729, "median_points": 58.0, "p10_points": 53.0, "p90_points": 64.0, "expected_position": 6.20542, "title_probability": 1e-05, "libertadores_probability": 0.59234, "sulamericana_probability": 0.39927, "relegation_probability": 7.999999999999999e-05}, {"team_id": "BRA005", "team": "Atlético Mineiro", "state": "MG", "current_points": 39, "expected_points": 57.53434, "median_points": 58.0, "p10_points": 52.0, "p90_points": 63.0, "expected_position": 6.3739, "title_probability": 1e-05, "libertadores_probability": 0.56635, "sulamericana_probability": 0.41914, "relegation_probability": 0.0001699999999999}, {"team_id": "BRA010", "team": "Red Bull Bragantino", "state": "SP", "current_points": 36, "expected_points": 52.20036, "median_points": 52.0, "p10_points": 47.0, "p90_points": 58.0, "expected_position": 9.48106, "title_probability": 0.0, "libertadores_probability": 0.14396, "sulamericana_probability": 0.7050400000000001, "relegation_probability": 0.01109}, {"team_id": "BRA042", "team": "São Paulo", "state": "SP", "current_points": 33, "expected_points": 51.09436, "median_points": 51.0, "p10_points": 46.0, "p90_points": 57.0, "expected_position": 10.13089, "title_probability": 0.0, "libertadores_probability": 0.10425, "sulamericana_probability": 0.679, "relegation_probability": 0.02244}, {"team_id": "BRA009", "team": "Botafogo", "state": "RJ", "current_points": 32, "expected_points": 50.87099, "median_points": 51.0, "p10_points": 45.0, "p90_points": 57.0, "expected_position": 10.3965, "title_probability": 0.0, "libertadores_probability": 0.0912, "sulamericana_probability": 0.66317, "relegation_probability": 0.02967}, {"team_id": "BRA040", "team": "Santos", "state": "SP", "current_points": 35, "expected_points": 49.96981, "median_points": 50.0, "p10_points": 44.0, "p90_points": 56.0, "expected_position": 11.06069, "title_probability": 0.0, "libertadores_probability": 0.06491, "sulamericana_probability": 0.60865, "relegation_probability": 0.03942}, {"team_id": "BRA016", "team": "Coritiba", "state": "PR", "current_points": 38, "expected_points": 49.209, "median_points": 49.0, "p10_points": 44.0, "p90_points": 54.0, "expected_position": 11.78968, "title_probability": 0.0, "libertadores_probability": 0.03056, "sulamericana_probability": 0.5612900000000001, "relegation_probability": 0.0484}, {"team_id": "BRA015", "team": "Corinthians", "state": "SP", "current_points": 32, "expected_points": 47.06752, "median_points": 47.0, "p10_points": 42.0, "p90_points": 52.0, "expected_position": 12.91733, "title_probability": 0.0, "libertadores_probability": 0.01401, "sulamericana_probability": 0.42421, "relegation_probability": 0.12255}, {"team_id": "BRA045", "team": "Vitória", "state": "BA", "current_points": 33, "expected_points": 46.06471, "median_points": 46.0, "p10_points": 41.0, "p90_points": 51.0, "expected_position": 14.02565, "title_probability": 0.0, "libertadores_probability": 0.00544, "sulamericana_probability": 0.27991, "relegation_probability": 0.21239}, {"team_id": "BRA046", "team": "Mirassol", "state": "SP", "current_points": 29, "expected_points": 44.52911, "median_points": 44.0, "p10_points": 39.0, "p90_points": 50.0, "expected_position": 14.78764, "title_probability": 0.0, "libertadores_probability": 0.0027999999999999, "sulamericana_probability": 0.19931, "relegation_probability": 0.31527}, {"team_id": "BRA025", "team": "Grêmio", "state": "RS", "current_points": 28, "expected_points": 43.74778, "median_points": 44.0, "p10_points": 38.0, "p90_points": 49.0, "expected_position": 15.13484, "title_probability": 0.0, "libertadores_probability": 0.00225, "sulamericana_probability": 0.1725499999999999, "relegation_probability": 0.37432}, {"team_id": "BRA028", "team": "Internacional", "state": "RS", "current_points": 28, "expected_points": 43.69554, "median_points": 44.0, "p10_points": 38.0, "p90_points": 49.0, "expected_position": 15.04023, "title_probability": 0.0, "libertadores_probability": 0.00159, "sulamericana_probability": 0.1767, "relegation_probability": 0.3540199999999999}, {"team_id": "BRA044", "team": "Vasco da Gama", "state": "RJ", "current_points": 28, "expected_points": 42.47599, "median_points": 42.0, "p10_points": 37.0, "p90_points": 48.0, "expected_position": 16.03465, "title_probability": 0.0, "libertadores_probability": 0.0007, "sulamericana_probability": 0.09677, "relegation_probability": 0.52366}, {"team_id": "BRA047", "team": "Remo", "state": "PA", "current_points": 23, "expected_points": 35.54194, "median_points": 35.0, "p10_points": 30.0, "p90_points": 41.0, "expected_position": 18.59882, "title_probability": 0.0, "libertadores_probability": 0.0, "sulamericana_probability": 0.00267, "relegation_probability": 0.9469}, {"team_id": "BRA014", "team": "Chapecoense", "state": "SC", "current_points": 17, "expected_points": 27.35112, "median_points": 27.0, "p10_points": 22.0, "p90_points": 33.0, "expected_position": 19.90813, "title_probability": 0.0, "libertadores_probability": 0.0, "sulamericana_probability": 1e-05, "relegation_probability": 0.99959}];
+const NEXT_ROUND = [{"round": 28, "date": "2026-09-19", "home_team": "Atlético Mineiro", "away_team": "Chapecoense", "home_win_probability": 0.6910090567599225, "draw_probability": 0.1889283454494004, "away_win_probability": 0.120062597790677}, {"round": 28, "date": "2026-09-19", "home_team": "Mirassol", "away_team": "Botafogo", "home_win_probability": 0.4633077749842559, "draw_probability": 0.2526366043996122, "away_win_probability": 0.2840556206161319}, {"round": 28, "date": "2026-09-19", "home_team": "Remo", "away_team": "Santos", "home_win_probability": 0.3747348813022328, "draw_probability": 0.2528663483369852, "away_win_probability": 0.3723987703607819}, {"round": 28, "date": "2026-09-19", "home_team": "Vasco da Gama", "away_team": "Coritiba", "home_win_probability": 0.5050782949379302, "draw_probability": 0.2419351528770735, "away_win_probability": 0.2529865521849962}, {"round": 28, "date": "2026-09-19", "home_team": "São Paulo", "away_team": "Internacional", "home_win_probability": 0.4587309232131249, "draw_probability": 0.2790350677819539, "away_win_probability": 0.2622340090049211}, {"round": 28, "date": "2026-09-20", "home_team": "Grêmio", "away_team": "Palmeiras", "home_win_probability": 0.3021984819419182, "draw_probability": 0.2700436027253537, "away_win_probability": 0.427757915332728}, {"round": 28, "date": "2026-09-20", "home_team": "Vitória", "away_team": "Cruzeiro", "home_win_probability": 0.3298866329957476, "draw_probability": 0.2859619396035026, "away_win_probability": 0.3841514274007497}, {"round": 28, "date": "2026-09-20", "home_team": "Corinthians", "away_team": "Fluminense", "home_win_probability": 0.4444668025516992, "draw_probability": 0.2840876459278205, "away_win_probability": 0.2714455515204803}, {"round": 28, "date": "2026-09-20", "home_team": "Flamengo", "away_team": "Red Bull Bragantino", "home_win_probability": 0.6637089823032107, "draw_probability": 0.1988857054335111, "away_win_probability": 0.1374053122632779}, {"round": 28, "date": "2026-09-20", "home_team": "Athletico Paranaense", "away_team": "Bahia", "home_win_probability": 0.4967266210775971, "draw_probability": 0.2578277476598484, "away_win_probability": 0.2454456312625544}];
+
+const predByTeam = Object.fromEntries(PREDICTION.map(p => [p.team_id, p]));
+
+function pct(x){ return (x*100).toFixed(0) + '%'; }
+function pct1(x){ return (x*100).toFixed(1) + '%'; }
+
+function zoneStripe(pos){
+  if(pos === 1) return 'var(--gold)';
+  if(pos <= 6) return 'var(--lib)';
+  if(pos <= 12) return 'var(--sula)';
+  if(pos <= 16) return 'var(--mid)';
+  return 'var(--releg)';
+}
+
+const tbody = document.getElementById('table-body');
+STANDINGS.forEach(row => {
+  const p = predByTeam[row.team_id];
+  const title = p.title_probability;
+  const libRest = Math.max(p.libertadores_probability - title, 0);
+  const sula = p.sulamericana_probability;
+  const releg = p.relegation_probability;
+  const mid = Math.max(1 - p.libertadores_probability - sula - releg, 0);
+
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td><div class="pos"><span class="stripe" style="background:${zoneStripe(row.position)}"></span>${row.position}</div></td>
+    <td><div class="team-cell"><span class="name">${row.team}</span><span class="uf">${p.state}</span></div></td>
+    <td class="num">${row.played}</td>
+    <td class="num">${row.wins}</td>
+    <td class="num">${row.draws}</td>
+    <td class="num">${row.losses}</td>
+    <td class="num">${row.goal_difference > 0 ? '+' : ''}${row.goal_difference|0}</td>
+    <td class="num pts-now">${row.points}</td>
+    <td class="num">
+      <div class="pts-exp">${p.expected_points.toFixed(1)}</div>
+      <div class="pts-range">${p.p10_points|0}–${p.p90_points|0}</div>
+    </td>
+    <td>
+      <div class="outlook">
+        <div class="outlook-bar">
+          <i style="width:${title*100}%;background:var(--gold)" title="Título: ${pct1(title)}"></i>
+          <i style="width:${libRest*100}%;background:var(--lib)" title="Libertadores: ${pct1(p.libertadores_probability)}"></i>
+          <i style="width:${sula*100}%;background:var(--sula)" title="Sul-Americana: ${pct1(sula)}"></i>
+          <i style="width:${mid*100}%;background:var(--mid)"></i>
+          <i style="width:${releg*100}%;background:var(--releg)" title="Rebaixamento: ${pct1(releg)}"></i>
+        </div>
+        <div class="outlook-labels">
+          <span>${title>0.01?pct(title)+' tít.':(p.libertadores_probability>0.01?pct(p.libertadores_probability)+' libs':'')}</span>
+          <span>${releg>0.01?pct(releg)+' Z4':''}</span>
+        </div>
+      </div>
+    </td>
+  `;
+  tbody.appendChild(tr);
+});
+
+const fixturesEl = document.getElementById('fixtures');
+const dayNames = {};
+NEXT_ROUND.forEach(f => {
+  const d = new Date(f.date + 'T12:00:00');
+  const label = d.toLocaleDateString('pt-BR', { weekday: 'short', day: '2-digit', month: 'short' });
+  const div = document.createElement('div');
+  div.className = 'fixture';
+  div.innerHTML = `
+    <div class="when">${label}</div>
+    <div class="match"><span>${f.home_team}</span><span style="color:var(--ink-dim);font-weight:400;">x</span><span>${f.away_team}</span></div>
+    <div class="probbar">
+      <i style="width:${f.home_win_probability*100}%;background:var(--home-bar)"></i>
+      <i style="width:${f.draw_probability*100}%;background:var(--draw-bar)"></i>
+      <i style="width:${f.away_win_probability*100}%;background:var(--away-bar)"></i>
+    </div>
+    <div class="problabels">
+      <span>${pct(f.home_win_probability)}</span>
+      <span>${pct(f.draw_probability)}</span>
+      <span>${pct(f.away_win_probability)}</span>
+    </div>
+  `;
+  fixturesEl.appendChild(div);
+});
+</script>

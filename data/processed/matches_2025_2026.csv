@@ -1,0 +1,761 @@
+cbf_id,season,round,date,home_team_id,away_team_id,home_goals,away_goals,result,played,venue
+828984,2025,1,2025-03-29,BRA042,BRA043,0.0,0.0,D,True,Morumbi - Sao Paulo - SP
+828986,2025,1,2025-03-29,BRA018,BRA046,2.0,1.0,H,True,Mineirão - Belo Horizonte - MG
+828987,2025,1,2025-03-29,BRA025,BRA005,2.0,1.0,H,True,Arena do Grêmio - Porto Alegre - RS
+828989,2025,1,2025-03-29,BRA023,BRA022,2.0,0.0,H,True,Arena Castelão - Fortaleza - CE
+828990,2025,1,2025-03-29,BRA031,BRA045,2.0,0.0,H,True,Alfredo Jaconi - Caxias do Sul - RS
+828981,2025,1,2025-03-29,BRA021,BRA028,1.0,1.0,D,True,Maracanã - Rio de Janeiro - RJ
+828983,2025,1,2025-03-30,BRA033,BRA009,0.0,0.0,D,True,Nubank Parque  - Sao Paulo - SP
+828982,2025,1,2025-03-30,BRA044,BRA040,2.0,1.0,H,True,São Januário - Rio de Janeiro - RJ
+828988,2025,1,2025-03-30,BRA007,BRA015,1.0,1.0,D,True,Arena Fonte Nova - Salvador - BA
+828985,2025,1,2025-03-31,BRA010,BRA013,2.0,2.0,D,True,Nabi Abi Chedid - Braganca Paulista - SP
+828993,2025,2,2025-04-05,BRA015,BRA044,3.0,0.0,H,True,Neo Química Arena - Sao Paulo - SP
+828999,2025,2,2025-04-05,BRA013,BRA025,2.0,0.0,H,True,Arena Castelão - Fortaleza - CE
+828992,2025,2,2025-04-05,BRA009,BRA031,2.0,0.0,H,True,Nilton Santos - Rio de Janeiro - RJ
+828991,2025,2,2025-04-06,BRA022,BRA010,2.0,1.0,H,True,Maracanã - Rio de Janeiro - RJ
+828996,2025,2,2025-04-06,BRA005,BRA042,0.0,0.0,D,True,Mineirão - Belo Horizonte - MG
+828997,2025,2,2025-04-06,BRA028,BRA018,3.0,0.0,H,True,Beira-Rio - Porto Alegre - RS
+828998,2025,2,2025-04-06,BRA045,BRA021,1.0,2.0,A,True,Manoel Barradas - Salvador - BA
+829000,2025,2,2025-04-06,BRA043,BRA033,1.0,2.0,A,True,Ilha do Retiro - Recife - PE
+828995,2025,2,2025-04-06,BRA046,BRA023,1.0,1.0,D,True,José Maria de Campos Maia - Mirassol - SP
+828994,2025,2,2025-04-06,BRA040,BRA007,2.0,2.0,D,True,Vila Belmiro - Santos - SP
+829005,2025,3,2025-04-12,BRA010,BRA009,1.0,0.0,H,True,Nabi Abi Chedid - Braganca Paulista - SP
+829010,2025,3,2025-04-12,BRA031,BRA013,2.0,1.0,H,True,Alfredo Jaconi - Caxias do Sul - RS
+829003,2025,3,2025-04-12,BRA033,BRA015,2.0,0.0,H,True,Arena Barueri - Barueri - SP
+829002,2025,3,2025-04-12,BRA044,BRA043,3.0,1.0,H,True,São Januário - Rio de Janeiro - RJ
+829008,2025,3,2025-04-13,BRA007,BRA046,1.0,1.0,D,True,Arena Fonte Nova - Salvador - BA
+829004,2025,3,2025-04-13,BRA042,BRA018,1.0,1.0,D,True,Morumbi - Sao Paulo - SP
+829007,2025,3,2025-04-13,BRA025,BRA021,0.0,2.0,A,True,Arena do Grêmio - Porto Alegre - RS
+829001,2025,3,2025-04-13,BRA022,BRA040,1.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+829009,2025,3,2025-04-13,BRA023,BRA028,0.0,0.0,D,True,Arena Castelão - Fortaleza - CE
+829006,2025,3,2025-04-13,BRA005,BRA045,2.0,2.0,D,True,Mineirão - Belo Horizonte - MG
+829019,2025,4,2025-04-15,BRA013,BRA044,2.0,1.0,H,True,Arena Castelão - Fortaleza - CE
+829012,2025,4,2025-04-16,BRA009,BRA042,2.0,2.0,D,True,Nilton Santos - Rio de Janeiro - RJ
+829015,2025,4,2025-04-16,BRA046,BRA025,4.0,1.0,H,True,José Maria de Campos Maia - Mirassol - SP
+829020,2025,4,2025-04-16,BRA043,BRA010,0.0,1.0,A,True,Ilha do Retiro - Recife - PE
+829017,2025,4,2025-04-16,BRA028,BRA033,0.0,1.0,A,True,Beira-Rio - Porto Alegre - RS
+829013,2025,4,2025-04-16,BRA015,BRA022,0.0,2.0,A,True,Neo Química Arena - Sao Paulo - SP
+829014,2025,4,2025-04-16,BRA040,BRA005,2.0,0.0,H,True,Vila Belmiro - Santos - SP
+829018,2025,4,2025-04-16,BRA045,BRA023,2.0,1.0,H,True,Manoel Barradas - Salvador - BA
+829011,2025,4,2025-04-16,BRA021,BRA031,6.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+829016,2025,4,2025-04-17,BRA018,BRA007,3.0,0.0,H,True,Mineirão - Belo Horizonte - MG
+829069,2025,5,2025-04-19,BRA015,BRA043,2.0,1.0,H,True,Neo Química Arena - Sao Paulo - SP
+829068,2025,5,2025-04-19,BRA044,BRA021,0.0,0.0,D,True,Maracanã - Rio de Janeiro - RJ
+829073,2025,5,2025-04-19,BRA025,BRA028,1.0,1.0,D,True,Arena do Grêmio - Porto Alegre - RS
+829076,2025,5,2025-04-20,BRA031,BRA046,2.0,2.0,D,True,Alfredo Jaconi - Caxias do Sul - RS
+829072,2025,5,2025-04-20,BRA005,BRA009,1.0,0.0,H,True,Mineirão - Belo Horizonte - MG
+829070,2025,5,2025-04-20,BRA042,BRA040,2.0,1.0,H,True,Morumbi - Sao Paulo - SP
+829067,2025,5,2025-04-20,BRA022,BRA045,1.0,1.0,D,True,Maracanã - Rio de Janeiro - RJ
+829075,2025,5,2025-04-20,BRA023,BRA033,1.0,2.0,A,True,Arena Castelão - Fortaleza - CE
+829071,2025,5,2025-04-20,BRA010,BRA018,1.0,0.0,H,True,Nabi Abi Chedid - Braganca Paulista - SP
+829074,2025,5,2025-04-21,BRA007,BRA013,1.0,0.0,H,True,Arena Fonte Nova - Salvador - BA
+829083,2025,6,2025-04-26,BRA028,BRA031,3.0,1.0,H,True,Beira-Rio - Porto Alegre - RS
+829085,2025,6,2025-04-26,BRA013,BRA042,1.0,1.0,D,True,Arena Castelão - Fortaleza - CE
+829081,2025,6,2025-04-26,BRA046,BRA005,2.0,2.0,D,True,José Maria de Campos Maia - Mirassol - SP
+829086,2025,6,2025-04-26,BRA043,BRA023,0.0,0.0,D,True,Ilha do Retiro - Recife - PE
+829078,2025,6,2025-04-26,BRA009,BRA022,2.0,0.0,H,True,Nilton Santos - Rio de Janeiro - RJ
+829077,2025,6,2025-04-27,BRA021,BRA015,4.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+829079,2025,6,2025-04-27,BRA033,BRA007,0.0,1.0,A,True,Nubank Parque  - Sao Paulo - SP
+829082,2025,6,2025-04-27,BRA018,BRA044,1.0,0.0,H,True,Parque do Sabiá - Uberlandia - MG
+829084,2025,6,2025-04-27,BRA045,BRA025,1.0,1.0,D,True,Manoel Barradas - Salvador - BA
+829080,2025,6,2025-04-27,BRA040,BRA010,1.0,2.0,A,True,Vila Belmiro - Santos - SP
+829186,2025,7,2025-05-02,BRA042,BRA023,0.0,0.0,D,True,Morumbi - Sao Paulo - SP
+829183,2025,7,2025-05-03,BRA022,BRA043,2.0,1.0,H,True,Maracanã - Rio de Janeiro - RJ
+829185,2025,7,2025-05-03,BRA015,BRA028,4.0,2.0,H,True,Neo Química Arena - Sao Paulo - SP
+829191,2025,7,2025-05-03,BRA013,BRA045,1.0,0.0,H,True,Presidente Vargas - Fortaleza - CE
+829190,2025,7,2025-05-03,BRA007,BRA009,1.0,0.0,H,True,Arena Fonte Nova - Salvador - BA
+829189,2025,7,2025-05-04,BRA025,BRA040,1.0,0.0,H,True,Arena do Grêmio - Porto Alegre - RS
+829184,2025,7,2025-05-04,BRA044,BRA033,0.0,1.0,A,True,Mané Garrincha - Brasilia - DF
+829188,2025,7,2025-05-04,BRA018,BRA021,2.0,1.0,H,True,Mineirão - Belo Horizonte - MG
+829187,2025,7,2025-05-05,BRA010,BRA046,1.0,0.0,H,True, Cícero de Souza Marques - Braganca Paulista - SP
+829192,2025,7,2025-05-05,BRA031,BRA005,0.0,1.0,A,True,Alfredo Jaconi - Caxias do Sul - RS
+829201,2025,8,2025-05-10,BRA023,BRA031,5.0,0.0,H,True,Presidente Vargas - Fortaleza - CE
+829197,2025,8,2025-05-10,BRA046,BRA015,2.0,1.0,H,True,José Maria de Campos Maia - Mirassol - SP
+829199,2025,8,2025-05-10,BRA025,BRA010,1.0,1.0,D,True,Arena do Grêmio - Porto Alegre - RS
+829200,2025,8,2025-05-10,BRA045,BRA044,2.0,1.0,H,True,Manoel Barradas - Salvador - BA
+829193,2025,8,2025-05-10,BRA021,BRA007,1.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+829202,2025,8,2025-05-11,BRA043,BRA018,0.0,4.0,A,True,Ilha do Retiro - Recife - PE
+829195,2025,8,2025-05-11,BRA033,BRA042,1.0,0.0,H,True,Arena Barueri - Barueri - SP
+829198,2025,8,2025-05-11,BRA005,BRA022,3.0,2.0,H,True,ARENA MRV - Belo Horizonte - MG
+829194,2025,8,2025-05-11,BRA009,BRA028,4.0,0.0,H,True,Nilton Santos - Rio de Janeiro - RJ
+829196,2025,8,2025-05-12,BRA040,BRA013,0.0,0.0,D,True,Nubank Parque  - Sao Paulo - SP
+829211,2025,9,2025-05-17,BRA013,BRA043,2.0,0.0,H,True,Arena Castelão - Fortaleza - CE
+829204,2025,9,2025-05-17,BRA044,BRA023,3.0,0.0,H,True,São Januário - Rio de Janeiro - RJ
+829206,2025,9,2025-05-17,BRA042,BRA025,2.0,1.0,H,True,Morumbi - Sao Paulo - SP
+829205,2025,9,2025-05-18,BRA015,BRA040,1.0,0.0,H,True,Neo Química Arena - Sao Paulo - SP
+829210,2025,9,2025-05-18,BRA007,BRA045,2.0,1.0,H,True,Arena Fonte Nova - Salvador - BA
+829212,2025,9,2025-05-18,BRA031,BRA022,1.0,1.0,D,True,Alfredo Jaconi - Caxias do Sul - RS
+829203,2025,9,2025-05-18,BRA021,BRA009,0.0,0.0,D,True,Maracanã - Rio de Janeiro - RJ
+829207,2025,9,2025-05-18,BRA010,BRA033,1.0,2.0,A,True, Cícero de Souza Marques - Braganca Paulista - SP
+829208,2025,9,2025-05-18,BRA018,BRA005,0.0,0.0,D,True,Mineirão - Belo Horizonte - MG
+829209,2025,9,2025-05-18,BRA028,BRA046,1.0,1.0,D,True,Beira-Rio - Porto Alegre - RS
+829213,2025,10,2025-05-24,BRA022,BRA044,2.0,1.0,H,True,Maracanã - Rio de Janeiro - RJ
+829216,2025,10,2025-05-24,BRA042,BRA046,0.0,2.0,A,True,Morumbi - Sao Paulo - SP
+829218,2025,10,2025-05-24,BRA005,BRA015,0.0,0.0,D,True,ARENA MRV - Belo Horizonte - MG
+829219,2025,10,2025-05-25,BRA025,BRA007,1.0,0.0,H,True,Arena do Grêmio - Porto Alegre - RS
+829215,2025,10,2025-05-25,BRA033,BRA021,0.0,2.0,A,True,Nubank Parque  - Sao Paulo - SP
+829222,2025,10,2025-05-25,BRA043,BRA028,1.0,1.0,D,True,Ilha do Retiro - Recife - PE
+829220,2025,10,2025-05-25,BRA045,BRA040,0.0,1.0,A,True,Manoel Barradas - Salvador - BA
+829221,2025,10,2025-05-25,BRA023,BRA018,0.0,2.0,A,True,Arena Castelão - Fortaleza - CE
+829217,2025,10,2025-05-26,BRA010,BRA031,1.0,0.0,H,True, Cícero de Souza Marques - Braganca Paulista - SP
+829214,2025,10,2025-06-04,BRA009,BRA013,3.0,2.0,H,True,Nilton Santos - Rio de Janeiro - RJ
+829230,2025,11,2025-05-31,BRA007,BRA042,2.0,1.0,H,True,Arena Fonte Nova - Salvador - BA
+829224,2025,11,2025-05-31,BRA044,BRA010,0.0,2.0,A,True,São Januário - Rio de Janeiro - RJ
+829227,2025,11,2025-06-01,BRA046,BRA043,1.0,0.0,H,True,José Maria de Campos Maia - Mirassol - SP
+829226,2025,11,2025-06-01,BRA040,BRA009,0.0,1.0,A,True,Vila Belmiro - Santos - SP
+829232,2025,11,2025-06-01,BRA031,BRA025,0.0,2.0,A,True,Alfredo Jaconi - Caxias do Sul - RS
+829223,2025,11,2025-06-01,BRA021,BRA023,5.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+829225,2025,11,2025-06-01,BRA015,BRA045,0.0,0.0,D,True,Neo Química Arena - Sao Paulo - SP
+829231,2025,11,2025-06-01,BRA013,BRA005,0.0,1.0,A,True,Arena Castelão - Fortaleza - CE
+829228,2025,11,2025-06-01,BRA018,BRA033,2.0,1.0,H,True,Mineirão - Belo Horizonte - MG
+829229,2025,11,2025-06-01,BRA028,BRA022,0.0,2.0,A,True,Beira-Rio - Porto Alegre - RS
+829247,2025,12,2025-06-12,BRA010,BRA007,0.0,3.0,A,True, Cícero de Souza Marques - Braganca Paulista - SP
+829250,2025,12,2025-06-12,BRA045,BRA018,0.0,0.0,D,True,Manoel Barradas - Salvador - BA
+829251,2025,12,2025-06-12,BRA023,BRA040,2.0,3.0,A,True,Arena Castelão - Fortaleza - CE
+829249,2025,12,2025-06-12,BRA025,BRA015,1.0,1.0,D,True,Arena do Grêmio - Porto Alegre - RS
+829248,2025,12,2025-06-12,BRA005,BRA028,2.0,0.0,H,True,ARENA MRV - Belo Horizonte - MG
+829246,2025,12,2025-06-12,BRA042,BRA044,1.0,3.0,A,True,Morumbi - Sao Paulo - SP
+829244,2025,12,2025-09-17,BRA009,BRA046,3.0,3.0,D,True,Nilton Santos - Rio de Janeiro - RJ
+829245,2025,12,2025-10-11,BRA033,BRA031,4.0,1.0,H,True,Nubank Parque  - Sao Paulo - SP
+829243,2025,12,2025-10-29,BRA022,BRA013,1.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+829252,2025,12,2025-11-15,BRA043,BRA021,1.0,5.0,A,True,Arena Pernambuco - São Lourenço da Mata - PE
+829253,2025,13,2025-07-12,BRA021,BRA042,2.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+829259,2025,13,2025-07-12,BRA028,BRA045,1.0,0.0,H,True,Beira-Rio - Porto Alegre - RS
+829254,2025,13,2025-07-12,BRA044,BRA009,0.0,2.0,A,True,Mané Garrincha - Brasilia - DF
+829260,2025,13,2025-07-12,BRA007,BRA005,2.0,1.0,H,True,Arena Fonte Nova - Salvador - BA
+829255,2025,13,2025-07-13,BRA015,BRA010,1.0,2.0,A,True,Neo Química Arena - Sao Paulo - SP
+829261,2025,13,2025-07-13,BRA023,BRA013,0.0,1.0,A,True,Arena Castelão - Fortaleza - CE
+829258,2025,13,2025-07-13,BRA018,BRA025,4.0,1.0,H,True,Mineirão - Belo Horizonte - MG
+829262,2025,13,2025-07-14,BRA031,BRA043,2.0,0.0,H,True,Alfredo Jaconi - Caxias do Sul - RS
+829257,2025,13,2025-10-08,BRA046,BRA022,2.0,1.0,H,True,José Maria de Campos Maia - Mirassol - SP
+829256,2025,13,2025-11-15,BRA040,BRA033,1.0,0.0,H,True,Vila Belmiro - Santos - SP
+829265,2025,14,2025-07-16,BRA033,BRA046,1.0,1.0,D,True,Nubank Parque  - Sao Paulo - SP
+829271,2025,14,2025-07-16,BRA013,BRA015,0.0,1.0,A,True,Arena Castelão - Fortaleza - CE
+829266,2025,14,2025-07-16,BRA040,BRA021,1.0,0.0,H,True,Vila Belmiro - Santos - SP
+829267,2025,14,2025-07-16,BRA010,BRA042,2.0,2.0,D,True, Cícero de Souza Marques - Braganca Paulista - SP
+829264,2025,14,2025-07-16,BRA009,BRA045,0.0,0.0,D,True,Nilton Santos - Rio de Janeiro - RJ
+829263,2025,14,2025-07-17,BRA022,BRA018,0.0,2.0,A,True,Maracanã - Rio de Janeiro - RJ
+829269,2025,14,2025-07-29,BRA025,BRA023,2.0,1.0,H,True,Arena do Grêmio - Porto Alegre - RS
+829272,2025,14,2025-08-20,BRA031,BRA044,2.0,0.0,H,True,Alfredo Jaconi - Caxias do Sul - RS
+829268,2025,14,2025-10-08,BRA005,BRA043,3.0,1.0,H,True,ARENA MRV - Belo Horizonte - MG
+829270,2025,14,2025-10-22,BRA007,BRA028,1.0,0.0,H,True,Arena Fonte Nova - Salvador - BA
+829281,2025,15,2025-07-19,BRA023,BRA007,1.0,1.0,D,True,Arena Castelão - Fortaleza - CE
+829274,2025,15,2025-07-19,BRA044,BRA025,1.0,1.0,D,True,São Januário - Rio de Janeiro - RJ
+829277,2025,15,2025-07-19,BRA046,BRA040,3.0,0.0,H,True,José Maria de Campos Maia - Mirassol - SP
+829276,2025,15,2025-07-19,BRA042,BRA015,2.0,0.0,H,True,Morumbi - Sao Paulo - SP
+829279,2025,15,2025-07-20,BRA028,BRA013,1.0,0.0,H,True,Beira-Rio - Porto Alegre - RS
+829280,2025,15,2025-07-20,BRA045,BRA010,1.0,0.0,H,True,Manoel Barradas - Salvador - BA
+829278,2025,15,2025-07-20,BRA018,BRA031,4.0,0.0,H,True,Mineirão - Belo Horizonte - MG
+829275,2025,15,2025-07-20,BRA033,BRA005,3.0,2.0,H,True,Nubank Parque  - Sao Paulo - SP
+829282,2025,15,2025-07-20,BRA043,BRA009,0.0,1.0,A,True,Ilha do Retiro - Recife - PE
+829273,2025,15,2025-07-20,BRA021,BRA022,1.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+829283,2025,16,2025-07-23,BRA022,BRA033,1.0,2.0,A,True,Maracanã - Rio de Janeiro - RJ
+829292,2025,16,2025-07-23,BRA013,BRA046,0.0,2.0,A,True,Arena Castelão - Fortaleza - CE
+829285,2025,16,2025-07-23,BRA015,BRA018,0.0,0.0,D,True,Neo Química Arena - Sao Paulo - SP
+829286,2025,16,2025-07-23,BRA040,BRA028,1.0,2.0,A,True,Vila Belmiro - Santos - SP
+829287,2025,16,2025-07-23,BRA010,BRA021,1.0,2.0,A,True, Cícero de Souza Marques - Braganca Paulista - SP
+829291,2025,16,2025-07-23,BRA045,BRA043,2.0,2.0,D,True,Manoel Barradas - Salvador - BA
+829293,2025,16,2025-07-24,BRA031,BRA042,0.0,1.0,A,True,Alfredo Jaconi - Caxias do Sul - RS
+829290,2025,16,2025-09-24,BRA025,BRA009,1.0,1.0,D,True,Arena do Grêmio - Porto Alegre - RS
+829284,2025,16,2025-09-24,BRA044,BRA007,3.0,1.0,H,True,São Januário - Rio de Janeiro - RJ
+829288,2025,16,2025-11-12,BRA005,BRA023,3.0,3.0,D,True,ARENA MRV - Belo Horizonte - MG
+829299,2025,17,2025-07-26,BRA046,BRA045,1.0,1.0,D,True,José Maria de Campos Maia - Mirassol - SP
+829296,2025,17,2025-07-26,BRA009,BRA015,1.0,1.0,D,True,Nilton Santos - Rio de Janeiro - RJ
+829303,2025,17,2025-07-26,BRA023,BRA010,3.0,1.0,H,True,Arena Castelão - Fortaleza - CE
+829304,2025,17,2025-07-26,BRA043,BRA040,2.0,2.0,D,True,Ilha do Retiro - Recife - PE
+829297,2025,17,2025-07-26,BRA033,BRA025,1.0,0.0,H,True,Nubank Parque  - Sao Paulo - SP
+829298,2025,17,2025-07-27,BRA042,BRA022,3.0,1.0,H,True,Morumbi - Sao Paulo - SP
+829300,2025,17,2025-07-27,BRA018,BRA013,1.0,2.0,A,True,Mineirão - Belo Horizonte - MG
+829301,2025,17,2025-07-27,BRA028,BRA044,1.0,1.0,D,True,Beira-Rio - Porto Alegre - RS
+829302,2025,17,2025-07-27,BRA007,BRA031,3.0,0.0,H,True,Arena Fonte Nova - Salvador - BA
+829294,2025,17,2025-07-27,BRA021,BRA005,1.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+829314,2025,18,2025-08-02,BRA043,BRA007,0.0,0.0,D,True,Ilha do Retiro - Recife - PE
+829309,2025,18,2025-08-02,BRA046,BRA044,3.0,2.0,H,True,José Maria de Campos Maia - Mirassol - SP
+829305,2025,18,2025-08-02,BRA022,BRA025,1.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+829306,2025,18,2025-08-03,BRA009,BRA018,0.0,2.0,A,True,Nilton Santos - Rio de Janeiro - RJ
+829307,2025,18,2025-08-03,BRA015,BRA023,1.0,1.0,D,True,Neo Química Arena - Sao Paulo - SP
+829310,2025,18,2025-08-03,BRA005,BRA010,2.0,1.0,H,True,ARENA MRV - Belo Horizonte - MG
+829313,2025,18,2025-08-03,BRA013,BRA021,1.0,1.0,D,True,Arena Castelão - Fortaleza - CE
+829312,2025,18,2025-08-03,BRA045,BRA033,2.0,2.0,D,True,Manoel Barradas - Salvador - BA
+829311,2025,18,2025-08-03,BRA028,BRA042,1.0,2.0,A,True,Beira-Rio - Porto Alegre - RS
+829308,2025,18,2025-08-04,BRA040,BRA031,3.0,1.0,H,True,Morumbi - Sao Paulo - SP
+829318,2025,19,2025-08-09,BRA042,BRA045,2.0,0.0,H,True,Morumbi - Sao Paulo - SP
+829319,2025,19,2025-08-09,BRA010,BRA028,1.0,3.0,A,True, Cícero de Souza Marques - Braganca Paulista - SP
+829315,2025,19,2025-08-09,BRA021,BRA046,2.0,1.0,H,True,Maracanã - Rio de Janeiro - RJ
+829323,2025,19,2025-08-09,BRA023,BRA009,0.0,5.0,A,True,Arena Castelão - Fortaleza - CE
+829322,2025,19,2025-08-09,BRA007,BRA022,3.0,3.0,D,True,Arena Fonte Nova - Salvador - BA
+829316,2025,19,2025-08-10,BRA044,BRA005,1.0,1.0,D,True,São Januário - Rio de Janeiro - RJ
+829317,2025,19,2025-08-10,BRA033,BRA013,2.0,1.0,H,True,Nubank Parque  - Sao Paulo - SP
+829320,2025,19,2025-08-10,BRA018,BRA040,1.0,2.0,A,True,Mineirão - Belo Horizonte - MG
+829321,2025,19,2025-08-10,BRA025,BRA043,0.0,1.0,A,True,Arena do Grêmio - Porto Alegre - RS
+829324,2025,19,2025-08-11,BRA031,BRA015,2.0,1.0,H,True,Alfredo Jaconi - Caxias do Sul - RS
+829617,2025,20,2025-08-16,BRA022,BRA023,2.0,1.0,H,True,Maracanã - Rio de Janeiro - RJ
+829625,2025,20,2025-08-16,BRA013,BRA010,1.0,0.0,H,True,Arena Castelão - Fortaleza - CE
+829626,2025,20,2025-08-16,BRA043,BRA042,2.0,2.0,D,True,Ilha do Retiro - Recife - PE
+829624,2025,20,2025-08-16,BRA045,BRA031,2.0,2.0,D,True,Manoel Barradas - Salvador - BA
+829619,2025,20,2025-08-16,BRA015,BRA007,1.0,2.0,A,True,Neo Química Arena - Sao Paulo - SP
+829620,2025,20,2025-08-17,BRA040,BRA044,0.0,6.0,A,True,Morumbi - Sao Paulo - SP
+829622,2025,20,2025-08-17,BRA005,BRA025,1.0,3.0,A,True,ARENA MRV - Belo Horizonte - MG
+829623,2025,20,2025-08-17,BRA028,BRA021,1.0,3.0,A,True,Beira-Rio - Porto Alegre - RS
+829618,2025,20,2025-08-17,BRA009,BRA033,0.0,1.0,A,True,Nilton Santos - Rio de Janeiro - RJ
+829621,2025,20,2025-08-18,BRA046,BRA018,1.0,1.0,D,True,José Maria de Campos Maia - Mirassol - SP
+829631,2025,21,2025-08-23,BRA010,BRA022,4.0,2.0,H,True, Cícero de Souza Marques - Braganca Paulista - SP
+829632,2025,21,2025-08-23,BRA018,BRA028,2.0,1.0,H,True,Mineirão - Belo Horizonte - MG
+829633,2025,21,2025-08-23,BRA025,BRA013,0.0,0.0,D,True,Arena do Grêmio - Porto Alegre - RS
+829634,2025,21,2025-08-24,BRA007,BRA040,2.0,0.0,H,True,Arena Fonte Nova - Salvador - BA
+829628,2025,21,2025-08-24,BRA044,BRA015,2.0,3.0,A,True,São Januário - Rio de Janeiro - RJ
+829635,2025,21,2025-08-24,BRA023,BRA046,0.0,1.0,A,True,Arena Castelão - Fortaleza - CE
+829636,2025,21,2025-08-24,BRA031,BRA009,1.0,3.0,A,True,Alfredo Jaconi - Caxias do Sul - RS
+829630,2025,21,2025-08-24,BRA042,BRA005,2.0,0.0,H,True,Morumbi - Sao Paulo - SP
+829629,2025,21,2025-08-25,BRA033,BRA043,3.0,0.0,H,True,Nubank Parque  - Sao Paulo - SP
+829627,2025,21,2025-08-25,BRA021,BRA045,8.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+829652,2025,22,2025-08-30,BRA013,BRA031,0.0,1.0,A,True,Arena Castelão - Fortaleza - CE
+829638,2025,22,2025-08-30,BRA009,BRA010,4.0,1.0,H,True,Nilton Santos - Rio de Janeiro - RJ
+829649,2025,22,2025-08-30,BRA018,BRA042,1.0,0.0,H,True,Mineirão - Belo Horizonte - MG
+829637,2025,22,2025-08-31,BRA021,BRA025,1.0,1.0,D,True,Maracanã - Rio de Janeiro - RJ
+829640,2025,22,2025-08-31,BRA040,BRA022,0.0,0.0,D,True,Vila Belmiro - Santos - SP
+829641,2025,22,2025-08-31,BRA046,BRA007,5.0,1.0,H,True,José Maria de Campos Maia - Mirassol - SP
+829639,2025,22,2025-08-31,BRA015,BRA033,1.0,1.0,D,True,Neo Química Arena - Sao Paulo - SP
+829651,2025,22,2025-08-31,BRA045,BRA005,1.0,0.0,H,True,Manoel Barradas - Salvador - BA
+829650,2025,22,2025-08-31,BRA028,BRA023,2.0,1.0,H,True,Beira-Rio - Porto Alegre - RS
+829653,2025,22,2025-08-31,BRA043,BRA044,2.0,3.0,A,True,Ilha do Retiro - Recife - PE
+829660,2025,23,2025-09-13,BRA025,BRA046,0.0,1.0,A,True,Arena do Grêmio - Porto Alegre - RS
+829662,2025,23,2025-09-13,BRA023,BRA045,2.0,0.0,H,True,Arena Castelão - Fortaleza - CE
+829656,2025,23,2025-09-13,BRA033,BRA028,4.0,1.0,H,True,Nubank Parque  - Sao Paulo - SP
+829654,2025,23,2025-09-13,BRA022,BRA015,0.0,1.0,A,True,Maracanã - Rio de Janeiro - RJ
+829658,2025,23,2025-09-14,BRA010,BRA043,1.0,1.0,D,True, Cícero de Souza Marques - Braganca Paulista - SP
+829659,2025,23,2025-09-14,BRA005,BRA040,1.0,1.0,D,True,ARENA MRV - Belo Horizonte - MG
+829663,2025,23,2025-09-14,BRA031,BRA021,0.0,2.0,A,True,Alfredo Jaconi - Caxias do Sul - RS
+829657,2025,23,2025-09-14,BRA042,BRA009,1.0,0.0,H,True,Morumbi - Sao Paulo - SP
+829655,2025,23,2025-09-14,BRA044,BRA013,2.0,2.0,D,True,São Januário - Rio de Janeiro - RJ
+829661,2025,23,2025-09-15,BRA007,BRA018,1.0,2.0,A,True,Arena Fonte Nova - Salvador - BA
+829674,2025,24,2025-09-20,BRA045,BRA022,0.0,1.0,A,True,Manoel Barradas - Salvador - BA
+829675,2025,24,2025-09-20,BRA013,BRA007,1.0,1.0,D,True,Arena Castelão - Fortaleza - CE
+829665,2025,24,2025-09-20,BRA009,BRA005,1.0,0.0,H,True,Nilton Santos - Rio de Janeiro - RJ
+829666,2025,24,2025-09-20,BRA033,BRA023,4.0,1.0,H,True,Nubank Parque  - Sao Paulo - SP
+829670,2025,24,2025-09-21,BRA046,BRA031,2.0,0.0,H,True,José Maria de Campos Maia - Mirassol - SP
+829676,2025,24,2025-09-21,BRA043,BRA015,1.0,0.0,H,True,Ilha do Retiro - Recife - PE
+829664,2025,24,2025-09-21,BRA021,BRA044,1.0,1.0,D,True,Maracanã - Rio de Janeiro - RJ
+829673,2025,24,2025-09-21,BRA028,BRA025,2.0,3.0,A,True,Beira-Rio - Porto Alegre - RS
+829671,2025,24,2025-09-21,BRA018,BRA010,2.0,1.0,H,True,Mineirão - Belo Horizonte - MG
+829668,2025,24,2025-09-21,BRA040,BRA042,1.0,0.0,H,True,Vila Belmiro - Santos - SP
+829686,2025,25,2025-09-27,BRA023,BRA043,1.0,0.0,H,True,Arena Castelão - Fortaleza - CE
+829687,2025,25,2025-09-27,BRA031,BRA028,1.0,1.0,D,True,Alfredo Jaconi - Caxias do Sul - RS
+829678,2025,25,2025-09-27,BRA044,BRA018,2.0,0.0,H,True,São Januário - Rio de Janeiro - RJ
+829683,2025,25,2025-09-27,BRA005,BRA046,1.0,0.0,H,True,ARENA MRV - Belo Horizonte - MG
+829684,2025,25,2025-09-28,BRA025,BRA045,3.0,1.0,H,True,Arena do Grêmio - Porto Alegre - RS
+829685,2025,25,2025-09-28,BRA007,BRA033,1.0,0.0,H,True,Arena Fonte Nova - Salvador - BA
+829677,2025,25,2025-09-28,BRA022,BRA009,2.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+829682,2025,25,2025-09-28,BRA010,BRA040,2.0,2.0,D,True, Cícero de Souza Marques - Braganca Paulista - SP
+829680,2025,25,2025-09-28,BRA015,BRA021,1.0,2.0,A,True,Neo Química Arena - Sao Paulo - SP
+829681,2025,25,2025-09-29,BRA042,BRA013,0.0,1.0,A,True,Morumbi - Sao Paulo - SP
+829707,2025,26,2025-09-30,BRA005,BRA031,0.0,0.0,D,True,ARENA MRV - Belo Horizonte - MG
+829704,2025,26,2025-10-01,BRA033,BRA044,3.0,0.0,H,True,Nubank Parque  - Sao Paulo - SP
+829706,2025,26,2025-10-01,BRA046,BRA010,1.0,1.0,D,True,José Maria de Campos Maia - Mirassol - SP
+829712,2025,26,2025-10-01,BRA043,BRA022,2.0,2.0,D,True,Ilha do Retiro - Recife - PE
+829708,2025,26,2025-10-01,BRA028,BRA015,1.0,1.0,D,True,Beira-Rio - Porto Alegre - RS
+829705,2025,26,2025-10-01,BRA040,BRA025,1.0,1.0,D,True,Vila Belmiro - Santos - SP
+829703,2025,26,2025-10-01,BRA009,BRA007,2.0,1.0,H,True,Nilton Santos - Rio de Janeiro - RJ
+829710,2025,26,2025-10-02,BRA045,BRA013,1.0,0.0,H,True,Manoel Barradas - Salvador - BA
+829711,2025,26,2025-10-02,BRA023,BRA042,0.0,2.0,A,True,Arena Castelão - Fortaleza - CE
+829702,2025,26,2025-10-02,BRA021,BRA018,0.0,0.0,D,True,Maracanã - Rio de Janeiro - RJ
+829713,2025,27,2025-10-04,BRA022,BRA005,3.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+829720,2025,27,2025-10-04,BRA010,BRA025,1.0,0.0,H,True, Cícero de Souza Marques - Braganca Paulista - SP
+829723,2025,27,2025-10-04,BRA028,BRA009,2.0,0.0,H,True,Beira-Rio - Porto Alegre - RS
+829716,2025,27,2025-10-04,BRA015,BRA046,3.0,0.0,H,True,Neo Química Arena - Sao Paulo - SP
+829719,2025,27,2025-10-05,BRA042,BRA033,2.0,3.0,A,True,Morumbi - Sao Paulo - SP
+829715,2025,27,2025-10-05,BRA044,BRA045,4.0,3.0,H,True,São Januário - Rio de Janeiro - RJ
+829724,2025,27,2025-10-05,BRA007,BRA021,1.0,0.0,H,True,Arena Fonte Nova - Salvador - BA
+829726,2025,27,2025-10-05,BRA031,BRA023,1.0,2.0,A,True,Alfredo Jaconi - Caxias do Sul - RS
+829725,2025,27,2025-10-05,BRA013,BRA040,3.0,0.0,H,True,Arena Castelão - Fortaleza - CE
+829722,2025,27,2025-10-05,BRA018,BRA043,1.0,1.0,D,True,Mineirão - Belo Horizonte - MG
+829733,2025,28,2025-10-15,BRA033,BRA010,5.0,1.0,H,True,Nubank Parque  - Sao Paulo - SP
+829732,2025,28,2025-10-15,BRA009,BRA021,0.0,3.0,A,True,Nilton Santos - Rio de Janeiro - RJ
+829735,2025,28,2025-10-15,BRA046,BRA028,3.0,1.0,H,True,José Maria de Campos Maia - Mirassol - SP
+829741,2025,28,2025-10-15,BRA043,BRA013,1.0,1.0,D,True,Ilha do Retiro - Recife - PE
+829740,2025,28,2025-10-15,BRA023,BRA044,0.0,2.0,A,True,Arena Castelão - Fortaleza - CE
+829737,2025,28,2025-10-15,BRA005,BRA018,1.0,1.0,D,True,ARENA MRV - Belo Horizonte - MG
+829734,2025,28,2025-10-15,BRA040,BRA015,3.0,1.0,H,True,Vila Belmiro - Santos - SP
+829738,2025,28,2025-10-16,BRA025,BRA042,2.0,0.0,H,True,Arena do Grêmio - Porto Alegre - RS
+829739,2025,28,2025-10-16,BRA045,BRA007,2.0,1.0,H,True,Manoel Barradas - Salvador - BA
+829731,2025,28,2025-10-16,BRA022,BRA031,1.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+829745,2025,29,2025-10-18,BRA015,BRA005,1.0,0.0,H,True,Neo Química Arena - Sao Paulo - SP
+829748,2025,29,2025-10-18,BRA018,BRA023,1.0,0.0,H,True,Mineirão - Belo Horizonte - MG
+829743,2025,29,2025-10-19,BRA021,BRA033,3.0,2.0,H,True,Maracanã - Rio de Janeiro - RJ
+829749,2025,29,2025-10-19,BRA028,BRA043,2.0,0.0,H,True,Beira-Rio - Porto Alegre - RS
+829751,2025,29,2025-10-19,BRA013,BRA009,0.0,2.0,A,True,Arena Castelão - Fortaleza - CE
+829747,2025,29,2025-10-19,BRA046,BRA042,3.0,0.0,H,True,José Maria de Campos Maia - Mirassol - SP
+829750,2025,29,2025-10-19,BRA007,BRA025,4.0,0.0,H,True,Arena Fonte Nova - Salvador - BA
+829752,2025,29,2025-10-20,BRA031,BRA010,1.0,0.0,H,True,Alfredo Jaconi - Caxias do Sul - RS
+829744,2025,29,2025-10-20,BRA044,BRA022,2.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+829746,2025,29,2025-10-20,BRA040,BRA045,0.0,1.0,A,True,Vila Belmiro - Santos - SP
+829760,2025,30,2025-10-25,BRA005,BRA013,1.0,0.0,H,True,ARENA MRV - Belo Horizonte - MG
+829762,2025,30,2025-10-25,BRA045,BRA015,0.0,1.0,A,True,Manoel Barradas - Salvador - BA
+829755,2025,30,2025-10-25,BRA022,BRA028,1.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+829764,2025,30,2025-10-25,BRA043,BRA046,1.0,2.0,A,True,Ilha do Retiro - Recife - PE
+829763,2025,30,2025-10-25,BRA023,BRA021,1.0,0.0,H,True,Arena Castelão - Fortaleza - CE
+829758,2025,30,2025-10-25,BRA042,BRA007,2.0,0.0,H,True,Morumbi - Sao Paulo - SP
+829756,2025,30,2025-10-26,BRA009,BRA040,2.0,2.0,D,True,Nilton Santos - Rio de Janeiro - RJ
+829761,2025,30,2025-10-26,BRA025,BRA031,3.0,1.0,H,True,Arena do Grêmio - Porto Alegre - RS
+829759,2025,30,2025-10-26,BRA010,BRA044,0.0,3.0,A,True, Cícero de Souza Marques - Braganca Paulista - SP
+829757,2025,30,2025-10-26,BRA033,BRA018,0.0,0.0,D,True,Nubank Parque  - Sao Paulo - SP
+829772,2025,31,2025-11-01,BRA040,BRA023,1.0,1.0,D,True,Vila Belmiro - Santos - SP
+829775,2025,31,2025-11-01,BRA018,BRA045,3.0,1.0,H,True,Mineirão - Belo Horizonte - MG
+829774,2025,31,2025-11-01,BRA046,BRA009,0.0,0.0,D,True,José Maria de Campos Maia - Mirassol - SP
+829767,2025,31,2025-11-01,BRA021,BRA043,3.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+829780,2025,31,2025-11-02,BRA007,BRA010,2.0,1.0,H,True,Arena Fonte Nova - Salvador - BA
+829781,2025,31,2025-11-02,BRA013,BRA022,2.0,0.0,H,True,Arena Castelão - Fortaleza - CE
+829770,2025,31,2025-11-02,BRA015,BRA025,2.0,0.0,H,True,Neo Química Arena - Sao Paulo - SP
+829782,2025,31,2025-11-02,BRA031,BRA033,0.0,2.0,A,True,Alfredo Jaconi - Caxias do Sul - RS
+829777,2025,31,2025-11-02,BRA028,BRA005,0.0,0.0,D,True,Beira-Rio - Porto Alegre - RS
+829769,2025,31,2025-11-02,BRA044,BRA042,0.0,2.0,A,True,São Januário - Rio de Janeiro - RJ
+829792,2025,32,2025-11-05,BRA010,BRA015,2.0,1.0,H,True, Cícero de Souza Marques - Braganca Paulista - SP
+829796,2025,32,2025-11-05,BRA045,BRA028,1.0,0.0,H,True,Manoel Barradas - Salvador - BA
+829798,2025,32,2025-11-05,BRA043,BRA031,0.0,2.0,A,True,Ilha do Retiro - Recife - PE
+829789,2025,32,2025-11-05,BRA009,BRA044,3.0,0.0,H,True,Nilton Santos - Rio de Janeiro - RJ
+829793,2025,32,2025-11-05,BRA005,BRA007,3.0,0.0,H,True,ARENA MRV - Belo Horizonte - MG
+829795,2025,32,2025-11-05,BRA025,BRA018,0.0,1.0,A,True,Arena do Grêmio - Porto Alegre - RS
+829791,2025,32,2025-11-05,BRA042,BRA021,2.0,2.0,D,True,Vila Belmiro - Santos - SP
+829785,2025,32,2025-11-06,BRA022,BRA046,1.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+829797,2025,32,2025-11-06,BRA013,BRA023,1.0,1.0,D,True,Arena Castelão - Fortaleza - CE
+829790,2025,32,2025-11-06,BRA033,BRA040,2.0,0.0,H,True,Nubank Parque  - Sao Paulo - SP
+829831,2025,33,2025-11-08,BRA043,BRA005,2.0,4.0,A,True,Ilha do Retiro - Recife - PE
+829823,2025,33,2025-11-08,BRA044,BRA031,1.0,3.0,A,True,São Januário - Rio de Janeiro - RJ
+829828,2025,33,2025-11-08,BRA028,BRA007,2.0,2.0,D,True,Beira-Rio - Porto Alegre - RS
+829825,2025,33,2025-11-08,BRA042,BRA010,0.0,1.0,A,True,Vila Belmiro - Santos - SP
+829824,2025,33,2025-11-09,BRA015,BRA013,0.0,1.0,A,True,Neo Química Arena - Sao Paulo - SP
+829829,2025,33,2025-11-09,BRA045,BRA009,0.0,0.0,D,True,Manoel Barradas - Salvador - BA
+829827,2025,33,2025-11-09,BRA018,BRA022,0.0,0.0,D,True,Mineirão - Belo Horizonte - MG
+829822,2025,33,2025-11-09,BRA021,BRA040,3.0,2.0,H,True,Maracanã - Rio de Janeiro - RJ
+829830,2025,33,2025-11-09,BRA023,BRA025,2.0,2.0,D,True,Arena Castelão - Fortaleza - CE
+829826,2025,33,2025-11-09,BRA046,BRA033,2.0,1.0,H,True,José Maria de Campos Maia - Mirassol - SP
+829833,2025,34,2025-11-18,BRA009,BRA043,3.0,2.0,H,True,Nilton Santos - Rio de Janeiro - RJ
+829835,2025,34,2025-11-19,BRA040,BRA046,1.0,1.0,D,True,Vila Belmiro - Santos - SP
+829838,2025,34,2025-11-19,BRA025,BRA044,2.0,0.0,H,True,Arena do Grêmio - Porto Alegre - RS
+829832,2025,34,2025-11-19,BRA022,BRA021,2.0,1.0,H,True,Maracanã - Rio de Janeiro - RJ
+829841,2025,34,2025-11-20,BRA031,BRA018,3.0,3.0,D,True,Alfredo Jaconi - Caxias do Sul - RS
+829839,2025,34,2025-11-20,BRA007,BRA023,2.0,3.0,A,True,Arena Fonte Nova - Salvador - BA
+829834,2025,34,2025-11-20,BRA015,BRA042,3.0,1.0,H,True,Neo Química Arena - Sao Paulo - SP
+829840,2025,34,2025-11-20,BRA013,BRA028,1.0,2.0,A,True,Arena Castelão - Fortaleza - CE
+829836,2025,34,2025-12-03,BRA010,BRA045,4.0,0.0,H,True, Cícero de Souza Marques - Braganca Paulista - SP
+829837,2025,34,2025-12-03,BRA005,BRA033,0.0,3.0,A,True,ARENA MRV - Belo Horizonte - MG
+829843,2025,35,2025-11-22,BRA009,BRA025,3.0,2.0,H,True,Nilton Santos - Rio de Janeiro - RJ
+829844,2025,35,2025-11-22,BRA033,BRA022,0.0,0.0,D,True,Nubank Parque  - Sao Paulo - SP
+829842,2025,35,2025-11-22,BRA021,BRA010,3.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+829845,2025,35,2025-11-23,BRA042,BRA031,2.0,1.0,H,True,Vila Belmiro - Santos - SP
+829849,2025,35,2025-11-23,BRA007,BRA044,1.0,0.0,H,True,Arena Fonte Nova - Salvador - BA
+829851,2025,35,2025-11-23,BRA043,BRA045,1.0,3.0,A,True,Ilha do Retiro - Recife - PE
+829847,2025,35,2025-11-23,BRA018,BRA015,3.0,0.0,H,True,Mineirão - Belo Horizonte - MG
+829846,2025,35,2025-11-24,BRA046,BRA013,3.0,0.0,H,True,José Maria de Campos Maia - Mirassol - SP
+829848,2025,35,2025-11-24,BRA028,BRA040,1.0,1.0,D,True,Beira-Rio - Porto Alegre - RS
+829850,2025,35,2025-11-30,BRA023,BRA005,1.0,0.0,H,True,Arena Castelão - Fortaleza - CE
+829857,2025,36,2025-11-25,BRA005,BRA021,1.0,1.0,D,True,ARENA MRV - Belo Horizonte - MG
+829858,2025,36,2025-11-25,BRA025,BRA033,3.0,2.0,H,True,Arena do Grêmio - Porto Alegre - RS
+829856,2025,36,2025-11-26,BRA010,BRA023,0.0,1.0,A,True, Cícero de Souza Marques - Braganca Paulista - SP
+829852,2025,36,2025-11-27,BRA022,BRA042,6.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+829861,2025,36,2025-11-28,BRA031,BRA007,1.0,1.0,D,True,Alfredo Jaconi - Caxias do Sul - RS
+829853,2025,36,2025-11-28,BRA044,BRA028,5.0,1.0,H,True,São Januário - Rio de Janeiro - RJ
+829855,2025,36,2025-11-28,BRA040,BRA043,3.0,0.0,H,True,Vila Belmiro - Santos - SP
+829859,2025,36,2025-11-29,BRA045,BRA046,2.0,0.0,H,True,Manoel Barradas - Salvador - BA
+829860,2025,36,2025-11-29,BRA013,BRA018,1.0,1.0,D,True,Arena Castelão - Fortaleza - CE
+829854,2025,36,2025-11-30,BRA015,BRA009,2.0,2.0,D,True,Neo Química Arena - Sao Paulo - SP
+829866,2025,37,2025-11-16,BRA010,BRA005,2.0,0.0,H,True, Cícero de Souza Marques - Braganca Paulista - SP
+829864,2025,37,2025-11-19,BRA033,BRA045,0.0,0.0,D,True,Nubank Parque  - Sao Paulo - SP
+829863,2025,37,2025-12-02,BRA044,BRA046,0.0,2.0,A,True,São Januário - Rio de Janeiro - RJ
+829868,2025,37,2025-12-02,BRA025,BRA022,1.0,2.0,A,True,Arena do Grêmio - Porto Alegre - RS
+829870,2025,37,2025-12-03,BRA023,BRA015,2.0,1.0,H,True,Arena Castelão - Fortaleza - CE
+829871,2025,37,2025-12-03,BRA031,BRA040,0.0,3.0,A,True,Alfredo Jaconi - Caxias do Sul - RS
+829869,2025,37,2025-12-03,BRA007,BRA043,2.0,0.0,H,True,Arena Fonte Nova - Salvador - BA
+829865,2025,37,2025-12-03,BRA042,BRA028,3.0,0.0,H,True,Vila Belmiro - Santos - SP
+829862,2025,37,2025-12-03,BRA021,BRA013,1.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+829867,2025,37,2025-12-04,BRA018,BRA009,2.0,2.0,D,True,Mineirão - Belo Horizonte - MG
+829876,2025,38,2025-12-06,BRA046,BRA021,3.0,3.0,D,True,José Maria de Campos Maia - Mirassol - SP
+829877,2025,38,2025-12-07,BRA005,BRA044,5.0,0.0,H,True,ARENA MRV - Belo Horizonte - MG
+829878,2025,38,2025-12-07,BRA028,BRA010,3.0,1.0,H,True,Beira-Rio - Porto Alegre - RS
+829879,2025,38,2025-12-07,BRA045,BRA042,1.0,0.0,H,True,Manoel Barradas - Salvador - BA
+829880,2025,38,2025-12-07,BRA013,BRA033,1.0,3.0,A,True,Arena Castelão - Fortaleza - CE
+829881,2025,38,2025-12-07,BRA043,BRA025,0.0,4.0,A,True,Ilha do Retiro - Recife - PE
+829872,2025,38,2025-12-07,BRA022,BRA007,2.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+829873,2025,38,2025-12-07,BRA009,BRA023,4.0,2.0,H,True,Nilton Santos - Rio de Janeiro - RJ
+829874,2025,38,2025-12-07,BRA015,BRA031,1.0,1.0,D,True,Neo Química Arena - Sao Paulo - SP
+829875,2025,38,2025-12-07,BRA040,BRA018,3.0,0.0,H,True,Vila Belmiro - Santos - SP
+831894,2026,1,2026-01-28,BRA005,BRA033,2.0,2.0,D,True,ARENA MRV - Belo Horizonte - MG
+831895,2026,1,2026-01-28,BRA028,BRA003,0.0,1.0,A,True,Beira-Rio - Porto Alegre - RS
+831896,2026,1,2026-01-28,BRA016,BRA010,0.0,1.0,A,True,Couto Pereira - Curitiba - PR
+831897,2026,1,2026-01-28,BRA045,BRA047,2.0,0.0,H,True,Manoel Barradas - Salvador - BA
+831889,2026,1,2026-01-28,BRA022,BRA025,2.0,1.0,H,True,Maracanã - Rio de Janeiro - RJ
+831892,2026,1,2026-01-28,BRA015,BRA007,1.0,2.0,A,True,Vila Belmiro - Santos - SP
+831898,2026,1,2026-01-28,BRA014,BRA040,4.0,2.0,H,True,Arena Condá - Chapeco - SC
+831891,2026,1,2026-01-28,BRA042,BRA021,2.0,1.0,H,True,Morumbi - Sao Paulo - SP
+831893,2026,1,2026-01-29,BRA046,BRA044,2.0,1.0,H,True,José Maria de Campos Maia - Mirassol - SP
+831890,2026,1,2026-01-29,BRA009,BRA018,4.0,0.0,H,True,Nilton Santos - Rio de Janeiro - RJ
+831899,2026,2,2026-02-04,BRA021,BRA028,1.0,1.0,D,True,Maracanã - Rio de Janeiro - RJ
+831903,2026,2,2026-02-04,BRA010,BRA005,1.0,0.0,H,True, Cícero de Souza Marques - Braganca Paulista - SP
+831901,2026,2,2026-02-04,BRA040,BRA042,1.0,1.0,D,True,Vila Belmiro - Santos - SP
+831908,2026,2,2026-02-04,BRA047,BRA046,2.0,2.0,D,True,Mangueirão - Belem - PA
+831902,2026,2,2026-02-04,BRA033,BRA045,5.0,1.0,H,True,Arena Barueri - Barueri - SP
+831905,2026,2,2026-02-04,BRA025,BRA009,5.0,3.0,H,True,Arena do Grêmio - Porto Alegre - RS
+831907,2026,2,2026-02-05,BRA007,BRA022,1.0,1.0,D,True,Arena Fonte Nova - Salvador - BA
+831900,2026,2,2026-02-05,BRA044,BRA014,1.0,1.0,D,True,São Januário - Rio de Janeiro - RJ
+831904,2026,2,2026-02-05,BRA018,BRA016,1.0,2.0,A,True,Mineirão - Belo Horizonte - MG
+831906,2026,2,2026-02-19,BRA003,BRA015,0.0,1.0,A,True,Arena da Baixada - Curitiba - PR
+831917,2026,3,2026-02-10,BRA045,BRA021,1.0,2.0,A,True,Manoel Barradas - Salvador - BA
+831918,2026,3,2026-02-11,BRA014,BRA016,3.0,3.0,D,True,Arena Condá - Chapeco - SC
+831913,2026,3,2026-02-11,BRA046,BRA018,2.0,2.0,D,True,José Maria de Campos Maia - Mirassol - SP
+831914,2026,3,2026-02-11,BRA005,BRA047,3.0,3.0,D,True,ARENA MRV - Belo Horizonte - MG
+831910,2026,3,2026-02-11,BRA044,BRA007,0.0,1.0,A,True,São Januário - Rio de Janeiro - RJ
+831911,2026,3,2026-02-11,BRA042,BRA025,2.0,0.0,H,True,Morumbi - Sao Paulo - SP
+831916,2026,3,2026-02-12,BRA003,BRA040,2.0,1.0,H,True,Arena da Baixada - Curitiba - PR
+831909,2026,3,2026-02-12,BRA022,BRA009,1.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+831912,2026,3,2026-02-12,BRA015,BRA010,2.0,0.0,H,True,Neo Química Arena - Sao Paulo - SP
+831915,2026,3,2026-02-12,BRA028,BRA033,1.0,3.0,A,True,Beira-Rio - Porto Alegre - RS
+831923,2026,4,2026-02-25,BRA010,BRA003,1.0,1.0,D,True, Cícero de Souza Marques - Braganca Paulista - SP
+831928,2026,4,2026-02-25,BRA047,BRA028,1.0,1.0,D,True,Mangueirão - Belem - PA
+831926,2026,4,2026-02-25,BRA016,BRA042,0.0,1.0,A,True,Couto Pereira - Curitiba - PR
+831924,2026,4,2026-02-25,BRA018,BRA015,1.0,1.0,D,True,Mineirão - Belo Horizonte - MG
+831925,2026,4,2026-02-25,BRA025,BRA005,2.0,1.0,H,True,Arena do Grêmio - Porto Alegre - RS
+831922,2026,4,2026-02-25,BRA033,BRA022,2.0,1.0,H,True,Arena Barueri - Barueri - SP
+831921,2026,4,2026-02-26,BRA040,BRA044,2.0,1.0,H,True,Vila Belmiro - Santos - SP
+831927,2026,4,2026-07-17,BRA007,BRA014,2.0,0.0,H,True,Arena Fonte Nova - Salvador - BA
+831920,2026,4,2026-07-23,BRA009,BRA045,0.0,0.0,D,True,Nilton Santos - Rio de Janeiro - RJ
+831919,2026,4,2026-09-02,BRA021,BRA046,2.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+831933,2026,5,2026-03-10,BRA046,BRA040,2.0,2.0,D,True,José Maria de Campos Maia - Mirassol - SP
+831934,2026,5,2026-03-11,BRA005,BRA028,1.0,0.0,H,True,ARENA MRV - Belo Horizonte - MG
+831937,2026,5,2026-03-11,BRA007,BRA045,1.0,1.0,D,True,Arena Fonte Nova - Salvador - BA
+831929,2026,5,2026-03-11,BRA021,BRA018,2.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+831932,2026,5,2026-03-11,BRA015,BRA016,0.0,2.0,A,True,Neo Química Arena - Sao Paulo - SP
+831938,2026,5,2026-03-12,BRA047,BRA022,0.0,2.0,A,True,Mangueirão - Belem - PA
+831930,2026,5,2026-03-12,BRA044,BRA033,2.0,1.0,H,True,São Januário - Rio de Janeiro - RJ
+831931,2026,5,2026-03-12,BRA042,BRA014,2.0,0.0,H,True,Canindé - Sao Paulo - SP
+831935,2026,5,2026-03-12,BRA025,BRA010,1.0,1.0,D,True,Arena do Grêmio - Porto Alegre - RS
+831936,2026,5,2026-03-29,BRA003,BRA009,4.0,1.0,H,True,Arena da Baixada - Curitiba - PR
+831947,2026,6,2026-03-14,BRA045,BRA005,2.0,0.0,H,True,Manoel Barradas - Salvador - BA
+831940,2026,6,2026-03-14,BRA009,BRA021,0.0,3.0,A,True,Nilton Santos - Rio de Janeiro - RJ
+831941,2026,6,2026-03-15,BRA040,BRA015,1.0,1.0,D,True,Vila Belmiro - Santos - SP
+831945,2026,6,2026-03-15,BRA028,BRA007,0.0,1.0,A,True,Beira-Rio - Porto Alegre - RS
+831939,2026,6,2026-03-15,BRA022,BRA003,3.0,2.0,H,True,Maracanã - Rio de Janeiro - RJ
+831946,2026,6,2026-03-15,BRA016,BRA047,1.0,0.0,H,True,Couto Pereira - Curitiba - PR
+831942,2026,6,2026-03-15,BRA033,BRA046,1.0,0.0,H,True,Nubank Parque  - Sao Paulo - SP
+831943,2026,6,2026-03-15,BRA010,BRA042,1.0,2.0,A,True, Cícero de Souza Marques - Braganca Paulista - SP
+831944,2026,6,2026-03-15,BRA018,BRA044,3.0,3.0,D,True,Mineirão - Belo Horizonte - MG
+831948,2026,6,2026-03-16,BRA014,BRA025,1.0,1.0,D,True,Arena Condá - Chapeco - SC
+831952,2026,7,2026-03-18,BRA033,BRA009,2.0,1.0,H,True,Nubank Parque  - Sao Paulo - SP
+831957,2026,7,2026-03-18,BRA007,BRA010,2.0,0.0,H,True,Arena Fonte Nova - Salvador - BA
+831956,2026,7,2026-03-18,BRA003,BRA018,2.0,1.0,H,True,Arena da Baixada - Curitiba - PR
+831953,2026,7,2026-03-18,BRA046,BRA016,0.0,1.0,A,True,José Maria de Campos Maia - Mirassol - SP
+831954,2026,7,2026-03-18,BRA005,BRA042,1.0,0.0,H,True,ARENA MRV - Belo Horizonte - MG
+831950,2026,7,2026-03-18,BRA044,BRA022,3.0,2.0,H,True,Maracanã - Rio de Janeiro - RJ
+831951,2026,7,2026-03-18,BRA040,BRA028,1.0,2.0,A,True,Vila Belmiro - Santos - SP
+831955,2026,7,2026-03-19,BRA025,BRA045,2.0,0.0,H,True,Arena do Grêmio - Porto Alegre - RS
+831949,2026,7,2026-03-19,BRA021,BRA047,3.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+831958,2026,7,2026-03-19,BRA014,BRA015,0.0,0.0,D,True,Arena Condá - Chapeco - SC
+831963,2026,8,2026-03-21,BRA010,BRA009,1.0,2.0,A,True, Cícero de Souza Marques - Braganca Paulista - SP
+831959,2026,8,2026-03-21,BRA022,BRA005,1.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+831961,2026,8,2026-03-21,BRA042,BRA033,0.0,1.0,A,True,Morumbi - Sao Paulo - SP
+831960,2026,8,2026-03-22,BRA044,BRA025,2.0,1.0,H,True,São Januário - Rio de Janeiro - RJ
+831964,2026,8,2026-03-22,BRA018,BRA040,0.0,0.0,D,True,Mineirão - Belo Horizonte - MG
+831966,2026,8,2026-03-22,BRA003,BRA016,2.0,0.0,H,True,Arena da Baixada - Curitiba - PR
+831968,2026,8,2026-03-22,BRA047,BRA007,4.0,1.0,H,True,Mangueirão - Belem - PA
+831967,2026,8,2026-03-22,BRA045,BRA046,1.0,0.0,H,True,Manoel Barradas - Salvador - BA
+831965,2026,8,2026-03-22,BRA028,BRA014,2.0,0.0,H,True,Beira-Rio - Porto Alegre - RS
+831962,2026,8,2026-03-22,BRA015,BRA021,1.0,1.0,D,True,Neo Química Arena - Sao Paulo - SP
+831971,2026,9,2026-04-01,BRA009,BRA046,3.0,2.0,H,True,Nilton Santos - Rio de Janeiro - RJ
+831976,2026,9,2026-04-01,BRA028,BRA042,1.0,1.0,D,True,Beira-Rio - Porto Alegre - RS
+831975,2026,9,2026-04-01,BRA018,BRA045,3.0,0.0,H,True,Mineirão - Belo Horizonte - MG
+831978,2026,9,2026-04-01,BRA007,BRA003,3.0,0.0,H,True,Arena Fonte Nova - Salvador - BA
+831977,2026,9,2026-04-01,BRA016,BRA044,1.0,1.0,D,True,Couto Pereira - Curitiba - PR
+831970,2026,9,2026-04-01,BRA022,BRA015,3.0,1.0,H,True,Maracanã - Rio de Janeiro - RJ
+831972,2026,9,2026-04-02,BRA040,BRA047,2.0,0.0,H,True,Vila Belmiro - Santos - SP
+831979,2026,9,2026-04-02,BRA014,BRA005,0.0,4.0,A,True,Arena Condá - Chapeco - SC
+831973,2026,9,2026-04-02,BRA033,BRA025,2.0,1.0,H,True,Arena Barueri - Barueri - SP
+831974,2026,9,2026-04-02,BRA010,BRA021,3.0,0.0,H,True, Cícero de Souza Marques - Braganca Paulista - SP
+831982,2026,10,2026-04-04,BRA042,BRA018,4.0,1.0,H,True,Morumbi - Sao Paulo - SP
+831987,2026,10,2026-04-04,BRA016,BRA022,1.0,1.0,D,True,Couto Pereira - Curitiba - PR
+831981,2026,10,2026-04-04,BRA044,BRA009,1.0,2.0,A,True,São Januário - Rio de Janeiro - RJ
+831989,2026,10,2026-04-05,BRA014,BRA045,1.0,1.0,D,True,Arena Condá - Chapeco - SC
+831980,2026,10,2026-04-05,BRA021,BRA040,3.0,1.0,H,True,Maracanã - Rio de Janeiro - RJ
+831985,2026,10,2026-04-05,BRA005,BRA003,2.0,1.0,H,True,ARENA MRV - Belo Horizonte - MG
+831988,2026,10,2026-04-05,BRA007,BRA033,1.0,2.0,A,True,Arena Fonte Nova - Salvador - BA
+831983,2026,10,2026-04-05,BRA015,BRA028,0.0,1.0,A,True,Neo Química Arena - Sao Paulo - SP
+831984,2026,10,2026-04-05,BRA046,BRA010,0.0,1.0,A,True,José Maria de Campos Maia - Mirassol - SP
+831986,2026,10,2026-04-05,BRA025,BRA047,0.0,0.0,D,True,Arena do Grêmio - Porto Alegre - RS
+831998,2026,11,2026-04-11,BRA045,BRA042,2.0,0.0,H,True,Manoel Barradas - Salvador - BA
+831999,2026,11,2026-04-11,BRA047,BRA044,1.0,1.0,D,True,Mangueirão - Belem - PA
+831994,2026,11,2026-04-11,BRA046,BRA007,1.0,2.0,A,True,José Maria de Campos Maia - Mirassol - SP
+831992,2026,11,2026-04-11,BRA040,BRA005,1.0,0.0,H,True,Vila Belmiro - Santos - SP
+831996,2026,11,2026-04-11,BRA028,BRA025,0.0,0.0,D,True,Beira-Rio - Porto Alegre - RS
+831997,2026,11,2026-04-12,BRA003,BRA014,2.0,0.0,H,True,Arena da Baixada - Curitiba - PR
+831991,2026,11,2026-04-12,BRA009,BRA016,2.0,2.0,D,True,Nilton Santos - Rio de Janeiro - RJ
+831990,2026,11,2026-04-12,BRA022,BRA021,1.0,2.0,A,True,Maracanã - Rio de Janeiro - RJ
+831993,2026,11,2026-04-12,BRA015,BRA033,0.0,0.0,D,True,Neo Química Arena - Sao Paulo - SP
+831995,2026,11,2026-04-12,BRA018,BRA010,2.0,1.0,H,True,Mineirão - Belo Horizonte - MG
+832001,2026,12,2026-04-18,BRA044,BRA042,2.0,1.0,H,True,São Januário - Rio de Janeiro - RJ
+832009,2026,12,2026-04-18,BRA014,BRA009,1.0,4.0,A,True,Arena Condá - Chapeco - SC
+832008,2026,12,2026-04-18,BRA045,BRA015,0.0,0.0,D,True,Manoel Barradas - Salvador - BA
+832005,2026,12,2026-04-18,BRA018,BRA025,2.0,0.0,H,True,Mineirão - Belo Horizonte - MG
+832006,2026,12,2026-04-19,BRA028,BRA046,1.0,2.0,A,True,Beira-Rio - Porto Alegre - RS
+832007,2026,12,2026-04-19,BRA016,BRA005,2.0,0.0,H,True,Couto Pereira - Curitiba - PR
+832002,2026,12,2026-04-19,BRA040,BRA022,2.0,3.0,A,True,Vila Belmiro - Santos - SP
+832003,2026,12,2026-04-19,BRA033,BRA003,1.0,0.0,H,True,Nubank Parque  - Sao Paulo - SP
+832004,2026,12,2026-04-19,BRA010,BRA047,4.0,2.0,H,True, Cícero de Souza Marques - Braganca Paulista - SP
+832000,2026,12,2026-04-19,BRA021,BRA007,2.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+832011,2026,13,2026-04-25,BRA009,BRA028,2.0,2.0,D,True,Mané Garrincha - Brasilia - DF
+832018,2026,13,2026-04-25,BRA007,BRA040,2.0,2.0,D,True,Arena Fonte Nova - Salvador - BA
+832019,2026,13,2026-04-25,BRA047,BRA018,0.0,1.0,A,True,Baenão - Belem - PA
+832012,2026,13,2026-04-25,BRA042,BRA046,1.0,0.0,H,True,Brinco de Ouro - Campinas - SP
+832013,2026,13,2026-04-26,BRA015,BRA044,1.0,0.0,H,True,Neo Química Arena - Sao Paulo - SP
+832016,2026,13,2026-04-26,BRA025,BRA016,1.0,0.0,H,True,Arena do Grêmio - Porto Alegre - RS
+832017,2026,13,2026-04-26,BRA003,BRA045,3.0,1.0,H,True,Arena da Baixada - Curitiba - PR
+832014,2026,13,2026-04-26,BRA010,BRA033,0.0,1.0,A,True, Cícero de Souza Marques - Braganca Paulista - SP
+832015,2026,13,2026-04-26,BRA005,BRA021,0.0,4.0,A,True,ARENA MRV - Belo Horizonte - MG
+832010,2026,13,2026-04-26,BRA022,BRA014,2.0,1.0,H,True,Maracanã - Rio de Janeiro - RJ
+832021,2026,14,2026-05-02,BRA009,BRA047,1.0,2.0,A,True,Nilton Santos - Rio de Janeiro - RJ
+832023,2026,14,2026-05-02,BRA033,BRA040,1.0,1.0,D,True,Nubank Parque  - Sao Paulo - SP
+832028,2026,14,2026-05-02,BRA045,BRA016,4.0,1.0,H,True,Manoel Barradas - Salvador - BA
+832027,2026,14,2026-05-02,BRA003,BRA025,0.0,0.0,D,True,Arena da Baixada - Curitiba - PR
+832025,2026,14,2026-05-02,BRA018,BRA005,1.0,3.0,A,True,Mineirão - Belo Horizonte - MG
+832020,2026,14,2026-05-03,BRA021,BRA044,2.0,2.0,D,True,Maracanã - Rio de Janeiro - RJ
+832022,2026,14,2026-05-03,BRA042,BRA007,2.0,2.0,D,True, Cícero de Souza Marques - Braganca Paulista - SP
+832026,2026,14,2026-05-03,BRA028,BRA022,2.0,0.0,H,True,Beira-Rio - Porto Alegre - RS
+832029,2026,14,2026-05-03,BRA014,BRA010,1.0,2.0,A,True,Arena Condá - Chapeco - SC
+832024,2026,14,2026-05-03,BRA046,BRA015,2.0,1.0,H,True,José Maria de Campos Maia - Mirassol - SP
+832037,2026,15,2026-05-09,BRA016,BRA028,2.0,2.0,D,True,Couto Pereira - Curitiba - PR
+832030,2026,15,2026-05-09,BRA022,BRA045,2.0,2.0,D,True,Maracanã - Rio de Janeiro - RJ
+832038,2026,15,2026-05-09,BRA007,BRA018,1.0,2.0,A,True,Arena Fonte Nova - Salvador - BA
+832039,2026,15,2026-05-10,BRA047,BRA033,1.0,1.0,D,True,Mangueirão - Belem - PA
+832035,2026,15,2026-05-10,BRA005,BRA009,1.0,1.0,D,True,ARENA MRV - Belo Horizonte - MG
+832032,2026,15,2026-05-10,BRA040,BRA010,2.0,0.0,H,True,Vila Belmiro - Santos - SP
+832033,2026,15,2026-05-10,BRA015,BRA042,3.0,2.0,H,True,Neo Química Arena - Sao Paulo - SP
+832034,2026,15,2026-05-10,BRA046,BRA014,1.0,1.0,D,True,José Maria de Campos Maia - Mirassol - SP
+832036,2026,15,2026-05-10,BRA025,BRA021,0.0,1.0,A,True,Arena do Grêmio - Porto Alegre - RS
+832031,2026,15,2026-05-10,BRA044,BRA003,1.0,0.0,H,True,São Januário - Rio de Janeiro - RJ
+832045,2026,16,2026-05-16,BRA005,BRA046,3.0,1.0,H,True,ARENA MRV - Belo Horizonte - MG
+832046,2026,16,2026-05-16,BRA028,BRA044,4.0,1.0,H,True,Beira-Rio - Porto Alegre - RS
+832040,2026,16,2026-05-16,BRA022,BRA042,2.0,1.0,H,True,Maracanã - Rio de Janeiro - RJ
+832043,2026,16,2026-05-16,BRA033,BRA018,1.0,1.0,D,True,Arena Barueri - Barueri - SP
+832042,2026,16,2026-05-17,BRA040,BRA016,0.0,3.0,A,True,Neo Química Arena - Sao Paulo - SP
+832041,2026,16,2026-05-17,BRA009,BRA015,3.0,1.0,H,True,Nilton Santos - Rio de Janeiro - RJ
+832048,2026,16,2026-05-17,BRA007,BRA025,1.0,1.0,D,True,Arena Fonte Nova - Salvador - BA
+832049,2026,16,2026-05-17,BRA014,BRA047,2.0,3.0,A,True,Arena Condá - Chapeco - SC
+832044,2026,16,2026-05-17,BRA010,BRA045,2.0,0.0,H,True, Cícero de Souza Marques - Braganca Paulista - SP
+832047,2026,16,2026-05-17,BRA003,BRA021,1.0,1.0,D,True,Arena da Baixada - Curitiba - PR
+832052,2026,17,2026-05-23,BRA042,BRA009,1.0,1.0,D,True,Morumbi - Sao Paulo - SP
+832058,2026,17,2026-05-23,BRA045,BRA028,2.0,0.0,H,True,Manoel Barradas - Salvador - BA
+832054,2026,17,2026-05-23,BRA046,BRA022,1.0,0.0,H,True,José Maria de Campos Maia - Mirassol - SP
+832056,2026,17,2026-05-23,BRA025,BRA040,3.0,2.0,H,True,Arena do Grêmio - Porto Alegre - RS
+832050,2026,17,2026-05-23,BRA021,BRA033,0.0,3.0,A,True,Maracanã - Rio de Janeiro - RJ
+832055,2026,17,2026-05-24,BRA018,BRA014,2.0,1.0,H,True,Mineirão - Belo Horizonte - MG
+832059,2026,17,2026-05-24,BRA047,BRA003,1.0,2.0,A,True,Mangueirão - Belem - PA
+832053,2026,17,2026-05-24,BRA015,BRA005,1.0,0.0,H,True,Neo Química Arena - Sao Paulo - SP
+832051,2026,17,2026-05-24,BRA044,BRA010,0.0,3.0,A,True,São Januário - Rio de Janeiro - RJ
+832057,2026,17,2026-05-25,BRA016,BRA007,3.0,2.0,H,True,Couto Pereira - Curitiba - PR
+832060,2026,18,2026-05-30,BRA021,BRA016,3.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+832067,2026,18,2026-05-30,BRA003,BRA046,1.0,0.0,H,True,Arena da Baixada - Curitiba - PR
+832068,2026,18,2026-05-30,BRA007,BRA009,2.0,1.0,H,True,Arena Fonte Nova - Salvador - BA
+832066,2026,18,2026-05-30,BRA025,BRA015,1.0,3.0,A,True,Arena do Grêmio - Porto Alegre - RS
+832062,2026,18,2026-05-30,BRA040,BRA045,3.0,1.0,H,True,Vila Belmiro - Santos - SP
+832064,2026,18,2026-05-31,BRA010,BRA028,3.0,1.0,H,True, Cícero de Souza Marques - Braganca Paulista - SP
+832063,2026,18,2026-05-31,BRA033,BRA014,1.0,0.0,H,True,Nubank Parque  - Sao Paulo - SP
+832061,2026,18,2026-05-31,BRA044,BRA005,0.0,1.0,A,True,São Januário - Rio de Janeiro - RJ
+832065,2026,18,2026-05-31,BRA018,BRA022,1.0,1.0,D,True,Mineirão - Belo Horizonte - MG
+832069,2026,18,2026-05-31,BRA047,BRA042,1.0,0.0,H,True,Mangueirão - Belem - PA
+832071,2026,19,2026-07-16,BRA009,BRA040,2.0,1.0,H,True,Nilton Santos - Rio de Janeiro - RJ
+832078,2026,19,2026-07-16,BRA045,BRA044,1.0,0.0,H,True,Manoel Barradas - Salvador - BA
+832070,2026,19,2026-07-17,BRA022,BRA010,1.0,1.0,D,True,Maracanã - Rio de Janeiro - RJ
+832074,2026,19,2026-07-17,BRA046,BRA025,2.0,1.0,H,True,José Maria de Campos Maia - Mirassol - SP
+832075,2026,19,2026-07-21,BRA005,BRA007,1.0,1.0,D,True,ARENA MRV - Belo Horizonte - MG
+832077,2026,19,2026-07-22,BRA016,BRA033,1.0,3.0,A,True,Couto Pereira - Curitiba - PR
+832079,2026,19,2026-07-22,BRA014,BRA021,0.0,4.0,A,True,Arena Condá - Chapeco - SC
+832076,2026,19,2026-07-22,BRA028,BRA018,1.0,2.0,A,True,Beira-Rio - Porto Alegre - RS
+832072,2026,19,2026-07-22,BRA042,BRA003,1.0,2.0,A,True, Cícero de Souza Marques - Braganca Paulista - SP
+832073,2026,19,2026-07-23,BRA015,BRA047,3.0,0.0,H,True,Neo Química Arena - Sao Paulo - SP
+832082,2026,20,2026-07-25,BRA040,BRA014,2.0,2.0,D,True,Vila Belmiro - Santos - SP
+832087,2026,20,2026-07-25,BRA003,BRA028,2.0,0.0,H,True,Arena da Baixada - Curitiba - PR
+832081,2026,20,2026-07-25,BRA044,BRA046,1.0,1.0,D,True,São Januário - Rio de Janeiro - RJ
+832088,2026,20,2026-07-26,BRA007,BRA015,1.0,1.0,D,True,Arena Fonte Nova - Salvador - BA
+832085,2026,20,2026-07-26,BRA018,BRA009,0.0,1.0,A,True,Mineirão - Belo Horizonte - MG
+832086,2026,20,2026-07-26,BRA025,BRA022,1.0,1.0,D,True,Arena do Grêmio - Porto Alegre - RS
+832080,2026,20,2026-07-26,BRA021,BRA042,1.0,1.0,D,True,Maracanã - Rio de Janeiro - RJ
+832084,2026,20,2026-07-26,BRA010,BRA016,0.0,0.0,D,True, Cícero de Souza Marques - Braganca Paulista - SP
+832083,2026,20,2026-07-26,BRA033,BRA005,1.0,2.0,A,True,Nubank Parque  - Sao Paulo - SP
+832089,2026,20,2026-07-26,BRA047,BRA045,2.0,0.0,H,True,Mangueirão - Belem - PA
+832096,2026,21,2026-07-29,BRA028,BRA021,1.0,1.0,D,True,Beira-Rio - Porto Alegre - RS
+832094,2026,21,2026-07-29,BRA046,BRA047,2.0,1.0,H,True,José Maria de Campos Maia - Mirassol - SP
+832098,2026,21,2026-07-29,BRA045,BRA033,0.0,4.0,A,True,Manoel Barradas - Salvador - BA
+832090,2026,21,2026-07-29,BRA022,BRA007,0.0,0.0,D,True,Maracanã - Rio de Janeiro - RJ
+832093,2026,21,2026-07-30,BRA015,BRA003,0.0,0.0,D,True,Neo Química Arena - Sao Paulo - SP
+832097,2026,21,2026-07-30,BRA016,BRA018,0.0,1.0,A,True,Couto Pereira - Curitiba - PR
+832091,2026,21,2026-09-16,BRA009,BRA025,,,,False,Nilton Santos - Rio de Janeiro - RJ
+832092,2026,21,,BRA042,BRA040,,,,False, -  - 
+832095,2026,21,,BRA005,BRA010,,,,False, -  - 
+832099,2026,21,,BRA014,BRA044,,,,False, -  - 
+832106,2026,22,2026-08-08,BRA025,BRA042,2.0,1.0,H,True,Arena do Grêmio - Porto Alegre - RS
+832109,2026,22,2026-08-08,BRA047,BRA005,2.0,2.0,D,True,Mangueirão - Belem - PA
+832107,2026,22,2026-08-08,BRA016,BRA014,2.0,1.0,H,True,Couto Pereira - Curitiba - PR
+832101,2026,22,2026-08-08,BRA009,BRA022,1.0,1.0,D,True,Nilton Santos - Rio de Janeiro - RJ
+832105,2026,22,2026-08-09,BRA018,BRA046,3.0,1.0,H,True,Mineirão - Belo Horizonte - MG
+832108,2026,22,2026-08-09,BRA007,BRA044,0.0,0.0,D,True,Arena Fonte Nova - Salvador - BA
+832103,2026,22,2026-08-09,BRA033,BRA028,0.0,0.0,D,True,Nubank Parque  - Sao Paulo - SP
+832104,2026,22,2026-08-09,BRA010,BRA015,0.0,2.0,A,True, Cícero de Souza Marques - Braganca Paulista - SP
+832102,2026,22,2026-08-09,BRA040,BRA003,0.0,2.0,A,True,Vila Belmiro - Santos - SP
+832100,2026,22,2026-08-09,BRA021,BRA045,2.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+832110,2026,23,2026-08-15,BRA022,BRA033,3.0,2.0,H,True,Maracanã - Rio de Janeiro - RJ
+832117,2026,23,2026-08-15,BRA003,BRA010,1.0,1.0,D,True,Arena da Baixada - Curitiba - PR
+832112,2026,23,2026-08-15,BRA042,BRA016,1.0,1.0,D,True,Morumbi - Sao Paulo - SP
+832119,2026,23,2026-08-16,BRA014,BRA007,3.0,3.0,D,True,Arena Condá - Chapeco - SC
+832111,2026,23,2026-08-16,BRA044,BRA040,0.0,3.0,A,True,São Januário - Rio de Janeiro - RJ
+832115,2026,23,2026-08-16,BRA005,BRA025,3.0,0.0,H,True,ARENA MRV - Belo Horizonte - MG
+832118,2026,23,2026-08-16,BRA045,BRA009,1.0,0.0,H,True,Manoel Barradas - Salvador - BA
+832114,2026,23,2026-08-16,BRA046,BRA021,1.0,5.0,A,True,José Maria de Campos Maia - Mirassol - SP
+832113,2026,23,2026-08-16,BRA015,BRA018,1.0,2.0,A,True,Neo Química Arena - Sao Paulo - SP
+832116,2026,23,2026-08-17,BRA028,BRA047,1.0,1.0,D,True,Beira-Rio - Porto Alegre - RS
+832120,2026,24,2026-08-22,BRA022,BRA047,2.0,1.0,H,True,Maracanã - Rio de Janeiro - RJ
+832126,2026,24,2026-08-22,BRA028,BRA005,0.0,0.0,D,True,Beira-Rio - Porto Alegre - RS
+832125,2026,24,2026-08-22,BRA018,BRA021,2.0,1.0,H,True,Mineirão - Belo Horizonte - MG
+832123,2026,24,2026-08-23,BRA033,BRA044,4.0,1.0,H,True,Nubank Parque  - Sao Paulo - SP
+832124,2026,24,2026-08-23,BRA010,BRA025,1.0,0.0,H,True, Cícero de Souza Marques - Braganca Paulista - SP
+832128,2026,24,2026-08-23,BRA045,BRA007,0.0,2.0,A,True,Manoel Barradas - Salvador - BA
+832129,2026,24,2026-08-23,BRA014,BRA042,1.0,0.0,H,True,Arena Condá - Chapeco - SC
+832122,2026,24,2026-08-23,BRA040,BRA046,1.0,1.0,D,True,Vila Belmiro - Santos - SP
+832127,2026,24,2026-08-23,BRA016,BRA015,2.0,1.0,H,True,Couto Pereira - Curitiba - PR
+832121,2026,24,2026-08-24,BRA009,BRA003,2.0,3.0,A,True,Nilton Santos - Rio de Janeiro - RJ
+832135,2026,25,2026-08-29,BRA005,BRA045,2.0,1.0,H,True,ARENA MRV - Belo Horizonte - MG
+832132,2026,25,2026-08-29,BRA042,BRA010,2.0,1.0,H,True,Morumbi - Sao Paulo - SP
+832131,2026,25,2026-08-29,BRA044,BRA018,3.0,1.0,H,True,São Januário - Rio de Janeiro - RJ
+832137,2026,25,2026-08-30,BRA003,BRA022,3.0,3.0,D,True,Arena da Baixada - Curitiba - PR
+832130,2026,25,2026-08-30,BRA021,BRA009,3.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+832133,2026,25,2026-08-30,BRA015,BRA040,0.0,1.0,A,True,Neo Química Arena - Sao Paulo - SP
+832134,2026,25,2026-08-30,BRA046,BRA033,1.0,1.0,D,True,José Maria de Campos Maia - Mirassol - SP
+832136,2026,25,2026-08-30,BRA025,BRA014,3.0,1.0,H,True,Arena do Grêmio - Porto Alegre - RS
+832138,2026,25,2026-08-30,BRA007,BRA028,3.0,2.0,H,True,Arena Fonte Nova - Salvador - BA
+832139,2026,25,2026-08-31,BRA047,BRA016,2.0,3.0,A,True,Mangueirão - Belem - PA
+832144,2026,26,2026-09-05,BRA010,BRA007,2.0,3.0,A,True, Cícero de Souza Marques - Braganca Paulista - SP
+832142,2026,26,2026-09-05,BRA042,BRA005,2.0,0.0,H,True,Morumbi - Sao Paulo - SP
+832140,2026,26,2026-09-05,BRA022,BRA044,1.0,0.0,H,True,Maracanã - Rio de Janeiro - RJ
+832147,2026,26,2026-09-06,BRA016,BRA046,1.0,2.0,A,True,Couto Pereira - Curitiba - PR
+832145,2026,26,2026-09-06,BRA018,BRA003,3.0,1.0,H,True,Mineirão - Belo Horizonte - MG
+832146,2026,26,2026-09-06,BRA028,BRA040,2.0,3.0,A,True,Beira-Rio - Porto Alegre - RS
+832149,2026,26,2026-09-06,BRA047,BRA021,0.0,1.0,A,True,Mangueirão - Belem - PA
+832141,2026,26,2026-09-06,BRA009,BRA033,0.0,0.0,D,True,Nilton Santos - Rio de Janeiro - RJ
+832143,2026,26,2026-09-06,BRA015,BRA014,1.0,2.0,A,True,Neo Química Arena - Sao Paulo - SP
+832148,2026,26,2026-09-07,BRA045,BRA025,1.0,0.0,H,True,Manoel Barradas - Salvador - BA
+832158,2026,27,2026-09-11,BRA016,BRA003,3.0,3.0,D,True,Couto Pereira - Curitiba - PR
+832156,2026,27,2026-09-12,BRA005,BRA022,3.0,1.0,H,True,ARENA MRV - Belo Horizonte - MG
+832157,2026,27,2026-09-12,BRA025,BRA044,1.0,2.0,A,True,Arena do Grêmio - Porto Alegre - RS
+832160,2026,27,2026-09-12,BRA014,BRA028,1.0,2.0,A,True,Arena Condá - Chapeco - SC
+832154,2026,27,2026-09-12,BRA033,BRA042,2.0,0.0,H,True,Nubank Parque  - Sao Paulo - SP
+832152,2026,27,2026-09-12,BRA009,BRA010,1.0,1.0,D,True,Nilton Santos - Rio de Janeiro - RJ
+832153,2026,27,2026-09-12,BRA040,BRA018,2.0,1.0,H,True,Vila Belmiro - Santos - SP
+832155,2026,27,2026-09-13,BRA046,BRA045,2.0,2.0,D,True,José Maria de Campos Maia - Mirassol - SP
+832151,2026,27,2026-09-13,BRA021,BRA015,2.0,1.0,H,True,Maracanã - Rio de Janeiro - RJ
+832159,2026,27,2026-09-14,BRA007,BRA047,,,,False,Arena Fonte Nova - Salvador - BA
+832166,2026,28,2026-09-19,BRA005,BRA014,,,,False,ARENA MRV - Belo Horizonte - MG
+832165,2026,28,2026-09-19,BRA046,BRA009,,,,False,José Maria de Campos Maia - Mirassol - SP
+832170,2026,28,2026-09-19,BRA047,BRA040,,,,False,Mangueirão - Belem - PA
+832162,2026,28,2026-09-19,BRA044,BRA016,,,,False,São Januário - Rio de Janeiro - RJ
+832163,2026,28,2026-09-19,BRA042,BRA028,,,,False,Morumbi - Sao Paulo - SP
+832167,2026,28,2026-09-20,BRA025,BRA033,,,,False,Arena do Grêmio - Porto Alegre - RS
+832169,2026,28,2026-09-20,BRA045,BRA018,,,,False,Manoel Barradas - Salvador - BA
+832164,2026,28,2026-09-20,BRA015,BRA022,,,,False,Neo Química Arena - Sao Paulo - SP
+832161,2026,28,2026-09-20,BRA021,BRA010,,,,False,Maracanã - Rio de Janeiro - RJ
+832168,2026,28,2026-09-20,BRA003,BRA007,,,,False,Arena da Baixada - Curitiba - PR
+832175,2026,29,2026-10-07,BRA010,BRA046,,,,False, Cícero de Souza Marques - Braganca Paulista - SP
+832177,2026,29,2026-10-07,BRA028,BRA015,,,,False,Beira-Rio - Porto Alegre - RS
+832180,2026,29,2026-10-07,BRA047,BRA025,,,,False,Mangueirão - Belem - PA
+832179,2026,29,2026-10-07,BRA045,BRA014,,,,False,Manoel Barradas - Salvador - BA
+832172,2026,29,2026-10-07,BRA009,BRA044,,,,False,Nilton Santos - Rio de Janeiro - RJ
+832176,2026,29,2026-10-07,BRA018,BRA042,,,,False,Mineirão - Belo Horizonte - MG
+832173,2026,29,2026-10-08,BRA040,BRA021,,,,False,Vila Belmiro - Santos - SP
+832178,2026,29,2026-10-08,BRA003,BRA005,,,,False,Arena da Baixada - Curitiba - PR
+832171,2026,29,2026-10-08,BRA022,BRA016,,,,False,Maracanã - Rio de Janeiro - RJ
+832174,2026,29,2026-10-08,BRA033,BRA007,,,,False,Nubank Parque  - Sao Paulo - SP
+832182,2026,30,2026-10-10,BRA044,BRA047,,,,False,São Januário - Rio de Janeiro - RJ
+832183,2026,30,2026-10-10,BRA042,BRA045,,,,False,Morumbi - Sao Paulo - SP
+832186,2026,30,2026-10-11,BRA005,BRA040,,,,False,ARENA MRV - Belo Horizonte - MG
+832187,2026,30,2026-10-11,BRA025,BRA028,,,,False,Arena do Grêmio - Porto Alegre - RS
+832184,2026,30,2026-10-11,BRA033,BRA015,,,,False,Nubank Parque  - Sao Paulo - SP
+832181,2026,30,2026-10-11,BRA021,BRA022,,,,False,Maracanã - Rio de Janeiro - RJ
+832188,2026,30,2026-10-11,BRA016,BRA009,,,,False,Couto Pereira - Curitiba - PR
+832189,2026,30,2026-10-11,BRA007,BRA046,,,,False,Arena Fonte Nova - Salvador - BA
+832190,2026,30,2026-10-12,BRA014,BRA003,,,,False,Arena Condá - Chapeco - SC
+832185,2026,30,2026-10-12,BRA010,BRA018,,,,False, Cícero de Souza Marques - Braganca Paulista - SP
+832191,2026,31,,BRA022,BRA040,,,,False, -  - 
+832192,2026,31,,BRA009,BRA014,,,,False, -  - 
+832193,2026,31,,BRA042,BRA044,,,,False, -  - 
+832194,2026,31,,BRA015,BRA045,,,,False, -  - 
+832195,2026,31,,BRA046,BRA028,,,,False, -  - 
+832196,2026,31,,BRA005,BRA016,,,,False, -  - 
+832197,2026,31,,BRA025,BRA018,,,,False, -  - 
+832198,2026,31,,BRA003,BRA033,,,,False, -  - 
+832199,2026,31,,BRA007,BRA021,,,,False, -  - 
+832200,2026,31,,BRA047,BRA010,,,,False, -  - 
+832201,2026,32,,BRA021,BRA005,,,,False, -  - 
+832202,2026,32,,BRA044,BRA015,,,,False, -  - 
+832203,2026,32,,BRA040,BRA007,,,,False, -  - 
+832204,2026,32,,BRA033,BRA010,,,,False, -  - 
+832205,2026,32,,BRA046,BRA042,,,,False, -  - 
+832206,2026,32,,BRA018,BRA047,,,,False, -  - 
+832207,2026,32,,BRA028,BRA009,,,,False, -  - 
+832208,2026,32,,BRA016,BRA025,,,,False, -  - 
+832209,2026,32,,BRA045,BRA003,,,,False, -  - 
+832210,2026,32,,BRA014,BRA022,,,,False, -  - 
+832211,2026,33,,BRA022,BRA028,,,,False, -  - 
+832212,2026,33,,BRA044,BRA021,,,,False, -  - 
+832213,2026,33,,BRA040,BRA033,,,,False, -  - 
+832214,2026,33,,BRA015,BRA046,,,,False, -  - 
+832215,2026,33,,BRA010,BRA014,,,,False, -  - 
+832216,2026,33,,BRA005,BRA018,,,,False, -  - 
+832217,2026,33,,BRA025,BRA003,,,,False, -  - 
+832218,2026,33,,BRA016,BRA045,,,,False, -  - 
+832219,2026,33,,BRA007,BRA042,,,,False, -  - 
+832220,2026,33,,BRA047,BRA009,,,,False, -  - 
+832221,2026,34,,BRA021,BRA025,,,,False, -  - 
+832222,2026,34,,BRA009,BRA005,,,,False, -  - 
+832223,2026,34,,BRA042,BRA015,,,,False, -  - 
+832224,2026,34,,BRA033,BRA047,,,,False, -  - 
+832225,2026,34,,BRA010,BRA040,,,,False, -  - 
+832226,2026,34,,BRA018,BRA007,,,,False, -  - 
+832227,2026,34,,BRA028,BRA016,,,,False, -  - 
+832228,2026,34,,BRA003,BRA044,,,,False, -  - 
+832229,2026,34,,BRA045,BRA022,,,,False, -  - 
+832230,2026,34,,BRA014,BRA046,,,,False, -  - 
+832231,2026,35,,BRA021,BRA003,,,,False, -  - 
+832232,2026,35,,BRA044,BRA028,,,,False, -  - 
+832233,2026,35,,BRA042,BRA022,,,,False, -  - 
+832234,2026,35,,BRA015,BRA009,,,,False, -  - 
+832235,2026,35,,BRA046,BRA005,,,,False, -  - 
+832236,2026,35,,BRA018,BRA033,,,,False, -  - 
+832237,2026,35,,BRA025,BRA007,,,,False, -  - 
+832238,2026,35,,BRA016,BRA040,,,,False, -  - 
+832239,2026,35,,BRA045,BRA010,,,,False, -  - 
+832240,2026,35,,BRA047,BRA014,,,,False, -  - 
+832241,2026,36,,BRA022,BRA046,,,,False, -  - 
+832242,2026,36,,BRA009,BRA042,,,,False, -  - 
+832243,2026,36,,BRA040,BRA025,,,,False, -  - 
+832244,2026,36,,BRA033,BRA021,,,,False, -  - 
+832245,2026,36,,BRA010,BRA044,,,,False, -  - 
+832246,2026,36,,BRA005,BRA015,,,,False, -  - 
+832247,2026,36,,BRA028,BRA045,,,,False, -  - 
+832248,2026,36,,BRA003,BRA047,,,,False, -  - 
+832249,2026,36,,BRA007,BRA016,,,,False, -  - 
+832250,2026,36,,BRA014,BRA018,,,,False, -  - 
+832251,2026,37,,BRA022,BRA018,,,,False, -  - 
+832252,2026,37,,BRA009,BRA007,,,,False, -  - 
+832253,2026,37,,BRA042,BRA047,,,,False, -  - 
+832254,2026,37,,BRA015,BRA025,,,,False, -  - 
+832255,2026,37,,BRA046,BRA003,,,,False, -  - 
+832256,2026,37,,BRA005,BRA044,,,,False, -  - 
+832257,2026,37,,BRA028,BRA010,,,,False, -  - 
+832258,2026,37,,BRA016,BRA021,,,,False, -  - 
+832259,2026,37,,BRA045,BRA040,,,,False, -  - 
+832260,2026,37,,BRA014,BRA033,,,,False, -  - 
+832261,2026,38,,BRA021,BRA014,,,,False, -  - 
+832262,2026,38,,BRA044,BRA045,,,,False, -  - 
+832263,2026,38,,BRA040,BRA009,,,,False, -  - 
+832264,2026,38,,BRA033,BRA016,,,,False, -  - 
+832265,2026,38,,BRA010,BRA022,,,,False, -  - 
+832266,2026,38,,BRA018,BRA028,,,,False, -  - 
+832267,2026,38,,BRA025,BRA046,,,,False, -  - 
+832268,2026,38,,BRA003,BRA042,,,,False, -  - 
+832269,2026,38,,BRA007,BRA005,,,,False, -  - 
+832270,2026,38,,BRA047,BRA015,,,,False, -  - 
