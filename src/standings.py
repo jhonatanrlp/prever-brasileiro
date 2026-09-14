@@ -78,9 +78,84 @@ class StandingsRow:
         return self.wins + self.draws + self.losses
 
 
-def build_standings(matches: pd.DataFrame, rules: CompetitionRules) -> pd.DataFrame:
+def _head_to_head_winner(team_a: str, team_b: str, matches: pd.DataFrame, rules: CompetitionRules) -> str | None:
+    """Só se aplica oficialmente "entre duas equipes" — nunca para grupos de 3+
+    times empatados. Retorna o team_id com mais pontos nos jogos entre os dois, ou
+    None se também empatarem no confronto direto.
+    """
+    between = matches[
+        ((matches["home_team_id"] == team_a) & (matches["away_team_id"] == team_b))
+        | ((matches["home_team_id"] == team_b) & (matches["away_team_id"] == team_a))
+    ]
+    points = {team_a: 0, team_b: 0}
+    for row in between.itertuples(index=False):
+        home_points = rules.points_for_result(row.home_goals, row.away_goals)
+        away_points = rules.points_for_result(row.away_goals, row.home_goals)
+        points[row.home_team_id] += home_points
+        points[row.away_team_id] += away_points
+    if points[team_a] == points[team_b]:
+        return None
+    return team_a if points[team_a] > points[team_b] else team_b
+
+
+def _card_counts(cards: pd.DataFrame, team_id: str) -> tuple[int, int]:
+    team_cards = cards[cards["team_id"] == team_id]["cartao"]
+    red = int((team_cards == "Vermelho").sum())
+    yellow = int((team_cards == "Amarelo").sum())
+    return red, yellow
+
+
+def _break_ties(
+    table: pd.DataFrame, matches: pd.DataFrame, rules: CompetitionRules, cards: pd.DataFrame | None
+) -> pd.DataFrame:
+    """Resolve empates em (pontos, vitórias, saldo, gols pró) usando confronto
+    direto (só entre exatamente 2 times) e cartões (se `cards` for informado).
+    Grupos que continuarem empatados mantêm a ordem original (sorteio — não
+    simulado).
+    """
+    order = table["team_id"].tolist()
+    tie_key = list(zip(table["points"], table["wins"], table["goal_difference"], table["goals_for"]))
+
+    i = 0
+    while i < len(order):
+        j = i + 1
+        while j < len(order) and tie_key[j] == tie_key[i]:
+            j += 1
+        group = order[i:j]
+        resolved = False
+
+        if len(group) == 2 and "head_to_head" in rules.tiebreakers:
+            winner = _head_to_head_winner(group[0], group[1], matches, rules)
+            if winner is not None:
+                if winner != group[0]:
+                    group = [group[1], group[0]]
+                    order[i:j] = group
+                resolved = True
+
+        if not resolved and len(group) > 1 and cards is not None:
+            index_by_card_type = {"fewer_red_cards": 0, "fewer_yellow_cards": 1}
+            criteria = [c for c in rules.tiebreakers if c in index_by_card_type]
+            if criteria:
+                counts = {team_id: _card_counts(cards, team_id) for team_id in group}
+                order[i:j] = sorted(
+                    group, key=lambda t: tuple(counts[t][index_by_card_type[c]] for c in criteria)
+                )
+
+        i = j
+
+    return table.set_index("team_id").loc[order].reset_index()
+
+
+def build_standings(
+    matches: pd.DataFrame, rules: CompetitionRules, cards: pd.DataFrame | None = None
+) -> pd.DataFrame:
     """`matches` precisa ter: home_team_id, away_team_id, home_goals, away_goals.
     Só devem ser passadas partidas já finalizadas (reais ou simuladas).
+
+    `cards` é opcional: DataFrame com `team_id` e `cartao` ("Amarelo"/"Vermelho"),
+    já filtrado para as mesmas partidas de `matches` (ex.: `data/processed/cards.csv`
+    filtrado pela temporada). Sem `cards`, os critérios de cartões são ignorados e
+    empates que chegarem até ali mantêm a ordem por confronto direto/sorteio.
     """
     rows: dict[str, StandingsRow] = {}
 
@@ -129,10 +204,6 @@ def build_standings(matches: pd.DataFrame, rules: CompetitionRules) -> pd.DataFr
         ]
     )
 
-    # Critérios implementados: pontos, vitórias, saldo de gols, gols pró (cobrem a
-    # esmagadora maioria dos casos reais). Confronto direto e cartões (também
-    # previstos em configs/config.yaml: competition.tiebreakers) exigem uma
-    # mini-liga par a par e não foram implementados nesta fase.
     sort_columns = {
         "points": "points",
         "wins": "wins",
@@ -141,5 +212,6 @@ def build_standings(matches: pd.DataFrame, rules: CompetitionRules) -> pd.DataFr
     }
     ascending_cols = [sort_columns[c] for c in rules.tiebreakers if c in sort_columns]
     table = table.sort_values(by=ascending_cols, ascending=False).reset_index(drop=True)
+    table = _break_ties(table, matches, rules, cards)
     table["position"] = table.index + 1
     return table

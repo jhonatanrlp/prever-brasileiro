@@ -25,7 +25,10 @@ python scripts/fetch_cbf_calendar.py    # 2025/2026 (API da CBF, data/rodada rea
 python scripts/build_recent_seasons.py  # matches_2025_2026 + estado atual + jogos restantes
 python scripts/predict_current.py       # outputs/current_prediction.csv + match_predictions_2026.csv
 
-pytest                                  # 32 testes
+python scripts/compare_models.py        # outputs/model_comparison.csv (baselines vs. ML, walk-forward)
+python scripts/backtest_2026.py         # outputs/backtest_2026.csv (log loss rodada a rodada de 2026)
+
+pytest                                  # 41 testes
 ```
 
 `download_data.py` e `fetch_cbf_calendar.py` são idempotentes: não rebaixam se o
@@ -40,9 +43,10 @@ data/
   processed/           modelo dimensional, pronto para features
   external/            team_mapping.csv — dicionário mestre de times
 scripts/               pontos de entrada do pipeline (um arquivo por etapa)
-src/                   lógica (times, temporal/Elo, modelo de gols, simulação) — 8 módulos soltos
+src/                   lógica (times, temporal/Elo, modelo de gols, simulação, avaliação) — módulos soltos
 tests/                 pytest, incluindo os testes de não-vazamento
-outputs/               data_audit.md, current_prediction.csv, match_predictions_2026.csv, tabela.html
+outputs/               data_audit.md, current_prediction.csv, match_predictions_2026.csv,
+                       model_comparison.csv, backtest_2026.csv, tabela.html
 ```
 
 ## Fontes de dados
@@ -146,11 +150,18 @@ tratamento explícito de cold start, não um valor arbitrário.
 
 **2025/2026: dados oficiais da CBF.** `data/processed/matches_2025_2026.csv` tem o
 mesmo schema de `matches.csv`, com data e rodada reais de cada partida. Isso permite
-concatenar com o histórico e passar por `build_pre_match_features` normalmente —
-inclusive um backtest rodada-a-rodada de 2026 (ainda sem script próprio, mas os dados
-já suportam). A classificação atual de 2026 (`current_standings_2026.csv`) é
-CALCULADA a partir das partidas de 2026 já disputadas (`src/standings.py`), nunca
-copiada de uma tabela pronta.
+concatenar com o histórico e passar por `build_pre_match_features` normalmente. A
+classificação atual de 2026 (`current_standings_2026.csv`) é CALCULADA a partir das
+partidas de 2026 já disputadas (`src/standings.py`), nunca copiada de uma tabela
+pronta.
+
+**Backtest rodada-a-rodada de 2026** (`scripts/backtest_2026.py`). Para cada rodada
+já disputada, o modelo de gols é reajustado só com o que era conhecido ANTES daquela
+rodada (histórico + 2025 + rodadas anteriores de 2026) e a previsão gerada é
+comparada com o resultado real, rodada por rodada — responde "o que o modelo diria
+na rodada X, sabendo só o que sabíamos até então". Só é possível porque
+`matches_2025_2026.csv` tem data e rodada reais (a tentativa anterior via Wikipédia
+não permitia isso). Resultado em `outputs/backtest_2026.csv`.
 
 **Modelo de gols (Poisson) e simulação (Monte Carlo).** `src/poisson_goals.py`: força
 de ataque/defesa de cada time relativa à média da liga —
@@ -168,15 +179,35 @@ Vetorizado em NumPy sobre o eixo das simulações — 100.000 temporadas em <1s.
 **Regras de competição como configuração.** Pontuação, número de rebaixados e vagas
 continentais vêm de `configs/config.yaml`, lidos por `src/standings.py`
 (`CompetitionRules`) — nunca hardcoded no código. Critérios de desempate
-implementados: pontos, vitórias, saldo de gols, gols pró. Confronto direto e cartões
-(também em `configs/config.yaml`) não estão implementados — exigiriam uma mini-liga
-par a par; resolvem a esmagadora maioria dos casos reais sem isso.
+implementados, na ordem oficial da CBF: pontos, vitórias, saldo de gols, gols pró,
+confronto direto (`_head_to_head_winner`, aplicado só quando exatamente 2 times
+estão empatados — a regra oficial não vale para grupos de 3+, então nesse caso o
+desempate pula direto para cartões) e menos cartões vermelhos/amarelos (`cards`
+opcional, `data/processed/cards.csv` para o histórico; ainda não há esse dado para
+2025/2026 — nesse caso o critério é ignorado e o empate remanescente fica por
+sorteio, não simulado).
 
-**Validação temporal (walk-forward) — pendente.** Quando o projeto comparar modelos
-de ML, a validação principal precisa ser expanding window por temporada (treina com
-temporadas passadas, testa na próxima), nunca `train_test_split` aleatório —
-partidas do mesmo campeonato são correlacionadas no tempo. Ainda não implementado
-(não há modelo de ML para validar ainda).
+**Validação temporal (walk-forward) e comparação de modelos**
+(`src/evaluation.py`, `scripts/compare_models.py`). Nunca `train_test_split`
+aleatório: partidas do mesmo campeonato são correlacionadas no tempo.
+`expanding_window_splits` treina com temporadas passadas e testa na próxima,
+avançando uma de cada vez (15 temporadas mínimas de treino, testado em 2018–2026).
+Comparados dois baselines (frequência histórica de mando; Elo com taxa de empate
+constante) contra Logistic Regression, Random Forest e Gradient Boosting treinados
+sobre as features de `build_pre_match_features`. Média de log loss por temporada
+(2018–2026, menor é melhor; `log(3) ≈ 1.099` é o "chute" uniforme entre H/D/A):
+
+| modelo | log loss | brier score | acurácia |
+|---|---|---|---|
+| logistic_regression | 1.020 | 0.612 | 0.496 |
+| random_forest | 1.024 | 0.614 | 0.493 |
+| elo (baseline) | 1.031 | 0.619 | 0.478 |
+| gradient_boosting | 1.038 | 0.623 | 0.487 |
+| home_advantage (baseline) | 1.057 | 0.637 | 0.475 |
+
+Logistic Regression fica na frente, mas por margem pequena sobre os baselines — as
+features atuais (Elo, forma, força do adversário) dão alguma vantagem preditiva, só
+que modesta. Números completos por temporada em `outputs/model_comparison.csv`.
 
 ## O que existe
 
@@ -197,16 +228,23 @@ partidas do mesmo campeonato são correlacionadas no tempo. Ainda não implement
 8. Modelo de gols de Poisson — [`src/poisson_goals.py`](src/poisson_goals.py)
 9. Simulação de Monte Carlo (100.000 temporadas em <1s, vetorizada) —
    [`src/monte_carlo.py`](src/monte_carlo.py)
-10. Regras de competição como configuração e classificação —
-    [`src/standings.py`](src/standings.py) (`CompetitionRules` + `build_standings`)
-11. 32 testes `pytest`, incluindo testes que travam a garantia de não haver data leakage
+10. Regras de competição como configuração e classificação, com todos os critérios
+    de desempate oficiais (pontos, vitórias, saldo, gols pró, confronto direto,
+    cartões) — [`src/standings.py`](src/standings.py) (`CompetitionRules` + `build_standings`)
+11. Validação temporal (walk-forward) e comparação de baselines contra modelos de
+    ML — [`src/evaluation.py`](src/evaluation.py), [`scripts/compare_models.py`](scripts/compare_models.py) →
+    [`outputs/model_comparison.csv`](outputs/model_comparison.csv)
+12. Backtest rodada-a-rodada de 2026 —
+    [`scripts/backtest_2026.py`](scripts/backtest_2026.py) →
+    [`outputs/backtest_2026.csv`](outputs/backtest_2026.csv)
+13. 41 testes `pytest`, incluindo testes que travam a garantia de não haver data leakage
 
-## O que falta
+## Próximos passos possíveis
 
-- Nenhum modelo de ML foi treinado/comparado ainda (Logistic Regression, Random
-  Forest, Gradient Boosting) — nem os baselines simples nem a validação walk-forward
-  existem no código hoje.
-- Backtest rodada-a-rodada de 2026 não tem script próprio, mas os dados já suportam
-  (`data/processed/matches_2025_2026.csv` tem data/rodada reais).
-- Confronto direto e cartões como critério de desempate não estão implementados em
-  `src/standings.py` (só pontos → vitórias → saldo → gols pró).
+- As features atuais (Elo, forma, força do adversário) parecem esgotadas: os
+  baselines simples competem com os modelos de ML — ver "Validação temporal" acima.
+  Estatísticas por partida (`team_match_stats.csv`: chutes, posse, escanteios) e um
+  ajuste tipo Dixon-Coles para a correlação entre gols mandante/visitante são os
+  candidatos óbvios para ganhar poder preditivo.
+- Cartões de 2025/2026 não são coletados ainda (só o histórico 2003–2024 tem), então
+  esse critério de desempate fica inativo para a temporada atual.

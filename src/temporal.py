@@ -194,6 +194,7 @@ def build_pre_match_features(
     if missing:
         raise ValueError(f"Colunas obrigatórias ausentes em matches: {missing}")
 
+    passthrough_cols = [c for c in ("season", "round") if c in matches.columns]
     ordered = matches.sort_values(["date", "match_id"]).reset_index(drop=True)
 
     elo = EloState(config=elo_config or EloConfig())
@@ -217,6 +218,7 @@ def build_pre_match_features(
         feature_row = {
             "match_id": row.match_id,
             "date": row.date,
+            **{col: getattr(row, col) for col in passthrough_cols},
             "home_team_id": home_id,
             "away_team_id": away_id,
             "home_elo_pre": home_elo_pre,
